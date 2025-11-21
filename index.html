@@ -50,6 +50,14 @@
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             background-size: 100% 2px, 3px 100%; pointer-events: none;
         }
+
+        /* TRANSITION DE PAGE */
+        body {
+            transition: opacity 0.5s ease-in-out; /* Transition douce partout */
+        }
+        body.fade-out {
+            opacity: 0; /* Pour l'effet de sortie */
+        }
     </style>
 </head>
 <body class="bg-black min-h-screen relative">
@@ -170,41 +178,60 @@
     </footer>
 
     <script>
+        // Initialiser les icônes Lucide
         lucide.createIcons();
 
-        // --- SYSTEME DE SONS SFX ---
+        // --- SYSTEME DE SONS SFX & NAVIGATION FLUIDE ---
         const hoverSound = document.getElementById('sfx-hover');
         const clickSound = document.getElementById('sfx-click');
         const bootSound = document.getElementById('sfx-boot');
 
-        // Volume doux pour ne pas exploser les oreilles
         hoverSound.volume = 0.2;
         clickSound.volume = 0.4;
         bootSound.volume = 0.5;
 
-        // Attacher les sons à tous les éléments interactifs
+        // Gestionnaire de clic intelligent
+        function handleInteraction(e) {
+            // 1. Jouer le son
+            clickSound.currentTime = 0;
+            clickSound.play().catch(() => {});
+
+            // 2. Si c'est un lien qui change de page (pas un lien externe target="_blank")
+            const link = e.currentTarget;
+            if (link.tagName === 'A' && link.href && link.target !== "_blank" && !link.href.includes('#')) {
+                e.preventDefault(); // Bloque le changement de page immédiat
+                
+                // Ajoute l'effet visuel de sortie
+                document.body.classList.add('fade-out');
+
+                // Attend 500ms (le temps du son) avant de changer de page
+                setTimeout(() => {
+                    window.location.href = link.href;
+                }, 500);
+            }
+        }
+
+        // Appliquer les événements
         document.querySelectorAll('a, button, .glass-panel').forEach(el => {
+            // Son au survol
             el.addEventListener('mouseenter', () => {
                 hoverSound.currentTime = 0;
-                hoverSound.play().catch(e => {}); // Ignore les erreurs si pas d'interaction utilisateur
+                hoverSound.play().catch(() => {});
             });
-            el.addEventListener('click', () => {
-                clickSound.currentTime = 0;
-                clickSound.play().catch(e => {});
-            });
+
+            // Son + Transition au clic
+            el.addEventListener('click', handleInteraction);
         });
 
-        // --- EASTER EGG : KONAMI CODE (Taper 'ORIGIN') ---
+        // --- EASTER EGG : KONAMI CODE ('ORIGIN') ---
         let secretCode = ['o', 'r', 'i', 'g', 'i', 'n'];
         let currentInput = [];
 
         window.addEventListener('keydown', (e) => {
             currentInput.push(e.key.toLowerCase());
-            // Garder seulement les dernières lettres
             if (currentInput.length > secretCode.length) {
                 currentInput.shift();
             }
-            // Vérifier si ça correspond
             if (JSON.stringify(currentInput) === JSON.stringify(secretCode)) {
                 triggerEasterEgg();
             }
@@ -215,10 +242,9 @@
             const output = document.getElementById('console-output');
             const bar = document.getElementById('console-bar');
             
-            consoleScreen.style.display = 'flex'; // Afficher la console
-            bootSound.play(); // Jouer le son de boot
+            consoleScreen.style.display = 'flex';
+            bootSound.play();
             
-            // Séquence de démarrage
             const lines = [
                 "> SYSTEM OVERRIDE INITIATED...",
                 "> ACCESS LEVEL: ADMINISTRATOR",
@@ -229,22 +255,18 @@
             ];
 
             let i = 0;
-            output.innerHTML = ""; // Vider l'écran
+            output.innerHTML = "";
 
             function printLine() {
                 if (i < lines.length) {
                     const p = document.createElement('div');
                     p.textContent = lines[i];
                     output.appendChild(p);
-                    
-                    // Barre de chargement
                     const progress = ((i + 1) / lines.length) * 100;
                     bar.style.width = progress + "%";
-
                     i++;
-                    setTimeout(printLine, 600); // Vitesse d'écriture
+                    setTimeout(printLine, 600);
                 } else {
-                    // Fin de l'Easter Egg
                     setTimeout(() => {
                         const p = document.createElement('div');
                         p.className = "text-white blink";
@@ -256,30 +278,26 @@
             printLine();
         }
 
-        // Quitter l'Easter Egg avec ECHAP
         window.addEventListener('keydown', (e) => {
             if (e.key === "Escape") {
                 document.getElementById('easter-egg-console').style.display = 'none';
             }
         });
 
-        // --- LE RESTE DU CODE (Status, Anim, etc.) ---
-        
-        // RÈGLES RP (Heure de Paris) :
-        // Mer/Jeu/Ven 18h-01h | Sam/Dim 16h-01h
-            
-        // Mercredi (3), Jeudi (4), Vendredi (5) : De 18h à minuit
+        // --- GESTION AUTOMATIQUE DU STATUT (PARIS) ---
         function updateSystemStatus() {
             const now = new Date();
             const parisString = now.toLocaleString("en-US", {timeZone: "Europe/Paris"});
             const parisTime = new Date(parisString);
             const day = parisTime.getDay();
             const hour = parisTime.getHours();
+            
             let isOnline = false;
             if ([3, 4, 5].includes(day) && hour >= 18) isOnline = true;
             if ([4, 5, 6].includes(day) && hour < 1) isOnline = true;
             if ([6, 0].includes(day) && hour >= 16) isOnline = true;
             if ([0, 1].includes(day) && hour < 1) isOnline = true;
+
             const statusDiv = document.getElementById('system-status');
             if (isOnline) {
                 statusDiv.textContent = "SYSTEM ONLINE";
@@ -294,6 +312,7 @@
         updateSystemStatus();
         setInterval(updateSystemStatus, 60000);
 
+        // --- ANIMATIONS VISUELLES ---
         window.addEventListener('load', () => {
             const heroContent = document.getElementById('hero-content');
             setTimeout(() => {
