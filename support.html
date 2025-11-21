@@ -415,12 +415,12 @@
                 username: "Support Fédérale",
                 embeds: [{
                     title: `Nouveau Ticket : ${type}`,
-                    description: `**Description du problème :**\n${message}`,
-                    color: color,
                     fields: [
                         { name: "Joueur", value: username, inline: true },
                         { name: "Sujet", value: subject, inline: true }
                     ],
+                    description: `**Description du problème :**\n${message}`,
+                    color: color,
                     footer: { text: "Envoyé depuis le site Origin • " + new Date().toLocaleString() }
                 }]
             };
