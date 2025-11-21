@@ -286,7 +286,7 @@
 
                     <div>
                         <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Détails</label>
-                        <textarea id="message" required rows="5" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails..."></textarea>
+                        <textarea id="message" required rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
                     </div>
 
                     <button type="submit" id="submit-btn" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 rounded uppercase tracking-widest transition-colors flex justify-center items-center gap-2">
@@ -374,6 +374,7 @@
             const status = document.getElementById('form-status');
             status.classList.remove('hidden');
             
+            // Désactiver le bouton
             btn.disabled = true;
             btn.innerHTML = '<span class="animate-pulse">Envoi en cours...</span>';
 
@@ -382,25 +383,28 @@
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
 
-            let color = 3447003; 
-            if (type === 'Bug') color = 15105570; 
-            if (type === 'Unban') color = 15158332; 
+            // Couleurs
+            let color = 3447003; // Bleu
+            if (type === 'Bug') color = 15105570; // Orange
+            if (type === 'Unban') color = 15158332; // Rouge
 
+            // STRUCTURE CORRIGÉE : Le message va dans "description" (4096 chars max)
+            // au lieu de "fields" (1024 chars max)
             const payload = {
-                username: "Support Fédérale",
+                username: "Support Web",
                 embeds: [{
                     title: `Nouveau Ticket : ${type}`,
+                    description: `**Description du problème :**\n${message}`, // ICI : On met le gros message
                     color: color,
                     fields: [
-                        { name: "Pseudo", value: username, inline: true },
-                        { name: "Sujet", value: subject, inline: true },
-                        { name: "Description", value: message }
+                        { name: "Joueur", value: username, inline: true },
+                        { name: "Sujet", value: subject, inline: true }
                     ],
-                    footer: { text: "Envoyé depuis le site Origin" }
+                    footer: { text: "Envoyé depuis le site Origin • " + new Date().toLocaleString() }
                 }]
             };
 
-            // UTILISATION DU PROXY POUR EVITER L'ERREUR CORS
+            // UTILISATION DU PROXY
             fetch(PROXY_URL + encodeURIComponent(WEBHOOK_URL), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -412,14 +416,22 @@
                     status.className = "text-center text-xs mt-2 text-green-400";
                     btn.innerHTML = '<span>Envoyé !</span>';
                     document.getElementById('discord-form').reset();
-                    setTimeout(() => { closeForm(); btn.disabled = false; btn.innerHTML = '<span>Envoyer la demande</span><i data-lucide="send" class="w-4 h-4"></i>'; status.textContent = ""; status.classList.add('hidden'); }, 3000);
+                    
+                    // Réactiver le bouton après 3 secondes
+                    setTimeout(() => { 
+                        closeForm(); 
+                        btn.disabled = false; 
+                        btn.innerHTML = '<span>Envoyer la demande</span><i data-lucide="send" class="w-4 h-4"></i>'; 
+                        status.textContent = ""; 
+                        status.classList.add('hidden'); 
+                    }, 3000);
                 } else {
                     throw new Error('Erreur Discord');
                 }
             })
             .catch(error => {
                 console.error(error);
-                status.textContent = "Erreur d'envoi. Vérifiez votre connexion.";
+                status.textContent = "Erreur d'envoi (Message trop long ou connexion).";
                 status.className = "text-center text-xs mt-2 text-red-500";
                 btn.disabled = false;
                 btn.innerHTML = '<span>Réessayer</span>';
