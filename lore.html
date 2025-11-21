@@ -65,9 +65,19 @@
         .rich-text li { margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative; }
         .rich-text li::before { content: "▹"; color: #22d3ee; position: absolute; left: 0; }
         .rich-text strong { color: white; font-weight: 700; }
+
+        body {
+            transition: opacity 0.5s ease-in-out;
+        }
+        body.fade-out {
+            opacity: 0;
+        }
     </style>
 </head>
 <body class="bg-black h-screen w-full flex">
+
+    <audio id="sfx-hover" src="assets/audio/hover.mp3" preload="auto"></audio>
+    <audio id="sfx-click" src="assets/audio/click.mp3" preload="auto"></audio>
 
     <div class="scanline"></div>
 
@@ -2291,22 +2301,71 @@
         lucide.createIcons();
 
         // --- CONFIGURATION AUDIO ---
-        // Met le nom de tes fichiers mp3 ici. Si un dossier n'a pas de son, laisse la ligne vide ou absente.
+        // Met le nom de tes fichiers mp3 ici.
         const audioFiles = {
-
-            // 'segmentaires': 'ambiance_segmentaires.mp3', (Exemple)
+            // 'senescients': 'assets/audio/audio_senescients.mp3',
         };
 
+        // --- SYSTEME SONORE (SFX) ---
+        const hoverSound = document.getElementById('sfx-hover');
+        const clickSound = document.getElementById('sfx-click');
+        
+        if(hoverSound && clickSound) {
+            hoverSound.volume = 0.1; 
+            clickSound.volume = 0.1; 
+        }
+
+        // Fonction pour attacher les sons (À RELANCER SOUVENT)
+        function attachSounds() {
+            if(!hoverSound || !clickSound) return;
+
+            // On cible tous les éléments cliquables
+            const elements = document.querySelectorAll('a, button, .glass-panel, .cursor-pointer');
+            
+            elements.forEach(el => {
+                // Si l'élément a déjà le son, on passe (pour éviter les doublons)
+                if(el.dataset.soundAttached) return;
+                
+                // On marque l'élément comme "Sonorisé"
+                el.dataset.soundAttached = "true";
+
+                // Son au survol
+                el.addEventListener('mouseenter', () => {
+                    hoverSound.currentTime = 0;
+                    hoverSound.play().catch(() => {});
+                });
+
+                // Son au clic (+ Transition fluide)
+                el.addEventListener('click', (e) => {
+                    clickSound.currentTime = 0;
+                    clickSound.play().catch(() => {});
+
+                    // Transition fluide si c'est un lien
+                    const link = e.currentTarget;
+                    if (link.tagName === 'A' && link.href && link.target !== "_blank" && !link.href.includes('#') && !link.href.includes('javascript')) {
+                        e.preventDefault();
+                        document.body.classList.add('fade-out');
+                        setTimeout(() => {
+                            window.location.href = link.href;
+                        }, 500);
+                    }
+                });
+            });
+        }
+
+        // Lancer les sons au démarrage de la page
+        window.addEventListener('load', attachSounds);
+
+
+        // --- FONCTIONS DU SITE ---
+
         function switchView(viewId) {
-            // 1. Masquer les vues
             document.getElementById('view-history').classList.add('hidden');
             document.getElementById('view-database').classList.add('hidden');
             
-            // 2. Réinitialiser les boutons PC (Sidebar)
             document.getElementById('btn-history').className = "w-full flex items-center gap-3 px-3 py-3 text-xs uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 border-l-4 border-transparent rounded-r transition-all text-left";
             document.getElementById('btn-database').className = "w-full flex items-center gap-3 px-3 py-3 text-xs uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 border-l-4 border-transparent rounded-r transition-all text-left";
 
-            // 3. Réinitialiser les boutons MOBILE (Barre du bas)
             const mobHist = document.getElementById('mob-btn-history');
             const mobData = document.getElementById('mob-btn-database');
             
@@ -2315,16 +2374,13 @@
                 mobData.className = "flex flex-col items-center gap-1 text-gray-500 hover:text-white transition-colors group";
             }
 
-            // 4. Activer la vue cible
             const targetView = document.getElementById('view-' + viewId);
             targetView.classList.remove('hidden');
             targetView.classList.add('fade-in-view');
             
-            // 5. Activer le bouton PC actif
             const targetBtn = document.getElementById('btn-' + viewId);
             targetBtn.className = "w-full flex items-center gap-3 px-3 py-3 text-xs uppercase tracking-widest text-cyan-400 bg-cyan-900/10 border-l-4 border-cyan-400 rounded-r transition-all text-left active-tab";
 
-            // 6. Activer le bouton MOBILE actif
             if(mobHist && mobData) {
                 const targetMobBtn = document.getElementById('mob-btn-' + viewId);
                 targetMobBtn.className = "flex flex-col items-center gap-1 text-cyan-400 group";
@@ -2371,31 +2427,28 @@
             const audioText = document.getElementById('text-audio-btn');
             
             if (sourceData) {
-                // --- 1. REMISE A ZÉRO DU SCROLL (LA CORRECTION EST ICI) ---
-                // On force la zone de lecture à remonter tout en haut
+                // 1. Reset du scroll (Haut de page)
                 document.getElementById('reader-scroll-area').scrollTop = 0;
 
-                // 2. Réinitialiser l'audio (Arrêter le son précédent)
+                // 2. Reset Audio
                 audioPlayer.pause();
                 audioPlayer.currentTime = 0;
                 
-                // 3. Vérifier s'il y a un fichier audio pour ce dossier
+                // 3. Gestion Audio Dynamique
                 if (audioFiles[fileId]) {
-                    // OUI : On charge le fichier et on active le bouton
                     audioPlayer.src = audioFiles[fileId];
                     audioBtn.disabled = false;
                     audioBtn.classList.remove('border-gray-700', 'bg-gray-900/50', 'text-gray-500', 'cursor-not-allowed', 'opacity-50');
                     audioBtn.classList.add('border-cyan-500/30', 'bg-cyan-900/10', 'text-cyan-400', 'hover:bg-cyan-500/20', 'cursor-pointer');
                     audioText.textContent = "Écouter l'Audio";
                 } else {
-                    // NON : On désactive le bouton (Gris)
                     audioPlayer.src = "";
                     audioBtn.disabled = true;
                     audioBtn.className = "w-44 border border-gray-700 bg-gray-900/50 text-gray-500 px-3 py-2 rounded flex items-center justify-center gap-2 cursor-not-allowed opacity-50 transition-all";
                     audioText.textContent = "Audio (Offline)";
                 }
 
-                // 4. Gestion des Titres et Contenu
+                // 4. Titres
                 let title = "DOSSIER CLASSÉ";
                 let subtitle = "CONFIDENTIEL";
 
@@ -2424,12 +2477,14 @@
 
                 reader.classList.remove('translate-x-full');
                 reader.classList.add('translate-x-0');
+                
+                // 5. IMPORTANT : On remet du son sur les nouveaux boutons qui viennent d'apparaître !
+                attachSounds();
             }
         }
 
         function closeFile() {
             const reader = document.getElementById('file-reader');
-            // Arrêter l'audio quand on ferme le dossier
             const audioPlayer = document.getElementById('audio-player-source');
             audioPlayer.pause();
             
@@ -2446,20 +2501,18 @@
             if (player.paused) {
                 player.play();
                 text.textContent = "En Lecture...";
-                icon.setAttribute('data-lucide', 'pause'); // Change l'icône
-                btn.classList.add('bg-cyan-500/30', 'border-cyan-400'); // Effet "Allumé"
+                icon.setAttribute('data-lucide', 'pause');
+                btn.classList.add('bg-cyan-500/30', 'border-cyan-400');
             } else {
                 player.pause();
                 text.textContent = "Écouter l'Audio";
-                icon.setAttribute('data-lucide', 'play'); // Remet l'icône Play
+                icon.setAttribute('data-lucide', 'play');
                 btn.classList.remove('bg-cyan-500/30', 'border-cyan-400');
             }
             lucide.createIcons();
         }
 
-        // FONCTION MODE DYSLEXIQUE
         function toggleDyslexicMode() {
-            // On change la cible pour tout englober
             const contentArea = document.getElementById('reader-scroll-area');
             
             if (contentArea.classList.contains('font-dyslexic')) {
@@ -2477,18 +2530,13 @@
             }
         }
 
-        // FONCTION TOGGLE POUR LES CORPORATIONS
         function toggleReportMode() {
-            // Vérifie d'abord si on est sur la page Naissance
             let summaryView = document.getElementById('mode-summary');
             let fullTextView = document.getElementById('mode-full-text');
             let btn = document.getElementById('btn-report-mode');
 
-            // Si on est sur la page Corporations (les éléments de naissance n'existent pas ou sont cachés)
-            // On cible les éléments des corporations
             const corpSummary = document.getElementById('mode-summary-corp');
             
-            // Petite astuce : on regarde quel conteneur est visible pour savoir lequel switcher
             if(corpSummary && corpSummary.offsetParent !== null || document.getElementById('mode-full-text-corp').offsetParent !== null) {
                  summaryView = document.getElementById('mode-summary-corp');
                  fullTextView = document.getElementById('mode-full-text-corp');
@@ -2565,7 +2613,10 @@
                 btnIcon.setAttribute('data-lucide', 'file-text');
                 btn.classList.remove('bg-cyan-500/40', 'border-cyan-400');
             }
+            
             lucide.createIcons();
+            // IMPORTANT : On remet du son sur le bouton qui vient de changer d'état/texte !
+            attachSounds();
         }
         
     </script>

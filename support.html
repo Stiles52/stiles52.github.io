@@ -43,9 +43,19 @@
         
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        body {
+            transition: opacity 0.5s ease-in-out;
+        }
+        body.fade-out {
+            opacity: 0;
+        }
     </style>
 </head>
 <body class="bg-black min-h-screen flex flex-col pb-24 md:pb-0">
+
+    <audio id="sfx-hover" src="assets/audio/hover.mp3" preload="auto"></audio>
+    <audio id="sfx-click" src="assets/audio/click.mp3" preload="auto"></audio>
 
     <div class="scanline"></div>
 
@@ -472,6 +482,55 @@
                 pageFooter.style.transform = 'translateY(0)';
             }
         });
+
+        // --- SYSTEME SONORE UNIVERSEL ---
+        const hoverSound = document.getElementById('sfx-hover');
+        const clickSound = document.getElementById('sfx-click');
+        
+        if(hoverSound && clickSound) {
+            hoverSound.volume = 0.2;
+            clickSound.volume = 0.1;
+
+            // Fonction qui gère le clic (Son + Transition si nécessaire)
+            function handleUniversalClick(e) {
+                // 1. Jouer le son
+                clickSound.currentTime = 0;
+                clickSound.play().catch(() => {});
+
+                // 2. Gestion de la transition de page
+                // On vérifie si c'est un lien <a> qui change vraiment de page
+                const link = e.currentTarget;
+                if (link.tagName === 'A' && link.href && link.target !== "_blank" && !link.href.includes('#') && !link.href.includes('javascript')) {
+                    e.preventDefault(); // Bloque le changement immédiat
+                    document.body.classList.add('fade-out'); // Lance le fondu noir
+                    setTimeout(() => {
+                        window.location.href = link.href; // Change de page après 0.5s
+                    }, 500);
+                }
+            }
+
+            // Fonction pour attacher les sons aux éléments
+            function attachSounds() {
+                const elements = document.querySelectorAll('a, button, .glass-panel, .cursor-pointer');
+                elements.forEach(el => {
+                    // Eviter les doublons (si on lance la fonction plusieurs fois)
+                    if(el.dataset.soundAttached) return;
+                    el.dataset.soundAttached = "true";
+
+                    el.addEventListener('mouseenter', () => {
+                        hoverSound.currentTime = 0;
+                        hoverSound.play().catch(() => {});
+                    });
+                    el.addEventListener('click', handleUniversalClick);
+                });
+            }
+
+            // Lancer l'attachement au chargement
+            attachSounds();
+            
+            // Astuce pour le Lore : Relancer l'attachement quand on ouvre un dossier
+            // (Ajoute cette ligne 'attachSounds()' dans ta fonction openFile() si tu veux du son sur les éléments dynamiques)
+        }
     </script>
 </body>
 </html>
