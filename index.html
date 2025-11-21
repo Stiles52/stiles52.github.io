@@ -179,6 +179,7 @@
 
         // Volume doux pour ne pas exploser les oreilles
         hoverSound.volume = 0.2;
+        clickSound.volume = 0.4;
         bootSound.volume = 0.5;
 
         // Attacher les sons à tous les éléments interactifs
@@ -280,7 +281,6 @@
             if ([6, 0].includes(day) && hour >= 16) isOnline = true;
             if ([0, 1].includes(day) && hour < 1) isOnline = true;
             const statusDiv = document.getElementById('system-status');
-
             if (isOnline) {
                 statusDiv.textContent = "SYSTEM ONLINE";
                 statusDiv.classList.remove('text-red-500');
