@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ORIGIN - L'Origine du Monde</title>
-    <!-- Import de Tailwind CSS pour le style -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Import des icônes Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
@@ -67,19 +65,14 @@
 </head>
 <body class="bg-black min-h-screen relative">
 
-    <!-- FOND COSMIQUE (Fixe) -->
     <div class="fixed inset-0 pointer-events-none z-0">
-        <!-- Fond noir uni -->
         <div class="absolute w-full h-full bg-black"></div>
         
-        <!-- Génération de particules via JS -->
         <div id="particles-container"></div>
         
-        <!-- HALO LUMINEUX (Fixe en bas) -->
         <div class="fixed bottom-[-150px] left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-cyan-500/15 blur-[120px] rounded-full pointer-events-none z-0"></div>
     </div>
 
-    <!-- NAVIGATION -->
     <nav class="fixed top-0 left-0 w-full p-4 md:p-8 z-50 flex justify-center md:justify-end items-center backdrop-blur-sm bg-black/20">
         <ul class="flex gap-4 md:gap-8">
             <li>
@@ -103,39 +96,30 @@
         </ul>
     </nav>
 
-    <!-- SECTION HERO (Intro Logo) -->
     <header class="relative h-screen w-full flex flex-col justify-center items-center z-10">
         
         <div id="hero-content" class="relative transition-all duration-[2000ms] ease-out opacity-0 scale-95 translate-y-10">
             
-            <!-- Conteneur Texte & Orbites -->
             <div class="relative flex items-center justify-center group cursor-pointer p-10">
                 
-                <!-- ORBITE 1 : Grand cercle fin -->
                 <div class="absolute w-[120%] h-[120%] border border-cyan-500/20 rounded-full animate-[spin-slow_20s_linear_infinite]"></div>
                 
-                <!-- ORBITE 2 : Cercle pointillé -->
                 <div class="absolute w-[110%] h-[110%] border border-dashed border-cyan-400/30 rounded-full animate-[spin-reverse-slow_30s_linear_infinite]"></div>
                 
-                <!-- ORBITE 3 : Cercle partiel -->
                 <div class="absolute w-[100%] h-[100%] border-2 border-t-cyan-500/60 border-r-transparent border-b-cyan-500/60 border-l-transparent rounded-full animate-[spin-slow_10s_linear_infinite]"></div>
 
-                <!-- Lueur derrière le texte -->
                 <div class="absolute -inset-10 bg-cyan-400/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 animate-pulse"></div>
                 
-                <!-- TEXTE ORIGIN -->
                 <h1 class="text-6xl md:text-9xl font-bold text-white animate-float drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] tracking-widest z-10 text-center relative font-[JetBrains Mono]">
                     ORIGIN
                 </h1>
             </div>
             
-            <!-- STATUS SYSTEME DYNAMIQUE -->
             <div id="system-status" class="text-center text-xs tracking-[1em] mt-12 uppercase animate-pulse transition-colors duration-500">
                 Connecting...
             </div>
         </div>
 
-        <!-- Indicateur de Scroll -->
         <div class="absolute bottom-10 animate-bounce opacity-70">
             <div class="flex flex-col items-center gap-2">
                 <span class="text-[10px] uppercase tracking-widest text-cyan-400">Scroll</span>
@@ -144,11 +128,9 @@
         </div>
     </header>
 
-    <!-- SECTION CONTENU (Vidéo & Texte) -->
     <section class="relative w-full min-h-screen flex items-center justify-center py-24 px-6 md:px-20 z-10 bg-gradient-to-b from-transparent to-black/90">
         <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
-            <!-- BLOC TEXTE -->
             <div class="reveal border-l-2 border-cyan-500/50 pl-6">
                 <div class="flex items-center gap-3 mb-6">
                     <i data-lucide="globe" class="w-5 h-5 text-cyan-400"></i>
@@ -158,20 +140,24 @@
                 <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight text-white">
                     L'Origine du Monde
                 </h2>
-                <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-10 font-sans">
-                    Depuis l'aube des temps, Origin représente le point de convergence. C'est ici que tout commence et que tout finit. Plongez dans une expérience immersive où les frontières entre le réel et le virtuel s'effacent. Rejoignez-nous pour découvrir ce qui se cache derrière le voile.
+                
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed font-sans text-justify mb-6">
+                    Origin est un serveur RolePlay ayant comme support Minecraft, mais beaucoup vont se demander, qu'est-ce que le roleplay ? Eh bien, il désigne le fait d'incarner un personnage de jeu. À l'instar d'un acteur, le rôliste va mettre en avant les caractéristiques de son avatar afin d'appuyer la crédibilité de son rôle.
+                </p>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed font-sans text-justify mb-6">
+                    D'où est né le projet Origin ? Laissez-moi vous le raconter, tout commence en 2019 lorsqu'un groupe d'amis commence à créer un serveur Minecraft à la fois fantasy et survie, mais non roleplay, qui finira par très vite le devenir. Par la suite, celui-ci deviendra un projet roleplay Apocalypse, qui fera exploser le serveur en termes de membres, donnant alors une soudaine visibilité et un grand engouement de la part des joueurs pour ce type de projet éphémère. Mais ce qui fera réellement décoller Origin, c'est le projet Labyrinthe qui sera auprès de la communauté une véritable réussite. Nous étions encore entre amis, mais nous nous amusions déjà énormément.
+                </p>
+                <p class="text-lg md:text-xl text-gray-300 leading-relaxed font-sans text-justify mb-10">
+                    Nous voilà aujourd'hui en février 2023, le projet étant mis en pause indéterminée pour manque cruel de main d'œuvre nous avons donc repris la décision de partir sur des projets que nous connaissons bien.
                 </p>
                 
-                <!-- BOUTON MIS À JOUR -->
                 <a href="lore.html" class="inline-flex group border border-cyan-500 text-cyan-400 px-8 py-4 hover:bg-cyan-500/20 transition-all duration-300 uppercase tracking-widest text-sm items-center gap-4">
                     <span>Découvrir le Lore</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
 
-            <!-- BLOC VIDEO CORRIGÉ -->
-            <div class="reveal w-full aspect-video relative group border border-cyan-500/30 shadow-[0_0_30px_rgba(34,211,238,0.1)] overflow-hidden bg-black">
-                <!-- CHANGEMENT: Utilisation de youtube-nocookie et ajout de referrerpolicy pour le local -->
+            <div class="reveal w-full aspect-video relative group border border-cyan-500/50 shadow-[0_0_30px_rgba(34,211,238,0.1)] overflow-hidden bg-black">
                 <iframe 
                     width="100%" 
                     height="100%" 
@@ -184,7 +170,6 @@
                     class="w-full h-full object-cover"
                 ></iframe>
                 
-                <!-- Coins décoratifs -->
                 <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-400 pointer-events-none"></div>
                 <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400 pointer-events-none"></div>
                 <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400 pointer-events-none"></div>
@@ -194,12 +179,10 @@
         </div>
     </section>
 
-    <!-- JAVASCRIPT POUR L'INTERACTIVITÉ -->
     <script>
         // Initialiser les icônes Lucide
         lucide.createIcons();
 
-        // --- GESTION AUTOMATIQUE DU STATUT (ONLINE/OFFLINE) ---
         // --- GESTION AUTOMATIQUE DU STATUT (ONLINE/OFFLINE - BASE SUR PARIS) ---
         function updateSystemStatus() {
             // 1. Créer une date basée sur l'heure actuelle
@@ -207,7 +190,8 @@
 
             // 2. Convertir cette date en heure de Paris
             // On utilise toLocaleString pour forcer le fuseau horaire "Europe/Paris"
-            const parisTime = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Paris"}));
+            const parisString = now.toLocaleString("en-US", {timeZone: "Europe/Paris"});
+            const parisTime = new Date(parisString);
 
             // 3. Récupérer les infos basées sur l'heure de Paris
             const day = parisTime.getDay(); // 0=Dim, 1=Lun, ...
