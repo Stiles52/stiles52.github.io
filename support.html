@@ -427,19 +427,55 @@
             if (type === 'Bug') color = 15105570; 
             if (type === 'Unban') color = 15158332; 
 
+            // STRUCTURE REORGANISÉE
             const payload = {
                 username: "Support Fédérale",
                 embeds: [{
                     title: `Nouveau Ticket : ${type}`,
+                    color: color,
+                    description: `**Description du problème :**\n${message}`, // Description AVANT
                     fields: [
                         { name: "Joueur", value: username, inline: true },
                         { name: "Sujet", value: subject, inline: true }
                     ],
-                    description: `**Description du problème :**\n${message}`,
-                    color: color,
                     footer: { text: "Envoyé depuis le site Origin • " + new Date().toLocaleString() }
                 }]
             };
+
+            console.log("Envoi du payload:", payload); // Pour debug
+
+            fetch(PROXY_URL + encodeURIComponent(WEBHOOK_URL), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                console.log("Réponse serveur:", response); // Pour debug
+                if (response.ok) {
+                    status.textContent = "Message envoyé avec succès !";
+                    status.className = "text-center text-xs mt-2 text-green-400";
+                    btn.innerHTML = '<span>Envoyé !</span>';
+                    document.getElementById('discord-form').reset();
+                    setTimeout(() => { 
+                        closeForm(); 
+                        btn.disabled = false; 
+                        btn.innerHTML = '<span>Envoyer la demande</span><i data-lucide="send" class="w-4 h-4"></i>'; 
+                        status.textContent = ""; 
+                        status.classList.add('hidden'); 
+                    }, 3000);
+                } else {
+                    // Tenter de lire l'erreur
+                    return response.text().then(text => { throw new Error(text) });
+                }
+            })
+            .catch(error => {
+                console.error("Erreur détaillée:", error);
+                status.textContent = "Erreur : " + error.message; // Affiche la vraie erreur
+                status.className = "text-center text-xs mt-2 text-red-500";
+                btn.disabled = false;
+                btn.innerHTML = '<span>Réessayer</span>';
+            });
+        }
 
             fetch(PROXY_URL + encodeURIComponent(WEBHOOK_URL), {
                 method: 'POST',
