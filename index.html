@@ -422,7 +422,13 @@
         // --- AUTRES SCRIPTS (Horloge, Anim, Particules) ---
         
         // 1. Statut Système
+        // Variable globale pour bloquer le statut pendant l'hymne
+        let isAnthemPlaying = false; 
+
         function updateSystemStatus() {
+            // SECURITÉ : Si l'hymne joue, on ne touche pas au texte !
+            if (isAnthemPlaying) return; 
+
             const now = new Date();
             const parisString = now.toLocaleString("en-US", {timeZone: "Europe/Paris"});
             const parisTime = new Date(parisString);
@@ -439,11 +445,11 @@
             if(statusDiv) {
                 if (isOnline) {
                     statusDiv.textContent = "SYSTEM ONLINE";
-                    statusDiv.classList.remove('text-red-500');
+                    statusDiv.classList.remove('text-red-500', 'text-yellow-400', 'animate-pulse'); // On nettoie bien
                     statusDiv.classList.add('text-cyan-400');
                 } else {
                     statusDiv.textContent = "SYSTEM OFFLINE";
-                    statusDiv.classList.remove('text-cyan-400');
+                    statusDiv.classList.remove('text-cyan-400', 'text-yellow-400', 'animate-pulse'); // On nettoie bien
                     statusDiv.classList.add('text-red-500');
                 }
             }
@@ -493,35 +499,31 @@
         }
 
         // --- PROTOCOLE MATINAL (HYMNE AUTOMATIQUE) ---
-        let anthemPlayed = false; // Pour éviter que ça boucle pendant toute la minute
+        let anthemPlayed = false; // Verrou pour ne pas lancer le son 60 fois
 
         function checkMorningProtocol() {
             const now = new Date();
-            // On force l'heure de Paris pour que tout le monde l'entende en même temps
             const parisString = now.toLocaleString("en-US", {timeZone: "Europe/Paris"});
             const parisTime = new Date(parisString);
             
             const hour = parisTime.getHours();
             const minute = parisTime.getMinutes();
-            const second = parisTime.getSeconds();
 
-            // CIBLE : 06h00 (Heure de Paris)
-            // Tu peux changer 6 et 0 par l'heure que tu veux
-            if (hour === 0 && minute === 15) {
+            // CIBLE : 06h00
+            if (hour === 0 && minute === 23) {
                 
                 if (!anthemPlayed) {
-                    anthemPlayed = true; // On verrouille pour ne le jouer qu'une fois
+                    anthemPlayed = true;
+                    isAnthemPlaying = true; // ON VERROUILLE L'AFFICHAGE
                     
-                    // 1. Jouer le son
+                    // 1. Son
                     const anthem = document.getElementById('sfx-anthem');
                     if (anthem) {
-                        anthem.volume = 0.5; // Règle le volume ici
-                        anthem.play().catch((e) => {
-                            console.log("Autoplay bloqué par le navigateur (l'utilisateur n'a pas interagi).");
-                        });
+                        anthem.volume = 0.5;
+                        anthem.play().catch(() => {});
                     }
 
-                    // 2. Petit effet visuel dans la console si elle est ouverte
+                    // 2. Console (si ouverte)
                     const consoleDisplay = document.getElementById('easter-egg-console').style.display;
                     if (consoleDisplay === 'flex') {
                         addLine("----------------------------------------", "text-yellow-400");
@@ -530,25 +532,26 @@
                         addLine("----------------------------------------", "text-yellow-400");
                     }
 
-                    // 3. Notification visuelle sur l'accueil (Status)
+                    // 3. Statut Visuel (On force l'affichage)
                     const statusDiv = document.getElementById('system-status');
                     if(statusDiv) {
                         statusDiv.textContent = "HYMNE FÉDÉRAL EN COURS...";
+                        // On enlève les couleurs classiques pour éviter les conflits
+                        statusDiv.classList.remove('text-cyan-400', 'text-red-500'); 
                         statusDiv.classList.add('text-yellow-400', 'animate-pulse');
-                        // On remet le status normal après 60 secondes
+                        
+                        // Au bout de 60 secondes (fin de la minute), on déverrouille
                         setTimeout(() => { 
-                            statusDiv.classList.remove('text-yellow-400', 'animate-pulse');
-                            updateSystemStatus(); 
+                            isAnthemPlaying = false; // ON DÉVERROUILLE
+                            updateSystemStatus(); // On remet le texte normal immédiatement
                         }, 60000);
                     }
                 }
             } else {
-                // Reset du verrou quand il n'est plus 06h00
                 anthemPlayed = false;
             }
         }
-        
-        // On lance la vérification toutes les secondes
+        // Le reste ne change pas (setInterval...)
         setInterval(checkMorningProtocol, 1000);
     </script>
     <script src="assets/js/main.js"></script>
