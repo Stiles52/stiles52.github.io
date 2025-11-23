@@ -65,6 +65,7 @@
 <body class="bg-black min-h-screen relative">
     
     <audio id="sfx-boot" src="assets/audio/boot.mp3" preload="auto"></audio>
+    <audio id="sfx-anthem" src="assets/audio/anthem.mp3" preload="auto"></audio>
 
     <div id="easter-egg-console">
         <div class="scanlines"></div>
@@ -490,6 +491,65 @@
                 particlesContainer.appendChild(div);
             }
         }
+
+        // --- PROTOCOLE MATINAL (HYMNE AUTOMATIQUE) ---
+        let anthemPlayed = false; // Pour éviter que ça boucle pendant toute la minute
+
+        function checkMorningProtocol() {
+            const now = new Date();
+            // On force l'heure de Paris pour que tout le monde l'entende en même temps
+            const parisString = now.toLocaleString("en-US", {timeZone: "Europe/Paris"});
+            const parisTime = new Date(parisString);
+            
+            const hour = parisTime.getHours();
+            const minute = parisTime.getMinutes();
+            const second = parisTime.getSeconds();
+
+            // CIBLE : 06h00 (Heure de Paris)
+            // Tu peux changer 6 et 0 par l'heure que tu veux
+            if (hour === 0 && minute === 5) {
+                
+                if (!anthemPlayed) {
+                    anthemPlayed = true; // On verrouille pour ne le jouer qu'une fois
+                    
+                    // 1. Jouer le son
+                    const anthem = document.getElementById('sfx-anthem');
+                    if (anthem) {
+                        anthem.volume = 0.5; // Règle le volume ici
+                        anthem.play().catch((e) => {
+                            console.log("Autoplay bloqué par le navigateur (l'utilisateur n'a pas interagi).");
+                        });
+                    }
+
+                    // 2. Petit effet visuel dans la console si elle est ouverte
+                    const consoleDisplay = document.getElementById('easter-egg-console').style.display;
+                    if (consoleDisplay === 'flex') {
+                        addLine("----------------------------------------", "text-yellow-400");
+                        addLine("> ATTENTION : PROTOCOLE MATINAL ACTIVÉ.", "text-yellow-400 blink");
+                        addLine("> GLOIRE À LA FÉDÉRATION.", "text-cyan-400 font-bold");
+                        addLine("----------------------------------------", "text-yellow-400");
+                    }
+
+                    // 3. Notification visuelle sur l'accueil (Status)
+                    const statusDiv = document.getElementById('system-status');
+                    if(statusDiv) {
+                        statusDiv.textContent = "HYMNE FÉDÉRAL EN COURS...";
+                        statusDiv.classList.add('text-yellow-400', 'animate-pulse');
+                        // On remet le status normal après 60 secondes
+                        setTimeout(() => { 
+                            statusDiv.classList.remove('text-yellow-400', 'animate-pulse');
+                            updateSystemStatus(); 
+                        }, 60000);
+                    }
+                }
+            } else {
+                // Reset du verrou quand il n'est plus 06h00
+                anthemPlayed = false;
+            }
+        }
+        
+        // On lance la vérification toutes les secondes
+        setInterval(checkMorningProtocol, 1000);
     </script>
     <script src="assets/js/main.js"></script>
 </body>
