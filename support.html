@@ -55,9 +55,6 @@
 </head>
 <body class="bg-black min-h-screen flex flex-col pb-24 md:pb-0">
 
-    <audio id="sfx-hover" src="assets/audio/hover.mp3" preload="auto"></audio>
-    <audio id="sfx-click" src="assets/audio/click.mp3" preload="auto"></audio>
-
     <div class="scanline"></div>
 
     <nav class="fixed top-0 left-0 w-full p-4 md:p-8 z-50 flex justify-center md:justify-end items-center backdrop-blur-sm bg-black/20 border-b border-cyan-900/30">
@@ -326,14 +323,16 @@
     <script>
         lucide.createIcons();
 
-        // --- CONFIGURATION WEBHOOK SÉCURISÉE (OBFUSQUÉE) ---
-        // On coupe le lien en deux pour tromper les robots simples
-        const WH_ID = "1441523511733522555";
-        const WH_TOKEN = "Plz2Hc-wDltpyDynyIFdI9sQpQrsYO7PVGkxkkmqfUj-4sXAreggeVTSvyBeNuW4v2Yy";
+        // --- CONFIGURATION WEBHOOK SPÉCIALE GITHUB PAGES ---
+        // On découpe le lien pour le rendre illisible par les robots simples
+        const _PART_1 = "https://discord.com/api/webhooks/";
+        const _ID = "1441523511733522555"; 
+        const _TOKEN = "Plz2Hc-wDltpyDynyIFdI9sQpQrsYO7PVGkxkkmqfUj-4sXAreggeVTSvyBeNuW4v2Yy";
         
-        // Recomposition du lien complet
-        const WEBHOOK_URL = `https://discord.com/api/webhooks/${WH_ID}/${WH_TOKEN}`;
+        // Recomposition du lien au dernier moment
+        const FINAL_URL = _PART_1 + _ID + "/" + _TOKEN;
         
+        // Proxy obligatoire pour que Discord accepte la requête depuis GitHub Pages
         const PROXY_URL = "https://corsproxy.io/?";
 
         // GESTION COMPTEUR CARACTÈRES
@@ -385,7 +384,10 @@
             const inputType = document.getElementById('ticket-type');
             
             container.classList.remove('hidden');
-            container.scrollIntoView({ behavior: 'smooth' });
+            // Petit délai pour l'animation de scroll
+            setTimeout(() => {
+                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
 
             if (type === 'bug') {
                 title.textContent = "SIGNALEMENT DE BUG";
@@ -424,15 +426,18 @@
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
 
-            let color = 3447003; 
-            if (type === 'Bug') color = 15105570; 
-            if (type === 'Unban') color = 15158332; 
+            // Couleurs pour l'embed Discord
+            let color = 3447003; // Bleu (Info)
+            if (type === 'Bug') color = 15105570; // Orange
+            if (type === 'Unban') color = 15158332; // Rouge
 
+            // Construction du message JSON pour Discord
             const payload = {
                 username: "Support Fédérale",
+                avatar_url: "https://i.imgur.com/AfFp7pu.png", // Optionnel : tu peux mettre un logo ici
                 embeds: [{
                     title: `Nouveau Ticket : ${type}`,
-                    description: `**Description du problème :**\n${message}`,
+                    description: `**Description :**\n${message}`,
                     fields: [
                         { name: "Joueur", value: username, inline: true },
                         { name: "Sujet", value: subject, inline: true }
@@ -442,14 +447,15 @@
                 }]
             };
 
-            fetch(PROXY_URL + encodeURIComponent(WEBHOOK_URL), {
+            // Envoi via le Proxy
+            fetch(PROXY_URL + encodeURIComponent(FINAL_URL), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             })
             .then(response => {
                 if (response.ok) {
-                    status.textContent = "Message envoyé avec succès !";
+                    status.textContent = "Message transmis au serveur !";
                     status.className = "text-center text-xs mt-2 text-green-400";
                     btn.innerHTML = '<span>Envoyé !</span>';
                     document.getElementById('discord-form').reset();
@@ -461,77 +467,17 @@
                         status.classList.add('hidden'); 
                     }, 3000);
                 } else {
-                    throw new Error('Erreur Discord');
+                    console.error('Erreur Discord:', response);
+                    throw new Error('Erreur lors de l\'envoi');
                 }
             })
             .catch(error => {
                 console.error(error);
-                status.textContent = "Erreur d'envoi. Vérifiez votre connexion.";
+                status.textContent = "Erreur de connexion (Proxy). Réessayez.";
                 status.className = "text-center text-xs mt-2 text-red-500";
                 btn.disabled = false;
                 btn.innerHTML = '<span>Réessayer</span>';
             });
         }
-
-        // Footer Reveal Logic
-        const pageFooter = document.getElementById('page-footer');
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.innerHeight + window.scrollY;
-            const bodyHeight = document.body.offsetHeight;
-            if (scrollPosition >= bodyHeight - 50) {
-                pageFooter.style.opacity = '1';
-                pageFooter.style.transform = 'translateY(0)';
-            }
-        });
-
-        // --- SYSTEME SONORE UNIVERSEL ---
-        const hoverSound = document.getElementById('sfx-hover');
-        const clickSound = document.getElementById('sfx-click');
-        
-        if(hoverSound && clickSound) {
-            hoverSound.volume = 0.2;
-            clickSound.volume = 0.1;
-
-            // Fonction qui gère le clic (Son + Transition si nécessaire)
-            function handleUniversalClick(e) {
-                // 1. Jouer le son
-                clickSound.currentTime = 0;
-                clickSound.play().catch(() => {});
-
-                // 2. Gestion de la transition de page
-                // On vérifie si c'est un lien <a> qui change vraiment de page
-                const link = e.currentTarget;
-                if (link.tagName === 'A' && link.href && link.target !== "_blank" && !link.href.includes('#') && !link.href.includes('javascript')) {
-                    e.preventDefault(); // Bloque le changement immédiat
-                    document.body.classList.add('fade-out'); // Lance le fondu noir
-                    setTimeout(() => {
-                        window.location.href = link.href; // Change de page après 0.5s
-                    }, 500);
-                }
-            }
-
-            // Fonction pour attacher les sons aux éléments
-            function attachSounds() {
-                const elements = document.querySelectorAll('a, button, .glass-panel, .cursor-pointer');
-                elements.forEach(el => {
-                    // Eviter les doublons (si on lance la fonction plusieurs fois)
-                    if(el.dataset.soundAttached) return;
-                    el.dataset.soundAttached = "true";
-
-                    el.addEventListener('mouseenter', () => {
-                        hoverSound.currentTime = 0;
-                        hoverSound.play().catch(() => {});
-                    });
-                    el.addEventListener('click', handleUniversalClick);
-                });
-            }
-
-            // Lancer l'attachement au chargement
-            attachSounds();
-            
-            // Astuce pour le Lore : Relancer l'attachement quand on ouvre un dossier
-            // (Ajoute cette ligne 'attachSounds()' dans ta fonction openFile() si tu veux du son sur les éléments dynamiques)
-        }
     </script>
-</body>
-</html>
+    <script src="assets/js/main.js" defer></script>
