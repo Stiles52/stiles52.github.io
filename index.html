@@ -510,7 +510,7 @@
             const minute = parisTime.getMinutes();
 
             // CIBLE : 06h00
-            if (hour === 0 && minute === 23) {
+            if (hour === 6 && minute === 0) {
                 
                 if (!anthemPlayed) {
                     anthemPlayed = true;
@@ -540,11 +540,11 @@
                         statusDiv.classList.remove('text-cyan-400', 'text-red-500'); 
                         statusDiv.classList.add('text-yellow-400', 'animate-pulse');
                         
-                        // Au bout de 60 secondes (fin de la minute), on déverrouille
+                        // Au bout de 120 secondes (fin de la minute), on déverrouille
                         setTimeout(() => { 
                             isAnthemPlaying = false; // ON DÉVERROUILLE
                             updateSystemStatus(); // On remet le texte normal immédiatement
-                        }, 60000);
+                        }, 120000);
                     }
                 }
             } else {
