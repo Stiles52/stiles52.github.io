@@ -448,7 +448,7 @@
             };
 
             // Envoi via le Proxy
-            fetch(PROXY_URL + encodeURIComponent(FINAL_URL), {
+            fetch(FINAL_URL, { // Retrait du PROXY_URL
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
