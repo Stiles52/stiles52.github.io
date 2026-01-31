@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self' https://discord.com https://corsproxy.io;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self';">
     <title>SUPPORT & RÈGLEMENT - ORIGIN</title>
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -323,18 +323,6 @@
     <script>
         lucide.createIcons();
 
-        // --- CONFIGURATION WEBHOOK SPÉCIALE GITHUB PAGES ---
-        // On découpe le lien pour le rendre illisible par les robots simples
-        const _PART_1 = "https://discord.com/api/webhooks/";
-        const _ID = "1441523511733522555"; 
-        const _TOKEN = "Plz2Hc-wDltpyDynyIFdI9sQpQrsYO7PVGkxkkmqfUj-4sXAreggeVTSvyBeNuW4v2Yy";
-        
-        // Recomposition du lien au dernier moment
-        const FINAL_URL = _PART_1 + _ID + "/" + _TOKEN;
-        
-        // Proxy obligatoire pour que Discord accepte la requête depuis GitHub Pages
-        const PROXY_URL = "https://corsproxy.io/?";
-
         // GESTION COMPTEUR CARACTÈRES
         const messageInput = document.getElementById('message');
         const charCount = document.getElementById('char-count');
@@ -447,11 +435,21 @@
                 }]
             };
 
-            // Envoi via le Proxy
-            fetch(FINAL_URL, { // Retrait du PROXY_URL
+            // On appelle la fonction locale (qui sera gérée par l'hébergeur)
+            fetch('/.netlify/functions/send-ticket', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // ... (votre code de succès actuel)
+                } else {
+                    throw new Error('Erreur serveur');
+                }
+            })
+            .catch(error => {
+                status.textContent = "Le service de support est indisponible. Réessayez plus tard.";
+                // ... (votre code d'erreur actuel)
             })
             .then(response => {
                 if (response.ok) {
