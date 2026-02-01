@@ -4,8 +4,13 @@ exports.handler = async (event) => {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  // Le Webhook est stocké ici, loin des yeux des utilisateurs
-  const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1441523511733522555/Plz2Hc-wDltpyDynyIFdI9sQpQrsYO7PVGkxkkmqfUj-4sXAreggeVTSvyBeNuW4v2Yy";
+  // SÉCURITÉ : On récupère le lien depuis les réglages cachés de Netlify
+  // Si la variable n'existe pas, on arrête tout pour éviter de planter silencieusement
+  const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK;
+
+  if (!DISCORD_WEBHOOK_URL) {
+    return { statusCode: 500, body: "Erreur configuration serveur : Webhook manquant." };
+  }
 
   try {
     const payload = JSON.parse(event.body);
@@ -15,6 +20,10 @@ exports.handler = async (event) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
+
+    if (!response.ok) {
+        return { statusCode: response.status, body: "Erreur Discord" };
+    }
 
     return {
       statusCode: 200,
