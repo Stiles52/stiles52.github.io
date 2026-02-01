@@ -435,27 +435,23 @@
             };
 
             // On appelle la fonction locale (qui sera gérée par l'hébergeur)
+            // On appelle la fonction locale
             fetch('/.netlify/functions/send-ticket', {
                 method: 'POST',
                 body: JSON.stringify(payload)
             })
             .then(response => {
+                // Si la réponse est positive (Code 200)
                 if (response.ok) {
-                    // ... (votre code de succès actuel)
-                } else {
-                    throw new Error('Erreur serveur');
-                }
-            })
-            .catch(error => {
-                status.textContent = "Le service de support est indisponible. Réessayez plus tard.";
-                // ... (votre code d'erreur actuel)
-            })
-            .then(response => {
-                if (response.ok) {
+                    // 1. Message de succès visuel
                     status.textContent = "Message transmis au serveur !";
                     status.className = "text-center text-xs mt-2 text-green-400";
                     btn.innerHTML = '<span>Envoyé !</span>';
+                    
+                    // 2. On vide le formulaire
                     document.getElementById('discord-form').reset();
+                    
+                    // 3. On ferme après 3 secondes
                     setTimeout(() => { 
                         closeForm(); 
                         btn.disabled = false; 
@@ -464,13 +460,14 @@
                         status.classList.add('hidden'); 
                     }, 3000);
                 } else {
-                    console.error('Erreur Discord:', response);
-                    throw new Error('Erreur lors de l\'envoi');
+                    // Si le serveur répond une erreur
+                    throw new Error('Erreur serveur');
                 }
             })
             .catch(error => {
+                // Si la connexion échoue vraiment
                 console.error(error);
-                status.textContent = "Erreur de connexion (Proxy). Réessayez.";
+                status.textContent = "Une erreur est survenue. Réessayez.";
                 status.className = "text-center text-xs mt-2 text-red-500";
                 btn.disabled = false;
                 btn.innerHTML = '<span>Réessayer</span>';
