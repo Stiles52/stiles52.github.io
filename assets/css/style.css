@@ -48,6 +48,38 @@ body.fade-out {
 
 /* BUTTONS */
 a.origin-btn, button.origin-btn {
+/*TEXTS*/
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'JetBrains Mono', monospace;
+    color: white;
+}
+h1 { font-size: 3.85rem !important; line-height: 1; }
+h2 { font-size: 3rem !important; line-height: 1; }
+h3 { font-size: 1.85rem !important; line-height: 2rem; }
+h4 { font-size: 1.5rem !important; line-height: 1.25; }
+h5 { font-size: 1.3rem !important; line-height: 1.25; }
+h6 { font-size: 1.15rem !important; line-height: 1.25; }
+p {
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    color: #d1d5db;
+
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    text-align: justify;
+}
+cite {
+    font-family: 'JetBrains Mono', monospace;
+    color: rgb(209 213 219);
+    font-size: 0.75rem;
+
+    display: block;
+
+    padding: 16px;
+    margin: 5px 0;
+
+    background-color: rgb(17 24 39 / 0.5);
+    border-left: 2px solid rgb(6 182 212);
+}
     display: inline-flex;
     align-items: center;
     gap: 1rem;
