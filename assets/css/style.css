@@ -374,4 +374,43 @@ a.btn--full-graphic, button.btn--full-graphic {
     ),
     #1e1e1e;
 }
+
+/*GLASSES BUTTONS*/
+a.btn--glass, button.btn--glass {
+    background: #000000cc;
+    backdrop-filter: blur(10px);
+    border: 1px solid #22d3ee33;
+    box-shadow: 0 0 30px #22d3ee0d;
+    border-left-width: 4px;
+}
+a.btn--glass:hover, button.btn--glass:hover {
+    background-color: #164e6333;
+}
+
+.btn--glass.btn--primary {
+    border-left-color: #3498db;
+}
+.btn--glass.btn--secondary {
+    border-left-color: #6b6b6b;
+}
+.btn--glass.btn--success {
+    border-left-color: #27ae60;
+}
+.btn--glass.btn--info {
+    border-left-color: #06b6d4;
+}
+.btn--glass.btn--warning {
+    border-left-color: #ffcc00;
+}
+.btn--glass.btn--danger {
+    border-left-color: #ef4444;
+}
+.btn--glass.btn--light {
+    border-left-color: #f9fafb;
+}
+.btn--glass.btn--dark {
+    border-left-color: #1e1e1e;
+}
+.btn--glass.btn--discord {
+    border-left-color: #6366f1;
 }
