@@ -9,7 +9,8 @@ RewriteEngine On
 # =========================
 # Sécurité fichiers sensibles
 # =========================
-<FilesMatch "^(\.env|\.env\.example|composer\.(json|lock)|\.gitignore)$">
+<FilesMatch "^(\.env|\.htaccess|\.env\.example|composer\.(json|lock)|\.gitignore)$">
+#<FilesMatch "^(\.env|\.htaccess|\.env\.example|composer\.(json|lock)|css_tester|\.gitignore)$">
     Require all denied
 </FilesMatch>
 
