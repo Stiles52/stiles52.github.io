@@ -98,26 +98,19 @@
                     <i data-lucide="globe" class="w-5 h-5 text-cyan-400"></i>
                     <span class="uppercase tracking-wider text-sm font-bold opacity-70 text-cyan-100">Présentation</span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight text-white">L'Origine du Monde</h2>
+                <h2 class="mb-8">L'Origine du Monde</h2>
                 
-                <p class="text-base md:text-lg text-gray-300 leading-relaxed font-sans text-justify mb-6">
-                    Origin est un serveur RolePlay (RP) sur Minecraft. Le RP consiste à incarner un personnage et à développer ses caractéristiques avec crédibilité, à l'instar d'un acteur.
-                </p>
-                <p class="text-base md:text-lg text-gray-300 leading-relaxed font-sans text-justify mb-6">
-                    Le projet a démarré en 2019 entre amis, évoluant rapidement d'un simple serveur survie vers un projet RP "Apocalypse" qui a engendré une forte visibilité. Le succès a été particulièrement marqué par le projet phare "Labyrinthe".
-                </p>
-                <p class="text-base md:text-lg text-gray-300 leading-relaxed font-sans text-justify mb-10">
+                <p class="mb-10">
+                    Origin est un serveur RolePlay (RP) sur Minecraft. Le RP consiste à incarner un personnage et à développer ses caractéristiques avec crédibilité, à l'instar d'un acteur.<br>
+                    <br>
+                    Le projet a démarré en 2019 entre amis, évoluant rapidement d'un simple serveur survie vers un projet RP "Apocalypse" qui a engendré une forte visibilité. Le succès a été particulièrement marqué par le projet phare "Labyrinthe".<br>
+                    <br>
                     Néanmoins, Origin est actuellement en pause indéterminée (février 2023) par manque de personnel, ce qui a mené l'équipe à se reconcentrer sur des projets que nous connaissons bien.
                 </p>
                 
-                <a href="lore.html" class="sfx-link inline-flex group border border-cyan-500 text-cyan-400 px-8 py-4 hover:bg-cyan-500/20 transition-all duration-300 uppercase tracking-widest text-sm items-center gap-4">
+                <a href="lore.html" class="sfx-link origin-btn btn--graphic btn--info">
                     <span>Découvrir le Lore</span>
-                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                
-                <a href="lore.html" class="origin-btn btn--graphic btn--info">
-                    <span>Découvrir le Lore</span>
-                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    <i data-lucide="arrow-right" class="btn--icon"></i>
                 </a>
             </div>
 
