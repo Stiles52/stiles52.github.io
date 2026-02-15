@@ -111,9 +111,193 @@ a.btn--graphic:hover, button.btn--graphic:hover {
 i.btn--icon {
     width: 1rem;
     height: 1rem;
+/*FULL-GRAPHIC BUTTONS*/
+a.btn--full-graphic, button.btn--full-graphic {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+
+    border-radius: 0.25rem;
+
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
 }
 
-a.btn--info, button.btn--info {
-    border-color: rgb(6 182 212 / var(--tw-border-opacity, 1));
-    color: rgb(6 182 212 / var(--tw-text-opacity, 1));
+.btn--full-graphic.btn--primary {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #06b6d4;
+
+    color: #000000;
+}
+.btn--full-graphic.btn--primary:hover {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #22d3ee;
+}
+.btn--full-graphic.btn--secondary {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #6b6b6b;
+
+    color: #000000;
+}
+.btn--full-graphic.btn--secondary:hover {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #a7a7a7;
+}
+.btn--full-graphic.btn--success {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #27ae60;
+
+    color: #000000;
+}
+.btn--full-graphic.btn--success:hover {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #43a047;
+}
+.btn--full-graphic.btn--info {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #06b6d4;
+
+    color: #000000;
+}
+.btn--full-graphic.btn--info:hover {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #22d3ee;
+}
+.btn--full-graphic.btn--warning {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #ffcc00;
+
+    color: #000000;
+}
+.btn--full-graphic.btn--warning:hover {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #ffdd00;
+}
+.btn--full-graphic.btn--danger {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #ef4444;
+
+    color: #000000;
+}
+.btn--full-graphic.btn--danger:hover {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #f44336;
+}
+.btn--full-graphic.btn--light {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #f9fafb;
+
+    color: #000000;
+}
+.btn--full-graphic.btn--light:hover {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #f9fafb;
+}
+.btn--full-graphic.btn--dark {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #1e1e1e;
+
+    color: #000000;
+}
+.btn--full-graphic.btn--dark:hover {
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 4px
+    ),
+    #1e1e1e;
+}
 }
