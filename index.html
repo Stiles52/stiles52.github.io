@@ -8,65 +8,15 @@
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background-color: black;
-            color: white;
-            overflow-x: hidden;
-        }
-
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-
-        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes spin-reverse-slow { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-
-        .particle {
-            position: absolute; background: white; border-radius: 50%; opacity: 0;
-            animation: pulseParticle 4s infinite;
-        }
-        @keyframes pulseParticle {
-            0% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.5; transform: scale(1); } 100% { opacity: 0; transform: scale(0.5); }
-        }
-
-        /* Classes pour l'animation d'apparition */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        #page-footer { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
-        #page-footer.active { opacity: 1; transform: translateY(0); }
-
-        /* EASTER EGG CONSOLE */
-        #easter-egg-console {
-            display: none; /* Caché par défaut */
-            position: fixed; inset: 0; background-color: black; z-index: 100;
-            flex-direction: column; justify-content: flex-end; padding: 40px;
-            font-family: 'Courier New', Courier, monospace; color: #22d3ee;
-            border: 2px solid #22d3ee;
-        }
-        .scanlines {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 2px, 3px 100%; pointer-events: none;
-        }
-
-        /* TRANSITION DE PAGE */
-        body {
-            transition: opacity 0.5s ease-in-out; /* Transition douce partout */
-        }
-        body.fade-out {
-            opacity: 0; /* Pour l'effet de sortie */
-        }
-    </style>
+    <link href="./assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-black min-h-screen relative">
-    
+
+    <!-- SONS -->
     <audio id="sfx-boot" src="assets/audio/boot.mp3" preload="auto"></audio>
     <audio id="sfx-anthem" src="assets/audio/anthem.mp3" preload="auto"></audio>
 
+    <!-- EASTER EGG : CONSOLE -->
     <div id="easter-egg-console">
         <div class="scanlines"></div>
         <div id="console-output" class="text-xs md:text-sm space-y-1 font-mono text-green-400 overflow-y-auto max-h-[80vh]"></div>
@@ -83,12 +33,14 @@
         </div>
     </div>
 
+    <!-- BACKGROUND & PARTICLES -->
     <div class="fixed inset-0 pointer-events-none z-0">
         <div class="absolute w-full h-full bg-black"></div>
         <div id="particles-container"></div>
         <div class="fixed bottom-[-150px] left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-cyan-500/15 blur-[120px] rounded-full pointer-events-none z-0"></div>
     </div>
 
+    <!-- NAVIGATION -->
     <nav class="fixed top-0 left-0 w-full p-4 md:p-8 z-50 flex justify-center md:justify-end items-center backdrop-blur-sm bg-black/20 border-b border-cyan-900/30">
         <ul class="flex gap-4 md:gap-8">
             <li>
@@ -112,6 +64,7 @@
         </ul>
     </nav>
 
+    <!-- HEADER -->
     <header class="relative h-screen w-full flex flex-col justify-center items-center z-10">
         <div id="hero-content" class="relative transition-all duration-[2000ms] ease-out opacity-0 scale-95 translate-y-10">
             <div class="relative flex items-center justify-center group cursor-pointer p-10">
@@ -131,6 +84,7 @@
         </div>
     </header>
 
+    <!-- SECTION PRÉSENTATION -->
     <section class="relative w-full min-h-screen flex items-center justify-center py-24 px-6 md:px-20 z-10 bg-gradient-to-b from-transparent to-black/90">
         <div class="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div class="reveal border-l-2 border-cyan-500/50 pl-6">
@@ -166,394 +120,30 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="relative w-full bg-black/95 border-t border-cyan-900/50 py-3 px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-center text-gray-500 text-[10px] space-y-1 md:space-y-0 md:gap-6 tracking-wider">
             <div class="flex items-center gap-1 text-cyan-400">
                 <i data-lucide="copyright" class="w-3 h-3"></i>
-                <span class="font-bold">2025 par L'équipe d'Origin</span>
+                <span class="font-bold" id="made-by">2025 par L'équipe d'Origin</span>
             </div>
             <div class="hidden md:block text-gray-700">|</div>
-            <p class="text-xs text-gray-400 text-center">
+            <p class="text-xs text-gray-400 text-center" id="copyright">
                 © OriginRp, 2024. Tous droits réservés. Reproduction strictement interdite.
             </p>
             <div class="hidden md:block text-gray-700">|</div>
             <p class="text-[9px] text-red-500/70 uppercase font-bold text-center">
-                PAS DE MINECRAFT OFFICIEL. NON APPROUVÉ PAR OU ASSOCIÉ À MOJANG OU MICROSOFT.
+                NE PROVIENS PAS DE MINECRAFT OFFICIEL. NON APPROUVÉ PAR OU ASSOCIÉ À MOJANG OU MICROSOFT.
             </p>
         </div>
     </footer>
 
     <script>
-        // --- EASTER EGG : KONAMI CODE ---
-        const bootSound = document.getElementById('sfx-boot');
-        if(bootSound) bootSound.volume = 0.5;
-
-        // Code secret : "origin"
-        let secretCode = ['o', 'r', 'i', 'g', 'i', 'n'];
-        let currentInput = [];
-
-        window.addEventListener('keydown', (e) => {
-            if(document.getElementById('easter-egg-console').style.display === 'flex') return;
-            if (e.key === "Escape") {
-                document.getElementById('easter-egg-console').style.display = 'none';
-                return;
-            }
-
-            currentInput.push(e.key.toLowerCase());
-            if (currentInput.length > secretCode.length) currentInput.shift();
-            if (JSON.stringify(currentInput) === JSON.stringify(secretCode)) triggerEasterEgg();
-        });
-
-        function triggerEasterEgg() {
-            const consoleScreen = document.getElementById('easter-egg-console');
-            const output = document.getElementById('console-output');
-            const bar = document.getElementById('console-bar');
-            const loadingArea = document.getElementById('loading-area');
-            const inputLine = document.getElementById('input-line');
-            const inputField = document.getElementById('console-input');
-            
-            consoleScreen.style.display = 'flex';
-            if(bootSound) bootSound.play().catch(() => {});
-            
-            // Reset
-            output.innerHTML = "";
-            bar.style.width = "0%";
-            loadingArea.classList.remove('hidden');
-            inputLine.classList.add('hidden');
-
-            const bootSequence = [
-                "> SYSTEM OVERRIDE INITIATED...",
-                "> ACCESS LEVEL: GUEST",
-                "> CONNECTING TO LOCAL ARCHIVE...",
-                "> CONNECTION ESTABLISHED."
-            ];
-
-            let i = 0;
-            function printBoot() {
-                if (i < bootSequence.length) {
-                    addLine(bootSequence[i]);
-                    const progress = ((i + 1) / bootSequence.length) * 100;
-                    bar.style.width = progress + "%";
-                    i++;
-                    setTimeout(printBoot, 600);
-                } else {
-                    setTimeout(() => {
-                        loadingArea.classList.add('hidden');
-                        addLine("> WELCOME. TYPE 'HELP' FOR COMMANDS.", "text-white blink");
-                        inputLine.classList.remove('hidden');
-                        inputField.focus();
-                    }, 800);
-                }
-            }
-            printBoot();
-
-            // Gestion des commandes
-            inputField.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    const command = this.value.trim().toLowerCase();
-                    if(command) {
-                        addLine(`guest@origin:~$ ${this.value}`, "text-gray-500");
-                        processCommand(command);
-                    }
-                    this.value = "";
-                    output.scrollTop = output.scrollHeight;
-                }
-            });
-
-            consoleScreen.addEventListener('click', () => inputField.focus());
-        }
-
-        function addLine(text, className = "") {
-            const output = document.getElementById('console-output');
-            const p = document.createElement('div');
-            p.textContent = text;
-            if(className) p.className = className;
-            output.appendChild(p);
-            output.scrollTop = output.scrollHeight;
-        }
-
-        // --- NOUVELLE LOGIQUE FICHIERS ---
-        
-        let pendingFileAuth = null; // Pour savoir si on attend un mot de passe
-
-        function processCommand(cmd) {
-            
-            // 1. SI ON ATTEND UN MOT DE PASSE
-            if (pendingFileAuth !== null) {
-                verifyPassword(pendingFileAuth, cmd);
-                return;
-            }
-
-            // 2. COMMANDES NORMALES
-            const parts = cmd.split(' ');
-            const mainCmd = parts[0];
-            const arg = parts[1];
-
-            switch(mainCmd) {
-                case 'help':
-                    addLine("AVAILABLE COMMANDS:", "text-yellow-400 font-bold mt-2");
-                    addLine("  view-files  : List available files");
-                    addLine("  open [id]   : Open a file (ex: 'open 01')");
-                    addLine("  status      : Check system integrity");
-                    addLine("  clear       : Clear terminal");
-                    addLine("  exit        : Close session");
-                    break;
-
-                case 'view-files':
-                    addLine("SCANNING DIRECTORY...", "mt-2");
-                    setTimeout(() => {
-                        addLine("------------------------------------------------");
-                        addLine("[ID: 01] MEMO_CITOYEN.TXT      [PUBLIC]  [READ]");
-                        addLine("[ID: 02] SYSTEM_FAILURE.LOG    [PROTECTED]");
-                        addLine("[ID: 03] ADMIN_TRUTH.ENC       [ENCRYPTED]");
-                        addLine("------------------------------------------------");
-                        addLine("> USE 'OPEN [ID]' TO READ A FILE.", "text-gray-400");
-                    }, 500);
-                    break;
-
-                case 'open':
-                    if (!arg) {
-                        addLine("> ERROR: PLEASE SPECIFY FILE ID (EX: 'OPEN 01')", "text-red-500");
-                    } else if (arg === '01') {
-                        openFileContent(1);
-                    } else if (arg === '02') {
-                        addLine("> SECURITY ALERT: PROTECTED FILE.", "text-yellow-400");
-                        addLine("> ENTER PASSCODE:", "text-white");
-                        pendingFileAuth = 2; // Attente mdp fichier 2
-                    } else if (arg === '03') {
-                        addLine("> SECURITY ALERT: CLASS-5 ENCRYPTION.", "text-red-500");
-                        addLine("> ENTER MASTER KEY:", "text-white");
-                        pendingFileAuth = 3; // Attente mdp fichier 3
-                    } else {
-                        addLine(`> ERROR: FILE ID '${arg}' NOT FOUND.`, "text-red-500");
-                    }
-                    break;
-
-                case 'status':
-                    addLine("SYSTEM STATUS:", "text-cyan-400 mt-2");
-                    addLine("  > SERVER: ONLINE");
-                    addLine("  > ORBIT: STABLE");
-                    addLine("  > DATE: 24.02.2203");
-                    break;
-
-                case 'clear':
-                    document.getElementById('console-output').innerHTML = "";
-                    break;
-
-                case 'exit':
-                    document.getElementById('easter-egg-console').style.display = 'none';
-                    break;
-
-                case 'phoenix':
-                case 'aidan':
-                case 'ghost':
-                case 'ghost_protocol':
-                    addLine("> THIS IS A PASSWORD. USE 'OPEN [ID]' FIRST.", "text-gray-500");
-                    break;
-
-                default:
-                    addLine(`> COMMAND '${mainCmd}' UNKNOWN.`, "text-red-500");
-            }
-        }
-
-        function verifyPassword(fileId, inputPassword) {
-            // FICHIER 2 : Mot de passe GHOST_PROTOCOL
-            if (fileId === 2) {
-                if (inputPassword === "ghost_protocol" || inputPassword === "ghost") {
-                    addLine("> ACCESS GRANTED.", "text-green-500");
-                    openFileContent(2);
-                } else {
-                    addLine("> ACCESS DENIED. INCORRECT PASSCODE.", "text-red-500");
-                    addLine("> HINT: CHECK DEAD LINKS (404).", "text-gray-600 text-[10px]");
-                }
-                pendingFileAuth = null;
-            }
-            // FICHIER 3 : Mot de passe AIDAN
-            else if (fileId === 3) {
-                if (inputPassword === "aidan") {
-                    if(bootSound) bootSound.play().catch(() => {});
-                    addLine("> MASTER KEY ACCEPTED.", "text-green-500 font-bold");
-                    addLine("> DECRYPTING...", "text-green-500 blink");
-                    setTimeout(() => { openFileContent(3); }, 1500);
-                } else {
-                    addLine("> ACCESS DENIED. MASTER KEY REQUIRED.", "text-red-500");
-                    addLine("> HINT: THE CREATOR IS ALWAYS WATCHING THE ARCHIVES.", "text-gray-600 text-[10px]"); 
-                }
-                pendingFileAuth = null;
-            }
-        }
-
-        function openFileContent(id) {
-            addLine("LOADING FILE...", "text-gray-500 italic");
-            setTimeout(() => {
-                if (id === 1) {
-                    addLine("--- MEMO_CITOYEN.TXT ---", "text-cyan-400 font-bold mt-2");
-                    addLine("DE: ADMINISTRATION CENTRALE");
-                    addLine("OBJET: RATIONNEMENT HYDRIQUE");
-                    addLine("Citoyens, suite à une défaillance des filtres du secteur 7, la distribution d'eau potable est réduite de 30% jusqu'à nouvel ordre.");
-                    addLine("Tout gaspillage sera sanctionné par une amende de Classe 2.");
-                    addLine("-------------------------");
-                } 
-                else if (id === 2) {
-                    addLine("--- SYSTEM_FAILURE.LOG ---", "text-yellow-400 font-bold mt-2");
-                    addLine("DATE: 2203.02.14");
-                    addLine("ERREUR: 0x00_GHOST");
-                    addLine("Rapport: Une intrusion non-identifiée a été détectée dans le mainframe.");
-                    addLine("La signature numérique ne correspond à aucun citoyen enregistré.");
-                    addLine("Le signal semble provenir... de l'extérieur de la station.");
-                    addLine("Note: Supprimer ce log avant l'inspection fédérale.");
-                    addLine("--------------------------");
-                } 
-                else if (id === 3) {
-                    addLine("--- ADMIN_TRUTH.ENC ---", "text-red-500 font-bold mt-2");
-                    addLine("CLASSIFICATION: ÉCARLATE / YEUX SEULEMENT");
-                    addLine("EXPÉDITEUR: G. PRODIT");
-                    addLine("OBJET: VISITE IMPÉRIALE IMMINENTE");
-                    addLine("MESSAGE DÉCRYPTÉ:");
-                    addLine("'Cessez toutes les simulations en cours. Olympe Siren arrive.'");
-                    addLine("'L'Impératrice vient inspecter personnellement le Star Maze pour valider sa réouverture.'");
-                    addLine("'Elle exige de voir la cohésion entre Humains, Hybrides et Protomates.'");
-                    addLine("'Nettoyez le secteur 4. Si elle voit une seule défaillance, elle nous fermera définitivement.'");
-                    addLine("-----------------------");
-                }
-            }, 600);
-        }
-
-        // --- AUTRES SCRIPTS (Horloge, Anim, Particules) ---
-        
-        // 1. Statut Système
-        // Variable globale pour bloquer le statut pendant l'hymne
-        let isAnthemPlaying = false; 
-
-        function updateSystemStatus() {
-            // SECURITÉ : Si l'hymne joue, on ne touche pas au texte !
-            if (isAnthemPlaying) return; 
-
-            const now = new Date();
-            const parisString = now.toLocaleString("en-US", {timeZone: "Europe/Paris"});
-            const parisTime = new Date(parisString);
-            const day = parisTime.getDay();
-            const hour = parisTime.getHours();
-            
-            let isOnline = false;
-            if ([3, 4, 5].includes(day) && hour >= 18) isOnline = true;
-            if ([4, 5, 6].includes(day) && hour < 1) isOnline = true;
-            if ([6, 0].includes(day) && hour >= 16) isOnline = true;
-            if ([0, 1].includes(day) && hour < 1) isOnline = true;
-
-            const statusDiv = document.getElementById('system-status');
-            if(statusDiv) {
-                if (isOnline) {
-                    statusDiv.textContent = "SYSTEM ONLINE";
-                    statusDiv.classList.remove('text-red-500', 'text-yellow-400', 'animate-pulse'); // On nettoie bien
-                    statusDiv.classList.add('text-cyan-400');
-                } else {
-                    statusDiv.textContent = "SYSTEM OFFLINE";
-                    statusDiv.classList.remove('text-cyan-400', 'text-yellow-400', 'animate-pulse'); // On nettoie bien
-                    statusDiv.classList.add('text-red-500');
-                }
-            }
-        }
-        updateSystemStatus();
-        setInterval(updateSystemStatus, 60000);
-        
-        // 2. Animation d'Intro
-        window.addEventListener('load', () => {
-            const heroContent = document.getElementById('hero-content');
-            if(heroContent) {
-                setTimeout(() => {
-                    heroContent.classList.remove('opacity-0', 'scale-95', 'translate-y-10');
-                    heroContent.classList.add('opacity-100', 'scale-100', 'translate-y-0');
-                }, 500);
-            }
-        });
-        
-        // 3. Animation Scroll (C'EST ICI QUE CA MANQUAIT)
-        const revealElements = document.querySelectorAll('.reveal, #page-footer'); 
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            const elementVisible = 150; 
-            revealElements.forEach((el) => {
-                const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - elementVisible) {
-                    el.classList.add('active');
-                }
-            });
-        };
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll(); // Lancer une fois au chargement
-
-        // 4. Particules
-        const particlesContainer = document.getElementById('particles-container');
-        if(particlesContainer) {
-            for (let i = 0; i < 50; i++) {
-                const div = document.createElement('div');
-                div.classList.add('particle');
-                div.style.width = Math.random() * 3 + 'px';
-                div.style.height = div.style.width;
-                div.style.top = Math.random() * 100 + '%';
-                div.style.left = Math.random() * 100 + '%';
-                div.style.animationDelay = Math.random() * 5 + 's';
-                particlesContainer.appendChild(div);
-            }
-        }
-
-        // --- PROTOCOLE MATINAL (HYMNE AUTOMATIQUE) ---
-        let anthemPlayed = false; // Verrou pour ne pas lancer le son 60 fois
-
-        function checkMorningProtocol() {
-            const now = new Date();
-            const parisString = now.toLocaleString("en-US", {timeZone: "Europe/Paris"});
-            const parisTime = new Date(parisString);
-            
-            const hour = parisTime.getHours();
-            const minute = parisTime.getMinutes();
-
-            // CIBLE : 06h00
-            if (hour === 6 && minute === 0) {
-                
-                if (!anthemPlayed) {
-                    anthemPlayed = true;
-                    isAnthemPlaying = true; // ON VERROUILLE L'AFFICHAGE
-                    
-                    // 1. Son
-                    const anthem = document.getElementById('sfx-anthem');
-                    if (anthem) {
-                        anthem.volume = 0.5;
-                        anthem.play().catch(() => {});
-                    }
-
-                    // 2. Console (si ouverte)
-                    const consoleDisplay = document.getElementById('easter-egg-console').style.display;
-                    if (consoleDisplay === 'flex') {
-                        addLine("----------------------------------------", "text-yellow-400");
-                        addLine("> ATTENTION : PROTOCOLE MATINAL ACTIVÉ.", "text-yellow-400 blink");
-                        addLine("> GLOIRE À LA FÉDÉRATION.", "text-cyan-400 font-bold");
-                        addLine("----------------------------------------", "text-yellow-400");
-                    }
-
-                    // 3. Statut Visuel (On force l'affichage)
-                    const statusDiv = document.getElementById('system-status');
-                    if(statusDiv) {
-                        statusDiv.textContent = "HYMNE FÉDÉRAL EN COURS...";
-                        // On enlève les couleurs classiques pour éviter les conflits
-                        statusDiv.classList.remove('text-cyan-400', 'text-red-500'); 
-                        statusDiv.classList.add('text-yellow-400', 'animate-pulse');
-                        
-                        // Au bout de 120 secondes (fin de la minute), on déverrouille
-                        setTimeout(() => { 
-                            isAnthemPlaying = false; // ON DÉVERROUILLE
-                            updateSystemStatus(); // On remet le texte normal immédiatement
-                        }, 120000);
-                    }
-                }
-            } else {
-                anthemPlayed = false;
-            }
-        }
-        // Le reste ne change pas (setInterval...)
-        setInterval(checkMorningProtocol, 1000);
     </script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/easter-egg-mars.js"></script>
+    <script src="assets/js/intro.js"></script>
+    <script src="assets/js/matinal.js"></script>
+    <script src="assets/js/statut-system.js"></script>
 </body>
 </html>

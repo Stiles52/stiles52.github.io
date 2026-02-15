@@ -94,3 +94,38 @@ window.toggleDyslexicMode = function() {
         console.warn("Origin System: Aucune zone de texte trouvée pour le mode dyslexique.");
     }
 };
+
+// 5. Animation Scroll (C'EST ICI QUE CA MANQUAIT)
+const revealElements = document.querySelectorAll('.reveal, #page-footer'); 
+const revealOnScroll = () => {
+    const windowHeight = window.innerHeight;
+    const elementVisible = 150; 
+    revealElements.forEach((el) => {
+        const elementTop = el.getBoundingClientRect().top;
+        if (elementTop < windowHeight - elementVisible) {
+            el.classList.add('active');
+        }
+    });
+};
+window.addEventListener('scroll', revealOnScroll);
+revealOnScroll();
+
+// 5. Particules
+const particlesContainer = document.getElementById('particles-container');
+if(particlesContainer) {
+    for (let i = 0; i < 50; i++) {
+        const div = document.createElement('div');
+        div.classList.add('particle');
+        div.style.width = Math.random() * 3 + 'px';
+        div.style.height = div.style.width;
+        div.style.top = Math.random() * 100 + '%';
+        div.style.left = Math.random() * 100 + '%';
+        div.style.animationDelay = Math.random() * 5 + 's';
+        particlesContainer.appendChild(div);
+    }
+}
+
+//6. Copyright Dynamique
+const currentYear = new Date().getFullYear();
+document.getElementById('made-by').textContent = "2025 - " + currentYear + " par L'équipe d'Origin";
+document.getElementById('copyright').textContent = `© OriginRp, ${currentYear}. Tous droits réservés. Reproduction strictement interdite.`;
