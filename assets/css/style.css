@@ -46,8 +46,6 @@ body.fade-out {
 #page-footer { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
 #page-footer.active { opacity: 1; transform: translateY(0); }
 
-/* BUTTONS */
-a.origin-btn, button.origin-btn {
 /*TEXTS*/
 h1, h2, h3, h4, h5, h6 {
     font-family: 'JetBrains Mono', monospace;
@@ -80,6 +78,17 @@ cite {
     background-color: rgb(17 24 39 / 0.5);
     border-left: 2px solid rgb(6 182 212);
 }
+
+/*TEXTS STATUS*/
+.text--primary { color: #3498db; }
+.text--secondary { color: rgb(107 107 107); }
+.text--success { color: #27ae60; }
+.text--info { color: rgb(6 182 212); }
+.text--warning { color: rgb(255 204 0); }
+.text--danger { color: rgb(239 68 68); }
+
+/*BUTTONS*/
+a.origin-btn, button.origin-btn, a.a.origin-btn:link {
     display: inline-flex;
     align-items: center;
     gap: 1rem;
