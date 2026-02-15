@@ -3,27 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self';">
+
     <title>CANDIDATURE - ORIGIN</title>
+
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+    <link href="./assets/css/style.css" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background-color: black;
-            color: white;
-            overflow-x: hidden;
-            transition: all 0.3s ease; /* Transition fluide pour le mode dys */
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #0e7490; border-radius: 4px; }
-
         .glass-panel {
             background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
@@ -35,13 +26,6 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3) 51%);
             background-size: 100% 4px; pointer-events: none; z-index: 40; opacity: 0.3;
-        }
-
-        body {
-            transition: opacity 0.5s ease-in-out;
-        }
-        body.fade-out {
-            opacity: 0;
         }
     </style>
 </head>
