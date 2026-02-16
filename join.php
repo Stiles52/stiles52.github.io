@@ -39,28 +39,27 @@
         <div class="inline-block mb-4 border border-cyan-500/30 px-4 py-1 rounded-full bg-cyan-900/10">
             <span class="text-cyan-400 text-xs uppercase tracking-[0.3em]">Protocole d'Admission</span>
         </div>
-        <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-6">REJOINDRE <span class="text-cyan-400">L'AVENTURE</span></h1>
-        <p class="text-gray-400 max-w-2xl mx-auto text-sm leading-relaxed">
+        <h1 class="font-bold">REJOINDRE <span class="text--primary">L'AVENTURE</span></h1>
+        <p class="text-gray-400 max-w-2xl mx-auto text-sm" style="text-align: center;">
             Le processus de recrutement est strict mais ouvert à tous. Suivez ce guide pas à pas pour intégrer la simulation Star Maze.
         </p>
     </header>
 
     <main class="max-w-5xl mx-auto px-6 relative z-10 mb-24">
-        
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
-            <a href="https://discord.gg/YmVxZCqEYs" target="_blank" class="glass-panel p-4 flex items-center justify-center gap-3 hover:bg-cyan-900/20 transition-colors group border-l-4 border-l-indigo-500">
-                <i data-lucide="message-circle" class="w-5 h-5 text-indigo-400 group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-bold uppercase tracking-wider">Rejoindre le Discord</span>
+            <a href="https://discord.gg/YmVxZCqEYs" target="_blank" class="origin-btn btn--glass btn--discord">
+                <i data-lucide="message-circle" class="btn--icon text-indigo-400"></i>
+                <span>Rejoindre le Discord</span>
             </a>
             
-            <button onclick="toggleDyslexicMode()" class="glass-panel p-4 flex items-center justify-center gap-3 hover:bg-cyan-900/20 transition-colors group border-l-4 border-l-cyan-500 cursor-pointer w-full">
-                <i data-lucide="eye" class="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-bold uppercase tracking-wider">Mode Dyslexique</span>
+            <button onclick="toggleDyslexicMode()" class="origin-btn btn--glass btn--info">
+                <i data-lucide="eye" class="btn--icon text-cyan-400"></i>
+                <span>Mode Dyslexique</span>
             </button>
 
-            <a href="https://docs.google.com/document/d/1aIMRrDGG6UiTVuZOJLTYfV0bnT2qBOyKumnNablnVnc/edit?usp=sharing" target="_blank" class="glass-panel p-4 flex items-center justify-center gap-3 hover:bg-cyan-900/20 transition-colors group border-l-4 border-l-green-500">
-                <i data-lucide="shirt" class="w-5 h-5 text-green-400 group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-bold uppercase tracking-wider">Guide du Skin</span>
+            <a href="https://docs.google.com/document/d/1aIMRrDGG6UiTVuZOJLTYfV0bnT2qBOyKumnNablnVnc/edit?usp=sharing" target="_blank" class="origin-btn btn--glass btn--success">
+                <i data-lucide="shirt" class="btn--icon text-green-400"></i>
+                <span>Guide du Skin</span>
             </a>
         </div>
         <div class="border border-red-500/50 bg-red-950/30 p-6 rounded mb-16 relative overflow-hidden">
