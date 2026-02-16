@@ -413,3 +413,77 @@ a.btn--glass:hover, button.btn--glass:hover {
 .btn--glass.btn--discord {
     border-left-color: #6366f1;
 }
+
+/*NAVIGATION*/
+nav.origin-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+
+    width: 100%;
+
+    padding: 2rem;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgb(22 78 99 / 0.3);
+}
+ul.origin-nav-list {
+    display: flex;
+    gap: 2rem;
+}
+a.origin-nav-list-link {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+
+    color: #9ca3af;
+    transition: color 0.3s ease;
+}
+a.origin-nav-list-link:hover {
+    color: #ffffff;
+}
+a.origin-nav-list-active {
+    height: 24px;
+    color: #22d3ee;
+    font-weight: bold;
+
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+}
+a.origin-nav-list-special {
+    height: 24px;
+
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+}
+div.active-pin {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: #22d3ee;
+    border-radius: 9999px;
+
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+span.special-pin {
+    display: block;
+    
+    width: 0px;
+    height: 1px;
+
+    background-color: #22d3ee;
+
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
