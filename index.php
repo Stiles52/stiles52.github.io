@@ -47,28 +47,7 @@
     </div>
 
     <!-- NAVIGATION -->
-    <nav class="fixed top-0 left-0 w-full p-4 md:p-8 z-50 flex justify-center md:justify-end items-center backdrop-blur-sm bg-black/20 border-b border-cyan-900/30">
-        <ul class="flex gap-4 md:gap-8">
-            <li>
-                <a href="lore.html" class="sfx-link text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase text-gray-400 hover:text-white transition-colors group flex items-center gap-2">
-                    Lore
-                    <span class="block h-[1px] w-0 group-hover:w-4 transition-all duration-300 bg-cyan-400"></span>
-                </a>
-            </li>
-            <li>
-                <a href="join.html" class="sfx-link text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase text-gray-400 hover:text-white transition-colors group flex items-center gap-2">
-                    Nous Rejoindre
-                    <span class="block h-[1px] w-0 group-hover:w-4 transition-all duration-300 bg-cyan-400"></span>
-                </a>
-            </li>
-            <li>
-                <a href="support.html" class="sfx-link text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase text-gray-400 hover:text-white transition-colors group flex items-center gap-2">
-                    Support
-                    <span class="block h-[1px] w-0 group-hover:w-4 transition-all duration-300 bg-cyan-400"></span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <?php include './assets/elements/header.php'; ?>
 
     <!-- HEADER -->
     <header class="relative h-screen w-full flex flex-col justify-center items-center z-10">
@@ -78,7 +57,7 @@
                 <div class="absolute w-[110%] h-[110%] border border-dashed border-cyan-400/30 rounded-full animate-[spin-reverse-slow_30s_linear_infinite]"></div>
                 <div class="absolute w-[100%] h-[100%] border-2 border-t-cyan-500/60 border-r-transparent border-b-cyan-500/60 border-l-transparent rounded-full animate-[spin-slow_10s_linear_infinite]"></div>
                 <div class="absolute -inset-10 bg-cyan-400/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 animate-pulse"></div>
-                <h1 class="text-6xl md:text-9xl font-bold text-white animate-float drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] tracking-widest z-10 text-center relative font-[JetBrains Mono]">ORIGIN</h1>
+                <h1 class="font-bold animate-float drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] tracking-widest z-10 text-center relative">ORIGIN</h1>
             </div>
             <div id="system-status" class="text-center text-xs tracking-[1em] mt-12 uppercase animate-pulse transition-colors duration-500">Connecting...</div>
         </div>

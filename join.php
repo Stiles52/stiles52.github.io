@@ -33,24 +33,7 @@
 
     <div class="scanline"></div>
 
-    <nav class="fixed top-0 left-0 w-full p-4 md:p-8 z-50 flex justify-center md:justify-end items-center backdrop-blur-sm bg-black/20 border-b border-cyan-900/30">
-        <ul class="flex gap-4 md:gap-8">
-            <li><a href="index.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">Accueil</a></li>
-            <li><a href="lore.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">Lore</a></li>
-            <li>
-                <a href="join.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-cyan-400 font-bold flex items-center gap-2">
-                    Nous Rejoindre
-                    <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                </a>
-            </li>
-            <li>
-                <a href="support.html" class="text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase text-gray-400 hover:text-white transition-colors group flex items-center gap-2">
-                    Support
-                    <span class="block h-[1px] w-0 group-hover:w-4 transition-all duration-300 bg-cyan-400"></span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <?php include './assets/elements/header.php'; ?>
 
     <header class="pt-32 pb-12 px-6 text-center relative z-10">
         <div class="inline-block mb-4 border border-cyan-500/30 px-4 py-1 rounded-full bg-cyan-900/10">

@@ -43,19 +43,8 @@
 
     <div class="scanline"></div>
 
-    <nav class="fixed top-0 left-0 w-full p-4 md:p-8 z-50 flex justify-center md:justify-end items-center backdrop-blur-sm bg-black/20 border-b border-cyan-900/30">
-        <ul class="flex gap-4 md:gap-8">
-            <li><a href="index.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">Accueil</a></li>
-            <li><a href="lore.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">Lore</a></li>
-            <li><a href="join.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">Nous Rejoindre</a></li>
-            <li>
-                <a href="support.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-cyan-400 font-bold flex items-center gap-2">
-                    Support
-                    <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <!-- NAVIGATION -->
+    <?php include './assets/elements/header.php'; ?>
 
     <header class="pt-32 pb-8 px-6 text-center relative z-10">
         <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tighter mb-4">CENTRE <span class="text-cyan-400">ADMINISTRATIF</span></h1>
