@@ -491,3 +491,72 @@ span.special-pin {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
 }
+
+/*CARDS*/
+
+/*FRAME*/
+.frame-container {
+    position: relative;
+    aspect-ratio: 16 / 9;
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    border-width: 1px;
+    border-color: #06b6d480;
+    background-color: #000000;
+
+    --tw-shadow: 0 0 30px rgba(34, 211, 238, 0.1);
+    --tw-shadow-colored: 0 0 30px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.frame-container img {
+    max-width: 100%;
+    height: auto;
+
+    display: block;
+    vertical-align: middle;
+
+    object-fit: cover;
+}
+
+.frame-container--left-top, .frame-container--right-top, .frame-container--left-bottom, .frame-container--right-bottom {
+    position: absolute;
+
+    width: 1rem;
+    height: 1rem;
+
+    border-color: #22d3ee;
+
+    pointer-events: none;
+} 
+
+.frame-container--left-top {
+    left: 0px;
+    top: 0px;
+
+    border-top-width: 2px;
+    border-left-width: 2px;
+}
+.frame-container--right-top {
+    right: 0px;
+    top: 0px;
+
+    border-top-width: 2px;
+    border-right-width: 2px;
+}
+.frame-container--left-bottom {
+    left: 0px;
+    bottom: 0px;
+
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+.frame-container--right-bottom {
+    right: 0px;
+    bottom: 0px;
+
+    border-bottom-width: 2px;
+    border-right-width: 2px;
+}
