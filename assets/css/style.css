@@ -80,7 +80,7 @@ cite {
 }
 
 /*TEXTS STATUS*/
-.text--primary { color: #3498db; }
+.text--primary { color: #22d3ee; }
 .text--secondary { color: rgb(107 107 107); }
 .text--success { color: #27ae60; }
 .text--info { color: #06b6d4; }
@@ -128,8 +128,8 @@ a.btn--graphic, button.btn--graphic {
 }
 
 .btn--graphic.btn--primary {
-    border-color: #3498db;
-    color: #3498db;
+    border-color: #22d3ee;
+    color: #22d3ee;
 }
 .btn--graphic.btn--primary:hover {
     background: #3498db25;
@@ -387,7 +387,7 @@ a.btn--glass:hover, button.btn--glass:hover {
 }
 
 .btn--glass.btn--primary {
-    border-left-color: #3498db;
+    border-left-color: #22d3ee;
 }
 .btn--glass.btn--secondary {
     border-left-color: #6b6b6b;
