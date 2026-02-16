@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
 
     <title>ORIGIN</title>
 
@@ -19,6 +19,14 @@
     <!-- SECTION ELEMENTS -->
     <section class="relative w-full min-h-screen items-center justify-center py-24 px-6 md:px-20 z-10 bg-gradient-to-b from-transparent to-black/90"
     style="display: flex; align-items: center; flex-direction: column; gap: 24px;">
+        <!-- NAVIGATION -->
+        <div style="display: grid; grid-template-columns: 50% 50%; width: 100%;">
+            <div style="border: 2px solid #06b6d4; border-radius: 4px; padding: 5px;">
+                <iframe src="./assets/elements/header" style="width: 100%;" id="test_nav"></iframe>
+            </div>
+            <div></div>
+        </div>
+
         <!-- TEXTS -->
         <h4 style="margin-bottom: 10px;">Tout les types de textes :</h4>
         <div style="display: flex; gap: 25px;">
@@ -161,5 +169,30 @@
     </section>
 
     <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const iframe = document.getElementById("test_nav");
+
+        iframe.addEventListener("load", function () {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+            // Ajouter la feuille de style dans le head
+            const link = iframeDoc.createElement("link");
+            link.rel = "stylesheet";
+            link.type = "text/css";
+            link.href = "../css/style.css";
+
+            const script1 = iframeDoc.createElement("script");
+            script1.src = "https://cdn.tailwindcss.com";
+
+            const script2 = iframeDoc.createElement("script");
+            script2.src = "https://unpkg.com/lucide@latest";
+
+            iframeDoc.head.appendChild(link);
+            iframeDoc.head.appendChild(script1);
+            iframeDoc.head.appendChild(script2);
+        });
+    });
+    </script>
 </body>
 </html>
