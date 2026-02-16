@@ -381,6 +381,10 @@ a.btn--glass, button.btn--glass {
     border: 1px solid #22d3ee33;
     box-shadow: 0 0 30px #22d3ee0d;
     border-left-width: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    justify-content: center;
 }
 a.btn--glass:hover, button.btn--glass:hover {
     background-color: #164e6333;
