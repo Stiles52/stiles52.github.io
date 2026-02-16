@@ -1,3 +1,8 @@
+<?php
+
+    $currentPage = basename($_SERVER['PHP_SELF'], '.php');
+
+?>
 <nav class="origin-nav">
     <ul class="origin-nav-list">
         <li>
