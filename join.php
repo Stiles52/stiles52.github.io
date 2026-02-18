@@ -41,7 +41,7 @@
         </div>
         <h1 class="font-bold">REJOINDRE <span class="text--primary">L'AVENTURE</span></h1>
         <p class="text-gray-400 max-w-2xl mx-auto text-sm" style="text-align: center;">
-            Le processus de recrutement est strict mais ouvert à tous. Suivez ce guide pas à pas pour intégrer la simulation Star Maze.
+            Le processus de recrutement est strict mais ouvert à tous. Suivez ce guide pas à pas pour intégrer la simulation Star Maze.eee
         </p>
     </header>
 
