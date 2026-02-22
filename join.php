@@ -243,19 +243,9 @@
         </div>
 
     </main>
-    <footer id="page-footer" class="reveal w-full bg-black/95 border-t border-cyan-900/50 z-50 py-3 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-center text-gray-500 text-[10px] space-y-1 md:space-y-0 md:gap-6 tracking-wider">
-            <div class="flex items-center gap-1 text-cyan-400">
-                <i data-lucide="copyright" class="w-3 h-3"></i>
-                <span class="font-bold">2025 par L'équipe d'Origin</span>
-            </div>
-            <div class="hidden md:block text-gray-700">|</div>
-            <p class="text-xs text-gray-400 text-center">© OriginRp, 2024. Tous droits réservés.</p>
-            <div class="hidden md:block text-gray-700">|</div>
-            <p class="text-[9px] text-red-500/70 uppercase font-bold text-center">PAS DE MINECRAFT OFFICIEL.</p>
-        </div>
-        <div class="text-black select-text text-[1px]">PASSWORD COMPLETE: LIBERTY_2203</div>
-    </footer>
+
+    <!-- FOOTER -->
+    <?php include './assets/elements/footer.html'; ?>
     <script src="assets/js/main.js"></script>
 </body>
 </html>
