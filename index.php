@@ -94,11 +94,11 @@
             </div>
 
             <div class="reveal w-full aspect-video relative group border border-cyan-500/50 shadow-[0_0_30px_rgba(34,211,238,0.1)] overflow-hidden bg-black">
-                <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/_LbMPILZL-w" title="Origin Presentation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen class="w-full h-full object-cover"></iframe>
-                <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-400 pointer-events-none"></div>
-                <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400 pointer-events-none"></div>
-                <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400 pointer-events-none"></div>
-                <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-400 pointer-events-none"></div>
+                <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/_LbMPILZL-w" title="Origin Presentation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen class="object-cover"></iframe>
+                <div class="frame-container--left-top"></div>
+                <div class="frame-container--right-top"></div>
+                <div class="frame-container--left-bottom"></div>
+                <div class="frame-container--right-bottom"></div>
             </div>
         </div>
     </section>
