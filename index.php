@@ -57,7 +57,7 @@
                 <div class="absolute w-[110%] h-[110%] border border-dashed border-cyan-400/30 rounded-full animate-[spin-reverse-slow_30s_linear_infinite]"></div>
                 <div class="absolute w-[100%] h-[100%] border-2 border-t-cyan-500/60 border-r-transparent border-b-cyan-500/60 border-l-transparent rounded-full animate-[spin-slow_10s_linear_infinite]"></div>
                 <div class="absolute -inset-10 bg-cyan-400/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000 animate-pulse"></div>
-                <h1 class="font-bold animate-float drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] tracking-widest z-10 text-center relative">ORIGIN</h1>
+                <div class="text-6xl md:text-9xl font-bold text-white animate-float drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] tracking-widest z-10 text-center relative font-[JetBrains Mono]">ORIGIN</div>
             </div>
             <div id="system-status" class="text-center text-xs tracking-[1em] mt-12 uppercase animate-pulse transition-colors duration-500">Connecting...</div>
         </div>
