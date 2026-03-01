@@ -78,6 +78,15 @@ cite {
     background-color: rgb(17 24 39 / 0.5);
     border-left: 2px solid rgb(6 182 212);
 }
+blockquote {
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    color: #9ca3af;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+
+    text-align: justify;
+}
 
 /*TEXTS STATUS*/
 .text--primary { color: #22d3ee; }
