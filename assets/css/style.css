@@ -560,62 +560,63 @@ span.special-pin {
         padding-left: 10px;
     }
 
-/**/
-.card-error {
-    padding: 2rem;
+    /*ERRORS*/
+    .card-error {
+        padding: 2rem;
 
-    position: relative;
+        position: relative;
 
-    border: 1px solid #ef444480;
-    border-radius: 4px;
-    background-color: #450a0a4d;
+        border: 1px solid #ef444480;
+        border-radius: 4px;
+        background-color: #450a0a4d;
 
-    overflow: hidden;
-}
-.card-error--background, .card-error--top {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-}
-.card-error--background {
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #ef44440d 10px, #ef44440d 20px);
-
-    height: 100%;
-
-    pointer-events: none;
-}
-.card-error--top {
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #ef4444 10px, #ef4444 20px);
-    opacity: 0.5;
-
-    height: 4px;
-}
-.card-error--title {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-
-    margin-bottom: 1.5rem;
-}
-.card-error--container {}
-@media (min-width: 768px) {
-    .card-error--container--double {
-        flex-direction: row !important;
-        align-items: center !important;
+        overflow: hidden;
     }
-}
-.card-error--container--double {
-    position: relative;
+    .card-error--background, .card-error--top {
+        position: absolute;
+        top: 0;
+        left: 0;
 
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 1.5rem;
+        width: 100%;
+    }
+    .card-error--background {
+        background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #ef44440d 10px, #ef44440d 20px);
 
-    z-index: 10;
-}
+        height: 100%;
+
+        pointer-events: none;
+    }
+    .card-error--top {
+        background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #ef4444 10px, #ef4444 20px);
+        opacity: 0.5;
+
+        height: 4px;
+    }
+    .card-error--title {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        margin-bottom: 1.5rem;
+    }
+    .card-error--container {}
+    @media (min-width: 768px) {
+        .card-error--container--double {
+            flex-direction: row !important;
+            align-items: center !important;
+        }
+    }
+    .card-error--container--double {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 1.5rem;
+
+        z-index: 10;
+    }
+    
     /*GLASS PANEL*/
     .card-glass-panel {
         background: rgba(0, 0, 0, 0.8);
