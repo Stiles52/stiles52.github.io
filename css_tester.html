@@ -14,6 +14,19 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @media (min-width: 768px) {
+            .css_tester_grid {
+                display: grid !important;
+                grid-template-columns: 50% 50%;
+                gap: 15px;
+            }
+        }
+        .css_tester_grid {
+            display: block;
+        }
+    </style>
 </head>
 <body class="bg-black min-h-screen relative">
     <!-- SECTION ELEMENTS -->
@@ -157,7 +170,7 @@
 
         <!-- CARDS -->
         <h4 style="margin-bottom: 10px;">Cards</h4>
-        <div style="display: grid; grid-template-columns: 50% 50%; gap: 15px;">
+        <div class="css_tester_grid">
             <section class="card-holographic">
                 <div class="card-holographic--title">
                     <i data-lucide="globe" class="w-5 h-5 text-cyan-400"></i>
