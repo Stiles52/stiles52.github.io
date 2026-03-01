@@ -521,9 +521,11 @@ span.special-pin {
 
         opacity: 0.7;
     }
-    .card-holographic--multi-body {
-        display: grid;
-        grid-template-columns: 45% 55%;
+    @media (min-width: 768px) {
+        .card-holographic--multi-body {
+            display: grid !important;
+            grid-template-columns: 45% 55%;
+        }
     }
     .card-holographic--multi-body > div {
         padding-right: 10px;
