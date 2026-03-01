@@ -189,12 +189,12 @@
                     <h3 class="text-2xl font-bold text-white mb-4 uppercase flex items-center gap-3">
                         <i data-lucide="mic" class="w-6 h-6 text-cyan-400"></i> L'Entretien Oral
                     </h3>
-                    <p class="text-sm text-gray-400 mb-4">
+                    <blockquote class="mb-4">
                         Une discussion vocale pour vérifier que vous maîtrisez les règles et le lore. C'est aussi le moment de vérifier votre configuration technique.
-                    </p>
-                    <div class="bg-gray-900/50 p-4 border-l-2 border-cyan-500 text-xs text-gray-300 italic">
-                        "Conseil : Lancez votre jeu et votre launcher avant l'entretien pour détecter d'éventuels problèmes de RAM ou de connexion."
-                    </div>
+                    </blockquote>
+                    <cite>
+                        Conseil : Lancez votre jeu et votre launcher avant l'entretien pour détecter d'éventuels problèmes de RAM ou de connexion."
+                    </cite>
                 </div>
             </div>
 
