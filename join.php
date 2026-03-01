@@ -14,20 +14,6 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        .glass-panel {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(34, 211, 238, 0.2);
-            box-shadow: 0 0 30px rgba(34, 211, 238, 0.05);
-        }
-
-        .scanline {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3) 51%);
-            background-size: 100% 4px; pointer-events: none; z-index: 40; opacity: 0.3;
-        }
-    </style>
 </head>
 <body class="bg-black min-h-screen flex flex-col pb-24 md:pb-0" id="page-body">
 
@@ -86,7 +72,7 @@
                 <div class="absolute -left-[21px] md:-left-[53px] top-0 w-10 h-10 bg-black border border-cyan-500 rounded-full flex items-center justify-center z-20">
                     <span class="text-cyan-400 font-bold">01</span>
                 </div>
-                <div class="glass-panel p-8">
+                <div class="card-glass-panel">
                     <h3 class="text-2xl font-bold text-white mb-2 uppercase flex items-center gap-3">
                         <i data-lucide="book-open" class="w-6 h-6 text-cyan-400"></i> Conception du Personnage
                     </h3>
@@ -166,7 +152,7 @@
                 <div class="absolute -left-[21px] md:-left-[53px] top-0 w-10 h-10 bg-black border border-cyan-500 rounded-full flex items-center justify-center z-20">
                     <span class="text-cyan-400 font-bold">02</span>
                 </div>
-                <div class="glass-panel p-8">
+                <div class="card-glass-panel">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                         <h3 class="text-2xl font-bold text-white uppercase flex items-center gap-3">
                             <i data-lucide="send" class="w-6 h-6 text-cyan-400"></i> Envoi de Candidature
@@ -199,7 +185,7 @@
                 <div class="absolute -left-[21px] md:-left-[53px] top-0 w-10 h-10 bg-black border border-cyan-500 rounded-full flex items-center justify-center z-20">
                     <span class="text-cyan-400 font-bold">03</span>
                 </div>
-                <div class="glass-panel p-8">
+                <div class="card-glass-panel">
                     <h3 class="text-2xl font-bold text-white mb-4 uppercase flex items-center gap-3">
                         <i data-lucide="mic" class="w-6 h-6 text-cyan-400"></i> L'Entretien Oral
                     </h3>
