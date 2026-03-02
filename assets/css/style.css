@@ -627,6 +627,161 @@ span.special-pin {
         padding: 2rem;
     }
 
+    /*COLORED*/
+    .card-glass-colored {
+        position: relative;
+
+        padding: 1.5rem;
+
+        border-width: 1px;
+        border-radius: 0.25rem;
+
+        overflow: hidden;
+    }
+
+    .card-glass-colored--primary {
+        background-color: #22d3ee1a;
+        border-color: #22d3ee33;
+    }
+    .card-glass-colored--secondary {
+        background-color: #6b6b6b1a;
+        border-color: #6b6b6b33;
+    }
+    .card-glass-colored--success {
+        background-color: #27ae601a;
+        border-color: #27ae6033;
+    }
+    .card-glass-colored--info {
+        background-color: #00d9ff1a;
+        border-color: #00d9ff33;
+    }
+    .card-glass-colored--warning {
+        background-color: #7c2d121a;
+        border-color: #f9731633;;
+    }
+    .card-glass-colored--danger {
+        background-color: #7f1d1d1a;
+        border-color: #ef444433;
+    }
+    .card-glass-colored--light {
+        background-color: #f9fafb1a;
+        border-color: #f9fafb33;
+    }
+    .card-glass-colored--dark {
+        background-color: #1e1e1e1a;
+        border-color: #1e1e1e33;
+    }
+    .card-glass-colored--blue {
+        background-color: #1e3a8a1a;
+        border-color: #3b82f633;
+    }
+
+    .card-glass-colored--bg-icon {
+        position: absolute;
+
+        top: 0;
+        right: 0;
+
+        padding: 1rem;
+
+        opacity: 0.1;
+    }
+    .card-glass-colored--icon {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .card-glass-colored--primary .card-glass-colored--icon, .card-glass-colored--primary .card-glass-colored--title {
+        color: #22d3ee;
+
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+
+        margin-bottom: 0.5rem;
+    }
+    .card-glass-colored--secondary .card-glass-colored--icon, .card-glass-colored--secondary .card-glass-colored--title {
+        color: #6b6b6b;
+
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+
+        margin-bottom: 0.5rem;
+    }
+    .card-glass-colored--success .card-glass-colored--icon, .card-glass-colored--success .card-glass-colored--title {
+        color: #27ae60;
+
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+
+        margin-bottom: 0.5rem;
+    }
+    .card-glass-colored--info .card-glass-colored--icon, .card-glass-colored--info .card-glass-colored--title {
+        color: #00d9ff;
+
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+
+        margin-bottom: 0.5rem;
+    }
+    .card-glass-colored--warning .card-glass-colored--icon, .card-glass-colored--warning .card-glass-colored--title {
+        color: #f97316;
+
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+
+        margin-bottom: 0.5rem;
+    }
+    .card-glass-colored--danger .card-glass-colored--icon, .card-glass-colored--danger .card-glass-colored--title {
+        color: #ef4444;
+
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+
+        margin-bottom: 0.5rem;
+    }
+    .card-glass-colored--light .card-glass-colored--icon, .card-glass-colored--light .card-glass-colored--title {
+        color: #f9fafb;
+
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+
+        margin-bottom: 0.5rem;
+    }
+    .card-glass-colored--dark .card-glass-colored--icon, .card-glass-colored--dark .card-glass-colored--title {
+        color: #1e1e1e;
+
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+
+        margin-bottom: 0.5rem;
+    }
+    .card-glass-colored--blue .card-glass-colored--icon, .card-glass-colored--blue .card-glass-colored--title {
+        color: #3b82f6;
+
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+
+        margin-bottom: 0.5rem;
+    }
+
 /*FRAME*/
 .frame-container {
     position: relative;
