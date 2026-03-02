@@ -175,8 +175,8 @@ a.btn--graphic, button.btn--graphic {
     background: #27ae6025;
 }
 .btn--graphic.btn--info {
-    border-color: rgb(6 182 212);
-    color: rgb(6 182 212);
+    border-color: #00d9ff;
+    color: #00d9ff;
 }
 .btn--graphic.btn--info:hover {
     background: #06b6d425;
@@ -297,7 +297,7 @@ a.btn--full-graphic, button.btn--full-graphic {
         transparent 1px,
         transparent 4px
     ),
-    #06b6d4;
+    #00d9ff;
 
     color: #000000;
 }
@@ -426,7 +426,7 @@ a.btn--glass:hover, button.btn--glass:hover {
     border-left-color: #27ae60;
 }
 .btn--glass.btn--info {
-    border-left-color: #06b6d4;
+    border-left-color: #00d9ff;
 }
 .btn--glass.btn--warning {
     border-left-color: #ffcc00;
