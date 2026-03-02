@@ -782,6 +782,103 @@ span.special-pin {
         margin-bottom: 0.5rem;
     }
 
+    /*INFO*/
+    .card-glass-info {
+        display: flex;
+        align-items: start;
+        gap: 1rem;
+
+        padding: 1rem;
+
+        border-radius: 4px;
+        border-width: 1px;
+    }
+
+    .card-glass-info--primary {
+        background-color: #22d3ee1a;
+        border-color: #22d3ee33;
+    }
+    .card-glass-info--secondary {
+        background-color: #6b6b6b1a;
+        border-color: #6b6b6b33;
+    }
+    .card-glass-info--success {
+        background-color: #27ae601a;
+        border-color: #27ae6033;
+    }
+    .card-glass-info--info {
+        background-color: #00d9ff1a;
+        border-color: #00d9ff33;
+    }
+    .card-glass-info--warning {
+        background-color: #7c2d121a;
+        border-color: #f9731633;;
+    }
+    .card-glass-info--danger {
+        background-color: #7f1d1d1a;
+        border-color: #ef444433;
+    }
+    .card-glass-info--light {
+        background-color: #f9fafb1a;
+        border-color: #f9fafb33;
+    }
+    .card-glass-info--dark {
+        background-color: #1e1e1e1a;
+        border-color: #1e1e1e33;
+    }
+    .card-glass-info--blue {
+        background-color: #1e3a8a1a;
+        border-color: #3b82f633;
+    }
+
+    .card-glass-info--title {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+    }
+    .card-glass-info--icon {
+        flex-shrink: 0;
+
+        width: 1.5rem;
+        height: 1.5rem;
+
+        margin-top: 0.25rem;
+    }
+    .card-glass-info--description {
+        font-size: 0.875rem !important;
+        line-height: 1.25rem;
+
+        margin-top: 0.25rem;
+
+        color: #9ca3af;
+    }
+
+    .card-glass-info--primary .card-glass-info--icon, .card-glass-info--primary .card-glass-info--title {
+        color: #22d3ee;
+    }
+    .card-glass-info--secondary .card-glass-info--icon, .card-glass-info--secondary .card-glass-info--title {
+        color: #6b6b6b;
+    }
+    .card-glass-info--success .card-glass-info--icon, .card-glass-info--success .card-glass-info--title {
+        color: #27ae60;
+    }
+    .card-glass-info--info .card-glass-info--icon, .card-glass-info--info .card-glass-info--title {
+        color: #00d9ff;
+    }
+    .card-glass-info--warning .card-glass-info--icon, .card-glass-info--warning .card-glass-info--title {
+        color: #f97316;
+    }
+    .card-glass-info--danger .card-glass-info--icon, .card-glass-info--danger .card-glass-info--title {
+        color: #ef4444;
+    }
+    .card-glass-info--light .card-glass-info--icon, .card-glass-info--light .card-glass-info--title {
+        color: #f9fafb;
+    }
+    .card-glass-info--dark .card-glass-info--icon, .card-glass-info--dark .card-glass-info--title {
+        color: #1e1e1e;
+    }
+
 /*FRAME*/
 .frame-container {
     position: relative;
