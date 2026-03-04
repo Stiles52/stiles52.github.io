@@ -26,9 +26,9 @@
             <span class="text-cyan-400 text-xs uppercase tracking-[0.3em]">Protocole d'Admission</span>
         </div>
         <h1 class="font-bold">REJOINDRE <span class="text--primary">L'AVENTURE</span></h1>
-        <p class="text-gray-400 max-w-2xl mx-auto text-sm" style="text-align: center;">
+        <blockquote class="max-w-2xl mx-auto" style="text-align: center;">
             Le processus de recrutement est strict mais ouvert à tous. Suivez ce guide pas à pas pour intégrer la simulation Star Maze.
-        </p>
+        </blockquote>
     </header>
 
     <main class="max-w-5xl mx-auto px-6 relative z-10 mb-24">
@@ -48,10 +48,11 @@
                 <span>Guide du Skin</span>
             </a>
         </div>
-        <div class="border border-red-500/50 bg-red-950/30 p-6 rounded mb-16 relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(239,68,68,0.05)_10px,rgba(239,68,68,0.05)_20px)] pointer-events-none"></div>
+        
+        <div class="card-error mb-16">
+            <div class="card-error--background"></div>
             
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-6 relative z-10">
+            <div class="card-error--container--double">
                 <div class="p-4 bg-red-500/20 rounded-full border border-red-500 shrink-0">
                     <i data-lucide="lock" class="w-8 h-8 text-red-500 animate-pulse"></i>
                 </div>
@@ -66,6 +67,7 @@
                 </div>
             </div>
         </div>
+
         <div class="relative border-l border-cyan-900/50 ml-4 md:ml-0 md:pl-12 space-y-16">
             
             <div class="relative">
@@ -200,10 +202,10 @@
 
         </div>
 
-        <div class="mt-24 border border-red-500/50 bg-red-950/20 p-8 rounded relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#ef4444_10px,#ef4444_20px)] opacity-50"></div>
+        <div class="card-error mt-24">
+            <div class="card-error--top"></div>
             
-            <div class="flex items-center gap-4 mb-6">
+            <div class="card-error--title">
                 <div class="p-3 bg-red-500/20 rounded-full border border-red-500">
                     <i data-lucide="alert-triangle" class="w-8 h-8 text-red-500"></i>
                 </div>
