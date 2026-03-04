@@ -523,6 +523,134 @@ span.special-pin {
     transition-duration: 300ms;
 }
 
+/*ASIDE MENU*/
+aside.origin-nav {
+    z-index: 50;
+
+    position: relative;
+
+    display: none;
+    flex-direction: column;
+    flex-shrink: 0;
+
+    width: 16rem;
+
+    border-right-width: 1px;
+
+    background-color: #000000e6;
+    border-color: #164e634d;
+}
+.origin-nav--header {
+    padding: 1.5rem;
+
+    border-bottom-width: 1px;
+    border-color: #164e634d;
+}
+.origin-nav--menu {
+    padding: 1.5rem 1rem;
+
+    flex: 1 1 0%;
+
+    overflow-y: auto;
+
+    margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));
+}
+.origin-nav--categorie-title {
+    margin-bottom: 0.75rem;
+    padding: 0 0.5rem;
+
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+
+    color: #4b5563;
+}
+.origin-nav--categorie-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    padding: 0.5rem 0.75px;
+    margin-bottom: 1.5rem;
+
+    font-size: 0.75rem;
+    line-height: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #9ca3af;
+
+    border-radius: 0.25rem;
+
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+.origin-nav--categorie-link:hover {
+    background-color: #ffffff0d;
+    color: #ffffff;
+}
+.origin-nav--categorie-separator {
+    height: 1px;
+
+    background-color: #111827;
+
+    margin-bottom: 1.5rem;
+}
+.origin-nav--categorie-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    width: 100%;
+
+    padding: 0.75rem;
+
+    font-size: 0.75rem;
+    line-height: 1rem;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #9ca3af;
+
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    border-left-width: 4px;
+    border-color: transparent;
+
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+.origin-nav--categorie-button:hover {
+    background-color: #ffffff0d;
+    color: #ffffff;
+}
+.origin-nav--categorie-button--active {
+    border-color: #22d3ee;
+    background-color: #164e631a;
+    color: #22d3ee;
+}
+.origin-nav--footer {
+    position: relative;
+
+    padding: 1rem;
+
+    border-top-width: 1px;
+    border-color: #164e634d;
+
+    font-size: 10px;
+    text-align: center;
+    color: #4b5563;
+}
+
+@media (min-width: 768px) {
+    aside.origin-nav {
+        display: flex;
+    }
+}
+
 /*CARDS*/
     /*HOLOGRAPHIC*/
     .card-holographic {
