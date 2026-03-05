@@ -445,6 +445,12 @@ a.btn--glass:hover, button.btn--glass:hover {
 }
 
 /*NAVIGATION*/
+@media (min-width: 768px) {
+    nav.origin-nav {
+        padding: 2rem !important;
+        justify-content: flex-end !important;
+    }
+}
 nav.origin-nav {
     position: fixed;
     top: 0;
