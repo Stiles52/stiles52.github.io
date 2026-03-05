@@ -104,6 +104,15 @@ blockquote {
 
     text-align: justify;
 }
+label {
+    display: flex;
+}
+a:link {
+    color: #41b8cb;
+}
+a:visited {
+    color: #2a6c76;
+}
 
 /*TEXTS STATUS*/
 .text--primary { color: #22d3ee; }
