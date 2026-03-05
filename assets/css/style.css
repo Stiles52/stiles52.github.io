@@ -445,12 +445,6 @@ a.btn--glass:hover, button.btn--glass:hover {
 }
 
 /*NAVIGATION*/
-@media (min-width: 768px) {
-    nav.origin-nav {
-        padding: 2rem !important;
-        justify-content: flex-end !important;
-    }
-}
 nav.origin-nav {
     position: fixed;
     top: 0;
@@ -472,6 +466,8 @@ nav.origin-nav {
 ul.origin-nav-list {
     display: flex;
     gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 a.origin-nav-list-link {
     font-size: 0.75rem;
@@ -521,6 +517,12 @@ span.special-pin {
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
+}
+@media (min-width: 768px) {
+    nav.origin-nav {
+        padding: 2rem !important;
+        justify-content: flex-end !important;
+    }
 }
 
 /*ASIDE MENU*/
