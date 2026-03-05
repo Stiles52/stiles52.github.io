@@ -779,7 +779,6 @@ aside.origin-nav {
 
         margin-bottom: 1.5rem;
     }
-    .card-error--container {}
     @media (min-width: 768px) {
         .card-error--container--double {
             flex-direction: row !important;
@@ -1207,3 +1206,12 @@ aside.origin-nav {
     .badge-glass--blue .badge-glass--text {
         color: #3b82f6;
     }
+
+/*LOGIN*/
+.login--footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    
+    width: 100%;
+}
