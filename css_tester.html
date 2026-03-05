@@ -644,6 +644,26 @@
                         <span onclick="phantomCopy()" class="cursor-default opacity-0 px-2 py-1 select-none absolute" title="ERR_BUFFER_OVERFLOW">.</span>
                     </div>
                 </aside>
+                <nav class="origin-nav--responsive">
+                    <button onclick="switchView('history')" id="mob-btn-history" class="origin-nav--responsive--button origin-nav--responsive--button-active group">
+                        <i data-lucide="dice-1" class="w-6 h-6 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-[10px] uppercase tracking-widest">Active</span>
+                    </button>
+
+                    <div class="w-px h-8 bg-gray-800"></div>
+
+                    <button onclick="switchView('database')" id="mob-btn-database" class="origin-nav--responsive--button group">
+                        <i data-lucide="dice-2" class="w-6 h-6 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-[10px] uppercase tracking-widest">Normal</span>
+                    </button>
+                    
+                    <div class="w-px h-8 bg-gray-800"></div>
+
+                    <a href="index.html" class="origin-nav--responsive--button origin-nav--responsive--button-important group">
+                        <i data-lucide="power" class="w-6 h-6 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-[10px] uppercase tracking-widest">Sortir</span>
+                    </a>
+                </nav>
             </div>
         </div>
     </section>
