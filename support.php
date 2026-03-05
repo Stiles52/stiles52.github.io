@@ -4,23 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self';">
+
     <title>SUPPORT & RÈGLEMENT - ORIGIN</title>
+
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+    <link href="./assets/css/style.css" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background-color: black;
-            color: white;
-            overflow-x: hidden;
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #0e7490; border-radius: 4px; }
 
         .glass-panel {
             background: rgba(0, 0, 0, 0.8);
@@ -44,32 +37,14 @@
         
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        body {
-            transition: opacity 0.5s ease-in-out;
-        }
-        body.fade-out {
-            opacity: 0;
-        }
     </style>
 </head>
 <body class="bg-black min-h-screen flex flex-col pb-24 md:pb-0">
 
     <div class="scanline"></div>
 
-    <nav class="fixed top-0 left-0 w-full p-4 md:p-8 z-50 flex justify-center md:justify-end items-center backdrop-blur-sm bg-black/20 border-b border-cyan-900/30">
-        <ul class="flex gap-4 md:gap-8">
-            <li><a href="index.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">Accueil</a></li>
-            <li><a href="lore.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">Lore</a></li>
-            <li><a href="join.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">Nous Rejoindre</a></li>
-            <li>
-                <a href="support.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-cyan-400 font-bold flex items-center gap-2">
-                    Support
-                    <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <!-- NAVIGATION -->
+    <?php include './assets/elements/header.php'; ?>
 
     <header class="pt-32 pb-8 px-6 text-center relative z-10">
         <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tighter mb-4">CENTRE <span class="text-cyan-400">ADMINISTRATIF</span></h1>
