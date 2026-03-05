@@ -36,16 +36,21 @@
             </a>
         </li>
         <li>
-            <a href="support" class="origin-nav-list-link origin-nav-list-special group <?php if($currentPage == 'support') { echo 'origin-nav-list-active'; } ?>">
-                Support
+            <a href="rules" class="origin-nav-list-link <?php if($currentPage == 'join') { echo 'origin-nav-list-active'; } ?>">
+                Règlement
                 <?php 
-                    if($currentPage == 'support') {
+                    if($currentPage == 'join') {
                         echo '<div class="active-pin"></div>';
                     }
-                    else {
-                        echo '<span class="special-pin group-hover:w-4"></span>';
-                    }
                 ?>
+            </a>
+        </li>
+        <li>
+            <a href="login" class="origin-nav-list-link origin-nav-list-special group <?php if($currentPage == 'support') { echo 'origin-nav-list-active'; } ?>">
+                <button class="origin-btn btn--full-graphic btn--primary">
+                    <span>Support</span>
+                    <i data-lucide="log-in" class="btn--icon"></i>
+                </button>
             </a>
         </li>
     </ul>
