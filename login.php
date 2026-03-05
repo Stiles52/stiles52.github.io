@@ -34,8 +34,28 @@
         <div>
             <div style="padding: 15px; border: 1px solid #20d3ee33; width: 600px;">
                 <h3 class="font-bold text-white uppercase">Connexion <span class="text-cyan-400">au support</span></h3>
-                <div style="display: flex; justify-content: center; padding-top: 45px;">
-                    eeee
+                <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; padding-top: 45px;">
+                    <div style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center; padding-bottom: 25px;">
+                        <label><i data-lucide="user" class="lucide w-5 h-5" style="margin-right: 10px;"></i> E-Mail ou Pseudonyme</label>
+                        <input type="text" placeholder="Identifiant">
+                    </div>
+                    <div style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center; padding-bottom: 25px;">
+                        <label><i data-lucide="key-round" class="lucide w-5 h-5" style="margin-right: 10px;"></i> Mot de passe</label>
+                        <input type="password" placeholder="Clés">
+                    </div>
+                    <div style="display: flex; width: 100%; justify-content: space-between; flex-direction: row; align-items: center; padding-top: 25px;">
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <label class="checkbox">
+                                <input type="checkbox" name="checkbox-content" class="checkbox-content">
+                                <span class="checkbox-mark"></span>
+                                <span class="checkbox-label-text">Se souvenir de moi</span>
+                            </label>
+                        </div>
+                        <div>
+                            <a href="#">Mot de passe oubliés ?</a>
+                        </div>
+                    </div>
+                    <p style="text-align: center; padding-top: 15px;">Vous n'avez pas de compte ? <a href="#">Inscrivez-vous !</a></p>
                 </div>
             </div>
             <div style="display: flex; justify-content: space-between; margin-top: 15px;">
