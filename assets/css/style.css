@@ -1230,3 +1230,82 @@ aside.origin-nav {
     
     width: 100%;
 }
+
+/*<input type="checkbox">
+<input type="file">
+<input type="image">
+<input type="radio">
+<input type="range">
+<input type="reset">
+<input type="submit">*/
+/*INPUTS*/
+input[type=text], input[type=password], input[type=number], input[type=color], input[type=tel], input[type=email], input[type=week], input[type=url], input[type=time], input[type=search], input[type=date], input[type=month], input[type=datetime-local] {
+    background: #000000e6;
+    border: 1px solid #164e634d;
+    border-bottom-width: 4px;
+    border-bottom-color: #164e63;
+    margin: 5px;
+    padding: 5px;
+    width: 60%;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Masquer la checkbox native */
+.remember-me input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkbox {
+    align-items: center;
+    gap: 10px;
+}
+.checkbox .checkbox-mark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #00bcd4;
+    background: #000000e6;
+    display: inline-block;
+    flex-shrink: 0;
+    position: relative;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.checkbox:hover .checkbox-mark {
+    box-shadow: 0 0 8px #00bcd4, inset 0 0 4px rgba(0, 188, 212, 0.15);
+}
+.checkbox input[type="checkbox"]:checked + .checkbox-mark {
+    background: #00bcd4;
+    box-shadow: 0 0 10px #00bcd4, 0 0 20px rgba(0, 188, 212, 0.3);
+}
+.checkbox input[type="checkbox"]:checked + .checkbox-mark::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: 2px solid #0a0a0a;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+}
+.checkbox .checkbox-label-text {
+    font-family: monospace;
+    font-weight: bold;
+    color: #e0e0e0;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.checkbox-content {
+    display: none;
+}
