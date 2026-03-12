@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self';">
+    <title>TICKETS - ORIGIN</title>
+
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+    <link href="./assets/css/style.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-black h-screen w-full flex">
+    <?php include "./assets/elements/nav-dashboard.php"; ?>
+
+    <main id="main-container" class="flex-1 relative overflow-hidden bg-black pb-24 md:pb-0">
+
+        <div id="view-history" class="absolute inset-0 overflow-y-auto p-6 pb-32 md:p-12 fade-in-view">
+            <h3 class="pb-12 text-cyan-400">Gérer vos tickets</h3>
+
+            <div class="mt-8">
+                <table>
+                    <thead>
+                        <tr>
+                            <td width="100px">ID#</td>
+                            <td width="150px">Statut</td>
+                            <td width="300px">Titre</td>
+                            <td>Dernière réponse</td>
+                            <td width="200px">Tags</td>
+                            <td width="80px">Actions</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#0000001</td>
+                            <td>
+                                <div class="badge-glass badge-glass--primary">
+                                    <span class="badge-glass--text">Nouveau</span>
+                                </div>
+                            </td>
+                            <td>Le titre d'un ticket !</td>
+                            <td>
+                                <section class="card-holographic">
+                                    <div class="card-holographic--title">
+                                        <i data-lucide="message-circle-warning" class="w-5 h-5 text-cyan-400"></i>
+                                        <span>Réponse de : XXXXXXXXXXXXX</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <p>
+                                                Lorem ipsum dolor sit amet. Et rerum odio qui consequatur maiores At nihil voluptatem non deserunt neque eum nesciunt soluta. Nam velit iste in tempore consequatur sed voluptates reprehenderit non nesciunt consequatur et error doloremque vel atque reprehenderit eos quas iste.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </td>
+                            <td>
+                                <div class="badge-glass badge-glass--primary mb-2">
+                                    <span class="badge-glass--text">Priorité basse</span>
+                                </div>
+                                <div class="badge-glass badge-glass--warning mb-2">
+                                    <span class="badge-glass--text">Ticket Modération</span>
+                                </div>
+                            </td>
+                            <td>
+                                <button>
+                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#0000002</td>
+                            <td>
+                                <div class="badge-glass badge-glass--warning">
+                                    <span class="badge-glass--text">En cours</span>
+                                </div>
+                            </td>
+                            <td>Le titre d'un ticket !</td>
+                            <td>
+                                <section class="card-holographic">
+                                    <div class="card-holographic--title">
+                                        <i data-lucide="message-circle-warning" class="w-5 h-5 text-cyan-400"></i>
+                                        <span>Réponse de : XXXXXXXXXXXXX</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <p>
+                                                Lorem ipsum dolor sit amet. Et rerum odio qui consequatur maiores At nihil voluptatem non deserunt neque eum nesciunt soluta. Nam velit iste in tempore consequatur sed voluptates reprehenderit non nesciunt consequatur et error doloremque vel atque reprehenderit eos quas iste.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </td>
+                            <td>
+                                <div class="badge-glass badge-glass--warning mb-2">
+                                    <span class="badge-glass--text">Priorité moyenne</span>
+                                </div>
+                                <div class="badge-glass badge-glass--danger mb-2">
+                                    <span class="badge-glass--text">Ticket Administration</span>
+                                </div>
+                            </td>
+                            <td>
+                                <button>
+                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#0000003</td>
+                            <td>
+                                <div class="badge-glass badge-glass--secondary">
+                                    <span class="badge-glass--text">En attente</span>
+                                </div>
+                            </td>
+                            <td>Le titre d'un ticket !</td>
+                            <td>
+                                <section class="card-holographic">
+                                    <div class="card-holographic--title">
+                                        <i data-lucide="message-circle-warning" class="w-5 h-5 text-cyan-400"></i>
+                                        <span>Réponse de : XXXXXXXXXXXXX</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <p>
+                                                Lorem ipsum dolor sit amet. Et rerum odio qui consequatur maiores At nihil voluptatem non deserunt neque eum nesciunt soluta. Nam velit iste in tempore consequatur sed voluptates reprehenderit non nesciunt consequatur et error doloremque vel atque reprehenderit eos quas iste.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </td>
+                            <td>
+                                <div class="badge-glass badge-glass--danger mb-2">
+                                    <span class="badge-glass--text">Priorité haute</span>
+                                </div>
+                                <div class="badge-glass badge-glass--primary mb-2">
+                                    <span class="badge-glass--text">Ticket Scénariste</span>
+                                </div>
+                            </td>
+                            <td>
+                                <button>
+                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#0000004</td>
+                            <td>
+                                <div class="badge-glass badge-glass--success">
+                                    <span class="badge-glass--text">Résolut !</span>
+                                </div>
+                            </td>
+                            <td>Le titre d'un ticket !</td>
+                            <td>
+                                <section class="card-holographic">
+                                    <div class="card-holographic--title">
+                                        <i data-lucide="message-circle-warning" class="w-5 h-5 text-cyan-400"></i>
+                                        <span>Réponse de : XXXXXXXXXXXXX</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <p>
+                                                Lorem ipsum dolor sit amet. Et rerum odio qui consequatur maiores At nihil voluptatem non deserunt neque eum nesciunt soluta. Nam velit iste in tempore consequatur sed voluptates reprehenderit non nesciunt consequatur et error doloremque vel atque reprehenderit eos quas iste.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </td>
+                            <td>
+                                <div class="badge-glass badge-glass--danger mb-2">
+                                    <span class="badge-glass--text">Priorité haute</span>
+                                </div>
+                                <div class="badge-glass badge-glass--primary mb-2">
+                                    <span class="badge-glass--text">Ticket Scénariste</span>
+                                </div>
+                            </td>
+                            <td>
+                                <button>
+                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#0000005</td>
+                            <td>
+                                <div class="badge-glass badge-glass--success">
+                                    <span class="badge-glass--text">Résolut !</span>
+                                </div>
+                            </td>
+                            <td>Le titre d'un ticket !</td>
+                            <td>
+                                <section class="card-holographic">
+                                    <div class="card-holographic--title">
+                                        <i data-lucide="message-circle-warning" class="w-5 h-5 text-cyan-400"></i>
+                                        <span>Réponse de : XXXXXXXXXXXXX</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <p>
+                                                Lorem ipsum dolor sit amet. Et rerum odio qui consequatur maiores At nihil voluptatem non deserunt neque eum nesciunt soluta. Nam velit iste in tempore consequatur sed voluptates reprehenderit non nesciunt consequatur et error doloremque vel atque reprehenderit eos quas iste.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </td>
+                            <td>
+                                <div class="badge-glass badge-glass--danger mb-2">
+                                    <span class="badge-glass--text">Priorité haute</span>
+                                </div>
+                                <div class="badge-glass badge-glass--primary mb-2">
+                                    <span class="badge-glass--text">Ticket Scénariste</span>
+                                </div>
+                            </td>
+                            <td>
+                                <button>
+                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#0000006</td>
+                            <td>
+                                <div class="badge-glass badge-glass--success">
+                                    <span class="badge-glass--text">Résolut !</span>
+                                </div>
+                            </td>
+                            <td>Le titre d'un ticket !</td>
+                            <td>
+                                <section class="card-holographic">
+                                    <div class="card-holographic--title">
+                                        <i data-lucide="message-circle-warning" class="w-5 h-5 text-cyan-400"></i>
+                                        <span>Réponse de : XXXXXXXXXXXXX</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <p>
+                                                Lorem ipsum dolor sit amet. Et rerum odio qui consequatur maiores At nihil voluptatem non deserunt neque eum nesciunt soluta. Nam velit iste in tempore consequatur sed voluptates reprehenderit non nesciunt consequatur et error doloremque vel atque reprehenderit eos quas iste.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </td>
+                            <td>
+                                <div class="badge-glass badge-glass--danger mb-2">
+                                    <span class="badge-glass--text">Priorité haute</span>
+                                </div>
+                                <div class="badge-glass badge-glass--primary mb-2">
+                                    <span class="badge-glass--text">Ticket Scénariste</span>
+                                </div>
+                            </td>
+                            <td>
+                                <button>
+                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#0000007</td>
+                            <td>
+                                <div class="badge-glass badge-glass--success">
+                                    <span class="badge-glass--text">Résolut !</span>
+                                </div>
+                            </td>
+                            <td>Le titre d'un ticket !</td>
+                            <td>
+                                <section class="card-holographic">
+                                    <div class="card-holographic--title">
+                                        <i data-lucide="message-circle-warning" class="w-5 h-5 text-cyan-400"></i>
+                                        <span>Réponse de : XXXXXXXXXXXXX</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <p>
+                                                Lorem ipsum dolor sit amet. Et rerum odio qui consequatur maiores At nihil voluptatem non deserunt neque eum nesciunt soluta. Nam velit iste in tempore consequatur sed voluptates reprehenderit non nesciunt consequatur et error doloremque vel atque reprehenderit eos quas iste.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </td>
+                            <td>
+                                <div class="badge-glass badge-glass--danger mb-2">
+                                    <span class="badge-glass--text">Priorité haute</span>
+                                </div>
+                                <div class="badge-glass badge-glass--primary mb-2">
+                                    <span class="badge-glass--text">Ticket Scénariste</span>
+                                </div>
+                            </td>
+                            <td>
+                                <button>
+                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#0000008</td>
+                            <td>
+                                <div class="badge-glass badge-glass--success">
+                                    <span class="badge-glass--text">Résolut !</span>
+                                </div>
+                            </td>
+                            <td>Le titre d'un ticket !</td>
+                            <td>
+                                <section class="card-holographic">
+                                    <div class="card-holographic--title">
+                                        <i data-lucide="message-circle-warning" class="w-5 h-5 text-cyan-400"></i>
+                                        <span>Réponse de : XXXXXXXXXXXXX</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <p>
+                                                Lorem ipsum dolor sit amet. Et rerum odio qui consequatur maiores At nihil voluptatem non deserunt neque eum nesciunt soluta. Nam velit iste in tempore consequatur sed voluptates reprehenderit non nesciunt consequatur et error doloremque vel atque reprehenderit eos quas iste.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </td>
+                            <td>
+                                <div class="badge-glass badge-glass--danger mb-2">
+                                    <span class="badge-glass--text">Priorité haute</span>
+                                </div>
+                                <div class="badge-glass badge-glass--primary mb-2">
+                                    <span class="badge-glass--text">Ticket Scénariste</span>
+                                </div>
+                            </td>
+                            <td>
+                                <button>
+                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#0000009</td>
+                            <td>
+                                <div class="badge-glass badge-glass--success">
+                                    <span class="badge-glass--text">Résolut !</span>
+                                </div>
+                            </td>
+                            <td>Le titre d'un ticket !</td>
+                            <td>
+                                <section class="card-holographic">
+                                    <div class="card-holographic--title">
+                                        <i data-lucide="message-circle-warning" class="w-5 h-5 text-cyan-400"></i>
+                                        <span>Réponse de : XXXXXXXXXXXXX</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <p>
+                                                Lorem ipsum dolor sit amet. Et rerum odio qui consequatur maiores At nihil voluptatem non deserunt neque eum nesciunt soluta. Nam velit iste in tempore consequatur sed voluptates reprehenderit non nesciunt consequatur et error doloremque vel atque reprehenderit eos quas iste.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </td>
+                            <td>
+                                <div class="badge-glass badge-glass--danger mb-2">
+                                    <span class="badge-glass--text">Priorité haute</span>
+                                </div>
+                                <div class="badge-glass badge-glass--primary mb-2">
+                                    <span class="badge-glass--text">Ticket Scénariste</span>
+                                </div>
+                            </td>
+                            <td>
+                                <button>
+                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#0000010</td>
+                            <td>
+                                <div class="badge-glass badge-glass--success">
+                                    <span class="badge-glass--text">Résolut !</span>
+                                </div>
+                            </td>
+                            <td>Le titre d'un ticket !</td>
+                            <td>
+                                <section class="card-holographic">
+                                    <div class="card-holographic--title">
+                                        <i data-lucide="message-circle-warning" class="w-5 h-5 text-cyan-400"></i>
+                                        <span>Réponse de : XXXXXXXXXXXXX</span>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <p>
+                                                Lorem ipsum dolor sit amet. Et rerum odio qui consequatur maiores At nihil voluptatem non deserunt neque eum nesciunt soluta. Nam velit iste in tempore consequatur sed voluptates reprehenderit non nesciunt consequatur et error doloremque vel atque reprehenderit eos quas iste.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </td>
+                            <td>
+                                <div class="badge-glass badge-glass--danger mb-2">
+                                    <span class="badge-glass--text">Priorité haute</span>
+                                </div>
+                                <div class="badge-glass badge-glass--primary mb-2">
+                                    <span class="badge-glass--text">Ticket Scénariste</span>
+                                </div>
+                            </td>
+                            <td>
+                                <button>
+                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer class="border-t border-cyan-900/30 py-12 text-center bg-black absolute bottom-0 w-full pointer-events-none opacity-50">
+            <p class="text-xs text-gray-600 tracking-widest text-center">© OriginRp, <?php echo date('Y'); ?>. Tous droits réservés. Reproduction strictement interdite.</p>
+        </footer>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
