@@ -610,6 +610,9 @@ aside.origin-nav {
 a.origin-nav--categorie-link:link {
     color: #9ca3af;
 }
+a.origin-nav--categorie-link:visited {
+    color: #9ca3af;
+}
 .origin-nav--categorie-link:hover {
     background-color: #ffffff0d;
     color: #ffffff;
@@ -646,6 +649,12 @@ a.origin-nav--categorie-link:link {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
 }
+.origin-nav--categorie-button:link {
+    color: #9ca3af;
+}
+.origin-nav--categorie-button:visited {
+    color: #9ca3af;
+}
 .origin-nav--categorie-button:hover {
     background-color: #ffffff0d;
     color: #ffffff;
@@ -653,7 +662,7 @@ a.origin-nav--categorie-link:link {
 .origin-nav--categorie-button--active {
     border-color: #22d3ee;
     background-color: #164e631a;
-    color: #22d3ee;
+    color: #22d3ee !important;
 }
 .origin-nav--footer {
     position: relative;
