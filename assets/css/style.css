@@ -419,6 +419,9 @@ a.btn--glass, button.btn--glass {
     font-weight: bold;
     text-transform: uppercase;
 
+    color: #FFFFFF;
+    font-weight: bold;
+
     justify-content: center;
 }
 a.btn--glass:hover, button.btn--glass:hover {
