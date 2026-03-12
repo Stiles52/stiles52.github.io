@@ -1,3 +1,8 @@
+<?php
+
+    $currentPage = basename($_SERVER['PHP_SELF'], '.php');
+
+?>
 <aside class="origin-nav">
     <div class="origin-nav--header">
         <h5 class="font-bold tracking-tighter">ORIGIN <span class="text-cyan-400">SUPPORT</span></h5>
@@ -11,77 +16,81 @@
             <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
             <span class="text-[10px] text-green-500 uppercase tracking-widest">Connecté</span>
         </div>
-        <button id="btn-database" onclick="switchView('database')" class="origin-nav--categorie-button" data-sound-attached="true" style="margin-bottom: 0; margin-top: 1.5rem;">
+        <a href="./parameters" class="origin-nav--categorie-button" data-sound-attached="true" style="margin-bottom: 0; margin-top: 1.5rem;">
             <i data-lucide="settings" class="lucide lucide-history w-4 h-4"></i>
             Paramètres
-        </button>
-        <a href="#" class="origin-nav--categorie-link group" style="margin-bottom: 0;" data-sound-attached="true">
+        </a>
+        <a href="./actions/disconnect" class="origin-nav--categorie-link group" style="margin-bottom: 0;" data-sound-attached="true">
             <i data-lucide="power" class="lucide lucide-power w-4 h-4 group-hover:text-red-400 transition-colors"></i>  
             Déconnexion
         </a>
     </div>
     <nav class="origin-nav--menu">
         <div class="origin-nav--categorie-title">Général</div>
-        <button id="btn-database" class="origin-nav--categorie-button origin-nav--categorie-button--active" data-sound-attached="true">
+        <a href="./dashboard" class="origin-nav--categorie-button <?php if($currentPage == 'dashboard') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="house" class="lucide lucide-history w-4 h-4"></i>
             Dashboard
-        </button>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        </a>
+        <a href="./profil" class="origin-nav--categorie-button <?php if($currentPage == 'profil') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="contact-round" class="lucide lucide-history w-4 h-4"></i>
             Votre profile
-        </button>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        </a>
+        <a href="./candidature" class="origin-nav--categorie-button <?php if($currentPage == 'candidature') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="pen" class="lucide lucide-history w-4 h-4"></i>
             Candidature RP
-        </button>
+        </a>
 
         <div class="origin-nav--categorie-separator"></div>
 
         <div class="origin-nav--categorie-title">Support</div>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        <a href="./ticket-actions" class="origin-nav--categorie-button <?php if($currentPage == 'ticket-action') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="ticket-plus" class="lucide lucide-history w-4 h-4"></i>
             Créer un ticket
-        </button>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        </a>
+        <a href="./tickets" class="origin-nav--categorie-button <?php if($currentPage == 'tickets') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="tickets" class="lucide lucide-history w-4 h-4"></i>
             Gérer vos tickets
-        </button>
+        </a>
 
         <div class="origin-nav--categorie-separator"></div>
 
         <div class="origin-nav--categorie-title">Administration</div>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        <a href="./monitoring" class="origin-nav--categorie-button <?php if($currentPage == 'monitoring') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="tv-minimal" class="lucide lucide-history w-4 h-4"></i>
             Monitoring du site
-        </button>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        </a>
+        <a href="./logs" class="origin-nav--categorie-button <?php if($currentPage == 'logs') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="file-clock" class="lucide lucide-history w-4 h-4"></i>
             Gestion des logs
-        </button>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        </a>
+        <a href="./users" class="origin-nav--categorie-button <?php if($currentPage == 'users') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="users" class="lucide lucide-history w-4 h-4"></i>
             Gest. utilisateurs
-        </button>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        </a>
+        <a href="./groups" class="origin-nav--categorie-button <?php if($currentPage == 'groups') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+            <i data-lucide="user-key" class="lucide lucide-history w-4 h-4"></i>
+            Gest. groupes
+        </a>
+        <a href="./permissions" class="origin-nav--categorie-button <?php if($currentPage == 'permissions') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="user-key" class="lucide lucide-history w-4 h-4"></i>
             Gest. permissions
-        </button>
+        </a>
 
         <div class="origin-nav--categorie-separator"></div>
 
         <div class="origin-nav--categorie-title">Management</div>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        <a href="./manage-tickets" class="origin-nav--categorie-button <?php if($currentPage == 'manage-tickets') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="scroll-text" class="lucide lucide-history w-4 h-4"></i>
             Gestion des tickets
-        </button>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        </a>
+        <a href="./permissions" class="origin-nav--categorie-button <?php if($currentPage == 'permissions') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="notebook-text" class="lucide lucide-history w-4 h-4"></i>
             Gest. candidatures
-        </button>
-        <button id="btn-database" class="origin-nav--categorie-button" data-sound-attached="true">
+        </a>
+        <a href="./profil-visual" class="origin-nav--categorie-button <?php if($currentPage == 'profil-visual') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="notebook-text" class="lucide lucide-history w-5 h-5"></i>
             Visualisateur des profils
-        </button>
+        </a>
     </nav>
     <div class="origin-nav--footer">
         TERMINAL V.3.0.4
