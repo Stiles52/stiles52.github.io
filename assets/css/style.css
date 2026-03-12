@@ -1315,3 +1315,23 @@ input[type=text], input[type=password], input[type=number], input[type=color], i
 .checkbox-content {
     display: none;
 }
+
+/*TABLE*/
+table {
+    width:100%;
+    border-width: 1px;
+    border-color: #22d3ee33 !important;
+    border-radius: 4px;
+}
+thead {
+    background: #22d3ee4d;
+}
+td {
+    padding: 0.5rem;
+}
+tbody tr td {
+    background: #000000;
+}
+tbody tr:nth-child(even) td {
+    background: #4747471a;
+}
