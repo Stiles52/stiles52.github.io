@@ -18,6 +18,9 @@ body.fade-out {
     opacity: 0;
     /* Pour l'effet de sortie */
 }
+.hidden {
+    display: none !important;
+}
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
@@ -1254,7 +1257,7 @@ a.origin-nav--categorie-link:visited {
 <input type="reset">
 <input type="submit">*/
 /*INPUTS*/
-input[type=text], input[type=password], input[type=number], input[type=color], input[type=tel], input[type=email], input[type=week], input[type=url], input[type=time], input[type=search], input[type=date], input[type=month], input[type=datetime-local] {
+input[type=text], input[type=password], input[type=number], input[type=color], input[type=tel], input[type=email], input[type=week], input[type=url], input[type=time], input[type=search], input[type=date], input[type=month], input[type=datetime-local], select {
     background: #000000e6;
     border: 1px solid #164e634d;
     border-bottom-width: 4px;
@@ -1262,6 +1265,9 @@ input[type=text], input[type=password], input[type=number], input[type=color], i
     margin: 5px;
     padding: 5px;
     width: 60%;
+}
+input:focus {
+    outline: none;
 }
 
 .remember-me {
