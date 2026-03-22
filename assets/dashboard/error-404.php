@@ -34,29 +34,31 @@
     
 </style>
 <main class="flex flex-col items-center justify-center h-screen relative p-6 w-full">
-
     <div class="border border-red-500/50 bg-red-900/10 p-8 md:p-12 rounded text-center max-w-2xl relative shadow-[0_0_50px_rgba(220,38,38,0.2)]">
         
         <i data-lucide="alert-octagon" class="w-20 h-20 text-red-500 mx-auto mb-6 animate-pulse"></i>
         
         <h1 class="text-6xl md:text-8xl font-bold text-white mb-2 glitch" data-text="404">404</h1>
         
-        <h2 class="text-red-500 text-xl md:text-2xl font-bold uppercase tracking-widest mb-6">
-            ERREUR SYSTÈME : DONNÉES CORROMPUES
+        <h2 class="text-red-500 uppercase mt-6">
+            ERREUR SYSTÈME :
         </h2>
+        <h3 class="text-red-500 uppercase mb-6">
+            DONNÉES CORROMPUES
+        </h3>
         
-        <p class="text-gray-400 text-sm mb-8 leading-relaxed font-mono">
+        <blockquote class="mb-8 text-center">
             L'URL demandée est introuvable sur le réseau Origin.<br>
             Le fichier a peut-être été supprimé par la Fédération ou n'a jamais existé. 
-        </p> 
+        </blockquote> 
         <div class="flex flex-col md:flex-row gap-4 justify-center">
-            <a href="index.html" class="border border-red-500 text-red-400 hover:bg-red-500 hover:text-white px-6 py-3 rounded uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2">
+            <a href="index.html" class="origin-btn btn--graphic btn--danger uppercase">
                 <i data-lucide="power" class="w-4 h-4"></i> Redémarrer le Système
             </a>
         </div>
 
-        <div class="absolute bottom-2 left-0 w-full text-center">
-            <p class="text-[9px] text-red-500/50 font-mono">ERROR_CODE: 0x000_NULL_POINTER</p>
+        <div class="absolute bottom-2 left-0 w-full">
+            <p class="text-[9px] text-red-500/50 font-mono text-center">ERROR_CODE: 0x000_NULL_POINTER</p>
         </div>
     </div>
 </main>
