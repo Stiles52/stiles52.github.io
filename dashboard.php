@@ -13,7 +13,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-black h-screen w-full flex">
+<body class="bg-black h-screen w-full flex overflow-hidden">
     <?php include "./assets/elements/nav-dashboard.php"; ?>
 
     <?php

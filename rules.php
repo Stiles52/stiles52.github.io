@@ -47,8 +47,8 @@
     <?php include './assets/elements/header.php'; ?>
 
     <header class="pt-32 pb-8 px-6 text-center relative z-10">
-        <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tighter mb-4">CENTRE <span class="text-cyan-400">ADMINISTRATIF</span></h1>
-        <p class="text-gray-400 text-xs md:text-sm uppercase tracking-widest">Règlementation & Assistance</p>
+        <h1 class="font-bold text-white mb-4">CENTRE <span class="text-cyan-400">ADMINISTRATIF</span></h1>
+        <p class="text-gray-400 text-xs md:text-sm uppercase text-center">Règlementation & Assistance</p>
     </header>
 
     <div class="max-w-4xl mx-auto px-6 mb-12 relative z-10">
