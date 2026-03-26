@@ -25,6 +25,115 @@
 
 </style>
 
+<main class="flex items-center w-full h-screen column gap-4 p-8" style="flex-direction: column; overflow-y: auto;">
+    <div id="ticket-selection" class="glass-panel p-8 border-t-4 border-cyan-500 relative" style="width: 800px;">        
+        <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Sélectionnez votre type de ticket</h3>
+
+        <h5 class="mt-12 mb-4">Administration & Gestion</h5>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #991b1b;" data-sound-attached="true">
+            <i data-lucide="crown" class="w-5 h-5 text-red-800"></i>
+            <div style="text-align: left;">
+                Haut-Staff
+                <blockquote class="text-xs text-gray-500 mt-1">
+                    Pour toutes demandes spécifiques à l'administration.
+                </blockquote>
+            </div>
+        </button>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #a855f7;" data-sound-attached="true">
+            <i data-lucide="scale" class="w-5 h-5 text-purple-500"></i>
+            <div style="text-align: left;">
+                Modération
+                <blockquote class="text-xs text-gray-500 m-0">
+                    Pour tout signalement de comportement inapproprié ou violation du règlement.
+                </blockquote>
+            </div>
+        </button>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #1e40af;" data-sound-attached="true">
+            <i data-lucide="notepad-text" class="w-5 h-5 text-blue-800"></i>
+            <div style="text-align: left;">
+                Recrutement
+                <blockquote class="text-xs text-gray-500 mt-1">
+                    Pour tout ce qui touche à vos candidatures ou modifications de votre personnage.
+                </blockquote>
+            </div>
+        </button>
+
+        <h5 class="mt-12 mb-4">Support technique</h5>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #f97316;" data-sound-attached="true">
+            <i data-lucide="bug" class="w-5 h-5 text-orange-500"></i>
+            <div style="text-align: left;">
+                Signaler un Bug
+                <blockquote class="text-xs text-gray-500 mt-1">
+                    Glitch, erreur map, item bugué...
+                </blockquote>
+            </div>
+        </button>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #3b82f6;" data-sound-attached="true">
+            <i data-lucide="help-circle" class="w-5 h-5 text-blue-500"></i>
+            <div style="text-align: left;">
+                Question & Aide
+                <blockquote class="text-xs text-gray-500 mt-1">
+                    Besoin d'aide sur le lore ou le gameplay.
+                </blockquote>
+            </div>
+        </button>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #ef4444;" data-sound-attached="true">
+            <i data-lucide="shield-off" class="w-5 h-5 text-red-500"></i>
+            <div style="text-align: left;">
+                Débanissement
+                <blockquote class="text-xs text-gray-500 mt-1">
+                    Demandes de grâce ou contestations.
+                </blockquote>
+            </div>
+        </button>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #22c55e;" data-sound-attached="true">
+            <i data-lucide="code" class="w-5 h-5 text-green-500"></i>
+            <div style="text-align: left;">
+                Développement
+                <blockquote class="text-xs text-gray-500 mt-1">
+                    Pour toutes demande technique ou de développement.
+                </blockquote>
+            </div>
+        </button>
+
+        <h5 class="mt-12 mb-4">Support rôleplay</h5>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #eab308;" data-sound-attached="true">
+            <i data-lucide="hammer" class="w-5 h-5 text-yellow-500"></i>
+            <div style="text-align: left;">
+                Spécialisations
+                <blockquote class="text-xs text-gray-500 mt-1">
+                    Pour tout développement de compétence.
+                </blockquote>
+            </div>
+        </button>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #ec4899;" data-sound-attached="true">
+            <i data-lucide="scroll-text" class="w-5 h-5 text-pink-500"></i>
+            <div style="text-align: left;">
+                Scénarisation
+                <blockquote class="text-xs text-gray-500 mt-1">
+                    Pour tout vos projets et scène de rôleplay.
+                </blockquote>
+            </div>
+        </button>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #06b6d4;" data-sound-attached="true">
+            <i data-lucide="cuboid" class="w-5 h-5 text-cyan-500"></i>
+            <div style="text-align: left;">
+                Construction
+                <blockquote class="text-xs text-gray-500 mt-1">
+                    Pour toutes demandes de construction ou amélioration de construction existant.
+                </blockquote>
+            </div>
+        </button>
+        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #d946ef;" data-sound-attached="true">
+            <i data-lucide="mic-vocal" class="w-5 h-5 text-fuchsia-500"></i>
+            <div style="text-align: left;">
+                Animation
+                <blockquote class="text-xs text-gray-500 mt-1">
+                    Pour toutes demandes de supervision ou d'animation de scène.
+                </blockquote>
+            </div>
+        </button>
+    </div>
     <!--<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div onclick="openForm('bug')" class="glass-panel p-6 cursor-pointer hover:bg-orange-900/10 hover:border-orange-500 transition-all group">
             <i data-lucide="bug" class="w-8 h-8 text-orange-500 mb-4 group-hover:scale-110 transition-transform"></i>
@@ -90,6 +199,7 @@
             <p id="form-status" class="text-center text-xs mt-2 hidden"></p>
         </form>
     </div>-->
+</main>
 
 <script>
     lucide.createIcons();
