@@ -52,7 +52,7 @@
             Le fichier a peut-être été supprimé par la Fédération ou n'a jamais existé. 
         </blockquote> 
         <div class="flex flex-col md:flex-row gap-4 justify-center">
-            <a href="index.html" class="origin-btn btn--graphic btn--danger uppercase">
+            <a href="./dashboard" class="origin-btn btn--graphic btn--danger uppercase">
                 <i data-lucide="power" class="w-4 h-4"></i> Redémarrer le Système
             </a>
         </div>
