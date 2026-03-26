@@ -29,19 +29,19 @@
             <i data-lucide="house" class="lucide lucide-history w-4 h-4"></i>
             Dashboard
         </a>
-        <a href="./dashboard?page=profil" class="origin-nav--categorie-button <?php if($_GET['page'] == 'profil') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <!--<a href="./dashboard?page=profil" class="origin-nav--categorie-button <?php if($_GET['page'] == 'profil') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="contact-round" class="lucide lucide-history w-4 h-4"></i>
             Votre profile
         </a>
-        <a href="./candidature" class="origin-nav--categorie-button <?php if($_GET['page'] == 'candidature') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <a href="./dashboard?page=candidature" class="origin-nav--categorie-button <?php if($_GET['page'] == 'candidature') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="pen" class="lucide lucide-history w-4 h-4"></i>
             Candidature RP
-        </a>
+        </a>-->
 
         <div class="origin-nav--categorie-separator"></div>
 
         <div class="origin-nav--categorie-title">Support</div>
-        <a href="./dashboard?page=ticket-actions" class="origin-nav--categorie-button <?php if($_GET['page'] == 'ticket-action') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <a href="./dashboard?page=ticket-actions" class="origin-nav--categorie-button <?php if($_GET['page'] == 'ticket-actions') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="ticket-plus" class="lucide lucide-history w-4 h-4"></i>
             Créer un ticket
         </a>
