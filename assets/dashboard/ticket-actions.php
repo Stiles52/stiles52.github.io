@@ -1,3 +1,16 @@
+<?php
+
+    $ticket_type = array(
+        "haut-staff" => "Haut-Staff",
+        "modo" => "Modération",
+        "recrute" => "Recrutement",
+        "qa" => "Question & Réponse",
+        "ban" => "Débanissement",
+        "developper" => "Développement"
+    );
+
+?>
+
 <style>
     .glass-panel {
         background: rgba(0, 0, 0, 0.8);
@@ -26,179 +39,278 @@
 </style>
 
 <main class="flex items-center w-full h-screen column gap-4 p-8" style="flex-direction: column; overflow-y: auto;">
-    <div id="ticket-selection" class="glass-panel p-8 border-t-4 border-cyan-500 relative" style="width: 800px;">        
-        <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Sélectionnez votre type de ticket</h3>
+    <?php
+        if(isset($_GET['ticket'])) {
+            if($_GET['ticket'] == "bug") {
+                ?>
+                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 1000px;">
+                        <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Création d'un ticket "Rapport de bug"</h3>
 
-        <h5 class="mt-12 mb-4">Administration & Gestion</h5>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #991b1b;" data-sound-attached="true">
-            <i data-lucide="crown" class="w-5 h-5 text-red-800"></i>
-            <div style="text-align: left;">
-                Haut-Staff
-                <blockquote class="text-xs text-gray-500 mt-1">
-                    Pour toutes demandes spécifiques à l'administration.
-                </blockquote>
-            </div>
-        </button>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #a855f7;" data-sound-attached="true">
-            <i data-lucide="scale" class="w-5 h-5 text-purple-500"></i>
-            <div style="text-align: left;">
-                Modération
-                <blockquote class="text-xs text-gray-500 m-0">
-                    Pour tout signalement de comportement inapproprié ou violation du règlement.
-                </blockquote>
-            </div>
-        </button>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #1e40af;" data-sound-attached="true">
-            <i data-lucide="notepad-text" class="w-5 h-5 text-blue-800"></i>
-            <div style="text-align: left;">
-                Recrutement
-                <blockquote class="text-xs text-gray-500 mt-1">
-                    Pour tout ce qui touche à vos candidatures ou modifications de votre personnage.
-                </blockquote>
-            </div>
-        </button>
+                        <form id="discord-form" onsubmit="sendToDiscord(event)">
+                            <div class="w-full mt-8">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Quel est le bug que vous souhaitez déclarer</label>
+                                <input type="text" id="subject" required style="width: 100%;" placeholder="Un titre clair pour définir le bug">
+                            </div>
 
-        <h5 class="mt-12 mb-4">Support technique</h5>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #f97316;" data-sound-attached="true">
-            <i data-lucide="bug" class="w-5 h-5 text-orange-500"></i>
-            <div style="text-align: left;">
-                Signaler un Bug
-                <blockquote class="text-xs text-gray-500 mt-1">
-                    Glitch, erreur map, item bugué...
-                </blockquote>
-            </div>
-        </button>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #3b82f6;" data-sound-attached="true">
-            <i data-lucide="help-circle" class="w-5 h-5 text-blue-500"></i>
-            <div style="text-align: left;">
-                Question & Aide
-                <blockquote class="text-xs text-gray-500 mt-1">
-                    Besoin d'aide sur le lore ou le gameplay.
-                </blockquote>
-            </div>
-        </button>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #ef4444;" data-sound-attached="true">
-            <i data-lucide="shield-off" class="w-5 h-5 text-red-500"></i>
-            <div style="text-align: left;">
-                Débanissement
-                <blockquote class="text-xs text-gray-500 mt-1">
-                    Demandes de grâce ou contestations.
-                </blockquote>
-            </div>
-        </button>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #22c55e;" data-sound-attached="true">
-            <i data-lucide="code" class="w-5 h-5 text-green-500"></i>
-            <div style="text-align: left;">
-                Développement
-                <blockquote class="text-xs text-gray-500 mt-1">
-                    Pour toutes demande technique ou de développement.
-                </blockquote>
-            </div>
-        </button>
+                            <div class="w-full mt-8">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Ou le bug c'est-il produit ?</label>
+                                <input type="text" id="subject" required style="width: 100%;" placeholder="Un titre clair pour définir le bug">
+                            </div>
 
-        <h5 class="mt-12 mb-4">Support rôleplay</h5>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #eab308;" data-sound-attached="true">
-            <i data-lucide="hammer" class="w-5 h-5 text-yellow-500"></i>
-            <div style="text-align: left;">
-                Spécialisations
-                <blockquote class="text-xs text-gray-500 mt-1">
-                    Pour tout développement de compétence.
-                </blockquote>
-            </div>
-        </button>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #ec4899;" data-sound-attached="true">
-            <i data-lucide="scroll-text" class="w-5 h-5 text-pink-500"></i>
-            <div style="text-align: left;">
-                Scénarisation
-                <blockquote class="text-xs text-gray-500 mt-1">
-                    Pour tout vos projets et scène de rôleplay.
-                </blockquote>
-            </div>
-        </button>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #06b6d4;" data-sound-attached="true">
-            <i data-lucide="cuboid" class="w-5 h-5 text-cyan-500"></i>
-            <div style="text-align: left;">
-                Construction
-                <blockquote class="text-xs text-gray-500 mt-1">
-                    Pour toutes demandes de construction ou amélioration de construction existant.
-                </blockquote>
-            </div>
-        </button>
-        <button class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #d946ef;" data-sound-attached="true">
-            <i data-lucide="mic-vocal" class="w-5 h-5 text-fuchsia-500"></i>
-            <div style="text-align: left;">
-                Animation
-                <blockquote class="text-xs text-gray-500 mt-1">
-                    Pour toutes demandes de supervision ou d'animation de scène.
-                </blockquote>
-            </div>
-        </button>
-    </div>
-    <!--<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        <div onclick="openForm('bug')" class="glass-panel p-6 cursor-pointer hover:bg-orange-900/10 hover:border-orange-500 transition-all group">
-            <i data-lucide="bug" class="w-8 h-8 text-orange-500 mb-4 group-hover:scale-110 transition-transform"></i>
-            <h3 class="text-lg font-bold text-white">Signaler un Bug</h3>
-            <p class="text-xs text-gray-500 mt-2">Glitch, erreur map, item bugué...</p>
-        </div>
-        <div onclick="openForm('info')" class="glass-panel p-6 cursor-pointer hover:bg-blue-900/10 hover:border-blue-500 transition-all group">
-            <i data-lucide="info" class="w-8 h-8 text-blue-500 mb-4 group-hover:scale-110 transition-transform"></i>
-            <h3 class="text-lg font-bold text-white">Question / Aide</h3>
-            <p class="text-xs text-gray-500 mt-2">Besoin d'aide sur le lore ou le gameplay.</p>
-        </div>
-        <div onclick="openForm('unban')" class="glass-panel p-6 cursor-pointer hover:bg-red-900/10 hover:border-red-500 transition-all group">
-            <i data-lucide="shield-off" class="w-8 h-8 text-red-500 mb-4 group-hover:scale-110 transition-transform"></i>
-            <h3 class="text-lg font-bold text-white">Débanissement</h3>
-            <p class="text-xs text-gray-500 mt-2">Demande de grâce ou contestation.</p>
-        </div>
-        <div onclick="openForm('unban')" class="glass-panel p-6 cursor-pointer hover:bg-red-900/10 hover:border-red-500 transition-all group">
-            <i data-lucide="shield-off" class="w-8 h-8 text-red-500 mb-4 group-hover:scale-110 transition-transform"></i>
-            <h3 class="text-lg font-bold text-white">Spécialisation</h3>
-            <p class="text-xs text-gray-500 mt-2">Pour tout développement de compétence.</p>
-        </div>
-        <div onclick="openForm('unban')" class="glass-panel p-6 cursor-pointer hover:bg-red-900/10 hover:border-red-500 transition-all group">
-            <i data-lucide="shield-off" class="w-8 h-8 text-red-500 mb-4 group-hover:scale-110 transition-transform"></i>
-            <h3 class="text-lg font-bold text-white">Modération</h3>
-            <p class="text-xs text-gray-500 mt-2">Pour tout manque au règlement ou éléments problématique.</p>
-        </div>
-        <div onclick="openForm('unban')" class="glass-panel p-6 cursor-pointer hover:bg-red-900/10 hover:border-red-500 transition-all group">
-            <i data-lucide="shield-off" class="w-8 h-8 text-red-500 mb-4 group-hover:scale-110 transition-transform"></i>
-            <h3 class="text-lg font-bold text-white">Scénarisme</h3>
-            <p class="text-xs text-gray-500 mt-2">Pour toutes demande de scène précise.</p>
-        </div>
-    </div>
+                            <div class="w-full mt-8">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">De quel niveau d'importance concidérez vous ce bug ?</label>
+                                <select class="w-full">
+                                    <option>Peu impactante</option>
+                                    <option>Moyennement impactante</option>
+                                    <option>Très impactante</option>
+                                    <option>Extrêmement impactante</option>
+                                </select>
+                                <cite class="mt-3 mb-8">Définissez cette élément avec sérieux, car cela nous aide grandement à nous organiser par rapport à la gestion de ces derniers !</cite>
+                            </div>
 
-    <div id="form-container" class="hidden glass-panel p-8 border-t-4 border-cyan-500 relative" style="width: 800px;">
-        <button onclick="closeForm()" class="absolute top-4 right-4 text-gray-500 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
-        
-        <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">TITRE DU FORMULAIRE</h3>
-        
-        <form id="discord-form" onsubmit="sendToDiscord(event)" class="space-y-6">
-            <input type="hidden" id="ticket-type" name="type">
+                            <div class="w-full mt-8">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Expliquez en détail le bug</label>
+                                <textarea id="message" required rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
+                                <div id="char-count" class="text-right text-[10px] text-gray-500 mt-1 font-mono">0 / 4000</div>
+                            </div>
 
-            <div>
-                <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Votre Pseudo Discord</label>
-                <input type="text" id="username" required class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Ex: Pseudo#0000">
+                            <div class="w-full mt-4">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Des documents à nous fournir ?</label>
+                                <input type="file" id="attachment" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-cyan-500 file:text-black hover:file:bg-cyan-400 transition-colors">
+                                <cite class="mt-3 mb-8">
+                                    Formats acceptés : PDF, PNG, JPG, TXT<br>
+                                    Nombre maximum de fichier : 10 fichiers<br>
+                                    Taille maximum : 80Ko
+                                </cite>
+                            </div>
+
+                            <div class="w-full mt-8">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Avez-vous une vidéo à nous fournir ?</label>
+                                <input type="url" id="subject" required style="width: 100%;" placeholder="L'URL ici !">
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full mt-8 bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 rounded uppercase tracking-widest transition-colors flex justify-center items-center gap-2">
+                                <span>Envoyer la demande</span>
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+
+                            <p id="form-status" class="text-center text-xs mt-2 hidden"></p>
+                        </form>
+                    </div>
+                <?php
+            } else
+            if($_GET['ticket'] == "special") {
+                ?>
+                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 1000px;">
+                        <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Création d'un ticket "Spécialisation"</h3>
+
+                        <form id="discord-form" onsubmit="sendToDiscord(event)">
+                            <div class="w-full mt-8">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Quel métier est concerné ?</label>
+                                <select class="w-full">
+                                    <option>-- Sélectionnez le métier --</option>
+                                    <option>Médecin</option>
+                                    <option>Artisant</option>
+                                    <option>Agriculteur</option>
+                                </select>
+                            </div>
+
+                            <div class="w-full mt-8">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Quel est le niveau visé ?</label>
+                                <select class="w-full">
+                                    <option>Confirmé</option>
+                                    <option>Spécialisé</option>
+                                </select>
+                            </div>
+
+                            <div class="w-full mt-8">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Quel est la spécialité concernés ?</label>
+                                <select class="w-full">
+                                    <option>-- Sélectionnez une spécialisation --</option>
+                                    <option>Dieu</option>
+                                    <option>Maître du monde</option>
+                                    <option>Bon la vanne à était longue-</option>
+                                </select>
+                            </div>
+
+                            <div class="w-full mt-8">
+                                <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Qui sera votre mentor ?</label>
+                                <input type="text" id="subject" required style="width: 100%;" placeholder="De quoi souhaitez-vous parler au Haut-Staff ?">
+                                <cite>Si vous le faite en autodidacte, veuillez laissez ce champ vide.</cite>
+                            </div>
+
+                            <div class="w-full mt-8">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Expliquez-nous pourquoi vous souhaitez apprendre cette spécialité</label>
+                                <textarea id="message" required rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
+                                <div id="char-count" class="text-right text-[10px] text-gray-500 mt-1 font-mono">0 / 4000</div>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full mt-8 bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 rounded uppercase tracking-widest transition-colors flex justify-center items-center gap-2">
+                                <span>Envoyer la demande</span>
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+
+                            <p id="form-status" class="text-center text-xs mt-2 hidden"></p>
+                        </form>
+                    </div>
+                <?php
+            } elseif(array_key_exists($_GET['ticket'], $ticket_type)) {
+                ?>
+                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 1000px;">
+                        <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Création d'un ticket "<?php echo $ticket_type[$_GET['ticket']] ?>"</h3>
+
+                        <form id="discord-form" onsubmit="sendToDiscord(event)">
+                            <input type="hidden" id="ticket-type" name="type">
+
+                            <div class="w-full mt-8">
+                                <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Sujet de votre ticket</label>
+                                <input type="text" id="subject" required style="width: 100%;" placeholder="De quoi souhaitez-vous parler au Haut-Staff ?">
+                            </div>
+
+                            <div class="w-full mt-8">
+                                <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Détails</label>
+                                <textarea id="message" required rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
+                                <div id="char-count" class="text-right text-[10px] text-gray-500 mt-1 font-mono">0 / 4000</div>
+                            </div>
+
+                            <div class="w-full mt-4">
+                                <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Souhaitez-vous rajoutez des personnes concernés par le sujet au ticket ?</label>
+                                <input type="text" id="subject" required style="width: 100%;" placeholder="De quoi souhaitez-vous parler au Haut-Staff ?">
+                            </div>
+
+                            <div class="w-full mt-4">
+                                <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Des documents à nous fournir ?</label>
+                                <input type="file" id="attachment" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-cyan-500 file:text-black hover:file:bg-cyan-400 transition-colors">
+                                <cite class="mt-3 mb-8">
+                                    Formats acceptés : PDF, PNG, JPG<br>
+                                    Nombre maximum de fichier : 10 fichiers<br>
+                                    Taille maximum : 80Ko
+                                </cite>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 rounded uppercase tracking-widest transition-colors flex justify-center items-center gap-2">
+                                <span>Envoyer la demande</span>
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                            </button>
+
+                            <p id="form-status" class="text-center text-xs mt-2 hidden"></p>
+                        </form>
+                    </div>
+                <?php
+            }
+        } else {
+        ?>
+            <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 800px;">        
+                <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Sélectionnez votre type de ticket</h3>
+
+                <h5 class="mt-12 mb-4">Administration & Gestion</h5>
+                <a href="./dashboard?page=ticket-actions&ticket=haut-staff" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #991b1b;" data-sound-attached="true">
+                    <i data-lucide="crown" class="w-5 h-5 text-red-800"></i>
+                    <div style="text-align: left;">
+                        Haut-Staff
+                        <blockquote class="text-xs text-gray-500 mt-1">
+                            Pour toutes demandes spécifiques à l'administration.
+                        </blockquote>
+                    </div>
+                </a>
+                <a href="./dashboard?page=ticket-actions&ticket=modo" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #a855f7;" data-sound-attached="true">
+                    <i data-lucide="scale" class="w-5 h-5 text-purple-500"></i>
+                    <div style="text-align: left;">
+                        Modération
+                        <blockquote class="text-xs text-gray-500 m-0">
+                            Pour tout signalement de comportement inapproprié ou violation du règlement.
+                        </blockquote>
+                    </div>
+                </a>
+                <a href="./dashboard?page=ticket-actions&ticket=recrute" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #1e40af;" data-sound-attached="true">
+                    <i data-lucide="notepad-text" class="w-5 h-5 text-blue-800"></i>
+                    <div style="text-align: left;">
+                        Recrutement
+                        <blockquote class="text-xs text-gray-500 mt-1">
+                            Pour tout ce qui touche à vos candidatures ou modifications de votre personnage.
+                        </blockquote>
+                    </div>
+                </a>
+
+                <h5 class="mt-12 mb-4">Support technique</h5>
+                <a href="./dashboard?page=ticket-actions&ticket=bug" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #f97316;" data-sound-attached="true">
+                    <i data-lucide="bug" class="w-5 h-5 text-orange-500"></i>
+                    <div style="text-align: left;">
+                        Signaler un Bug
+                        <blockquote class="text-xs text-gray-500 mt-1">
+                            Glitch, erreur map, item bugué...
+                        </blockquote>
+                    </div>
+                </a>
+                <a href="./dashboard?page=ticket-actions&ticket=qa" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #3b82f6;" data-sound-attached="true">
+                    <i data-lucide="help-circle" class="w-5 h-5 text-blue-500"></i>
+                    <div style="text-align: left;">
+                        Question & Aide
+                        <blockquote class="text-xs text-gray-500 mt-1">
+                            Besoin d'aide sur le lore ou le gameplay.
+                        </blockquote>
+                    </div>
+                </a>
+                <a href="./dashboard?page=ticket-actions&ticket=ban" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #ef4444;" data-sound-attached="true">
+                    <i data-lucide="shield-off" class="w-5 h-5 text-red-500"></i>
+                    <div style="text-align: left;">
+                        Débanissement
+                        <blockquote class="text-xs text-gray-500 mt-1">
+                            Demandes de grâce ou contestations.
+                        </blockquote>
+                    </div>
+                </a>
+                <a href="./dashboard?page=ticket-actions&ticket=developper" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #22c55e;" data-sound-attached="true">
+                    <i data-lucide="code" class="w-5 h-5 text-green-500"></i>
+                    <div style="text-align: left;">
+                        Développement
+                        <blockquote class="text-xs text-gray-500 mt-1">
+                            Pour toutes demande technique ou de développement.
+                        </blockquote>
+                    </div>
+                </a>
+
+                <h5 class="mt-12 mb-4">Support rôleplay</h5>
+                <a href="./dashboard?page=ticket-actions&ticket=special" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #eab308;" data-sound-attached="true">
+                    <i data-lucide="hammer" class="w-5 h-5 text-yellow-500"></i>
+                    <div style="text-align: left;">
+                        Spécialisations
+                        <blockquote class="text-xs text-gray-500 mt-1">
+                            Pour tout développement de compétence.
+                        </blockquote>
+                    </div>
+                </a>
+                <a href="./dashboard?page=ticket-actions&ticket=scenario" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #ec4899;" data-sound-attached="true">
+                    <i data-lucide="scroll-text" class="w-5 h-5 text-pink-500"></i>
+                    <div style="text-align: left;">
+                        Scénarisation
+                        <blockquote class="text-xs text-gray-500 mt-1">
+                            Pour tout vos projets et scène de rôleplay.
+                        </blockquote>
+                    </div>
+                </a>
+                <a href="./dashboard?page=ticket-actions&ticket=build" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #06b6d4;" data-sound-attached="true">
+                    <i data-lucide="cuboid" class="w-5 h-5 text-cyan-500"></i>
+                    <div style="text-align: left;">
+                        Construction
+                        <blockquote class="text-xs text-gray-500 mt-1">
+                            Pour toutes demandes de construction ou amélioration de construction existant.
+                        </blockquote>
+                    </div>
+                </a>
+                <a href="./dashboard?page=ticket-actions&ticket=animation" class="origin-btn btn--glass w-full mb-4" style="justify-content: left; border-left-color: #d946ef;" data-sound-attached="true">
+                    <i data-lucide="mic-vocal" class="w-5 h-5 text-fuchsia-500"></i>
+                    <div style="text-align: left;">
+                        Animation
+                        <blockquote class="text-xs text-gray-500 mt-1">
+                            Pour toutes demandes de supervision ou d'animation de scène.
+                        </blockquote>
+                    </div>
+                </a>
             </div>
-
-            <div>
-                <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Sujet</label>
-                <input type="text" id="subject" required class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Titre de votre demande">
-            </div>
-
-            <div>
-                <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Détails</label>
-                <textarea id="message" required rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
-                <div id="char-count" class="text-right text-[10px] text-gray-500 mt-1 font-mono">0 / 4000</div>
-            </div>
-
-            <button type="submit" id="submit-btn" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 rounded uppercase tracking-widest transition-colors flex justify-center items-center gap-2">
-                <span>Envoyer la demande</span>
-                <i data-lucide="send" class="w-4 h-4"></i>
-            </button>
-
-            <p id="form-status" class="text-center text-xs mt-2 hidden"></p>
-        </form>
-    </div>-->
+        <?php
+        }
+    ?>
 </main>
 
 <script>
