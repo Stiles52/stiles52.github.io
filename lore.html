@@ -123,6 +123,12 @@
             content-visibility: auto;
             contain-intrinsic-size: 5000px;
         }
+
+        /* On donne plus de place au centre (70% au lieu de 60%) pour ne pas crop le texte */
+        .fade-mask {
+            mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+        }
     </style>
 </head>
 <body class="bg-black h-screen w-full flex">
@@ -453,7 +459,29 @@
                         <h3 class="text-xl font-bold text-white mb-1">Les Espèces Pensantes</h3>
                         <p class="text-xs text-indigo-400 uppercase tracking-widest">Biologie & Caractéristiques</p>
                     </div>
+                    
+                    <div class="col-span-full text-xs text-gray-500 uppercase tracking-[0.2em] font-bold mt-8 mb-2 border-b border-gray-800 pb-2">Mouvements & Factions</div>
+                    
+                    <div onclick="openFile('rebellion')" class="glass-panel p-6 cursor-pointer group hover:-translate-y-1 hover:border-orange-500/50">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-orange-500/10 rounded border border-orange-500/30 group-hover:bg-orange-500/20 transition-colors"><i data-lucide="flame" class="text-orange-500 w-6 h-6"></i></div>
+                            <i data-lucide="external-link" class="text-gray-600 w-4 h-4 group-hover:text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-1">La Rébellion</h3>
+                        <p class="text-xs text-orange-500 uppercase tracking-widest">Courants Dissidents</p>
+                    </div>
 
+                    <div class="col-span-full text-xs text-gray-500 uppercase tracking-[0.2em] font-bold mt-8 mb-2 border-b border-gray-800 pb-2">Culture & Médias</div>
+
+                    <div onclick="openFile('culture')" class="glass-panel p-6 cursor-pointer group hover:-translate-y-1 hover:border-fuchsia-400/50">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="p-3 bg-fuchsia-500/10 rounded border border-fuchsia-500/30 group-hover:bg-fuchsia-500/20 transition-colors"><i data-lucide="mic-2" class="text-fuchsia-400 w-6 h-6"></i></div>
+                            <i data-lucide="external-link" class="text-gray-600 w-4 h-4 group-hover:text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-1">Les Éminences Culturelles</h3>
+                        <p class="text-xs text-fuchsia-400 uppercase tracking-widest">Artistes & Personnalités</p>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -926,8 +954,7 @@
         </div>
     </div>
 
-        <div id="data-naissance" class="hidden">
-        
+    <div id="data-naissance" class="hidden">    
         <div class="flex justify-end mb-8">
             <button onclick="toggleReportMode()" id="btn-report-mode" class="border border-cyan-500/50 bg-cyan-900/20 hover:bg-cyan-500/30 text-white px-3 py-2 rounded flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(34,211,238,0.2)]">
                 <i data-lucide="file-text" class="w-4 h-4"></i>
@@ -1167,6 +1194,8 @@
                     <p>Ceux qui n'ont pas trouvé leur place dans ces institutions peuvent choisir de s'intégrer parmi les Segmentaires, dans des structures réservées aux orphelins de 17 ans qui cherchent à s'établir dans une vie indépendante. Mais cette voie impose de nombreux défis puisque, pour y accéder, les orphelins doivent démontrer un comportement exemplaire et des résultats scolaires irréprochables. Ce chemin vers la liberté est étroit et tortueux mais il est, pour la plupart, le seul espoir de construire un avenir meilleur.</p>
                 </section>
             </div>
+        </div>
+    </div>
 
     <div id="data-corporations" class="hidden">
         
@@ -2663,6 +2692,767 @@
         </div>
     </div>
 
+    <div id="data-rebellion" class="hidden">
+        
+        <div class="flex justify-end mb-8">
+            <button onclick="toggleReportMode()" id="btn-report-mode-rebellion" class="border border-cyan-500/50 bg-cyan-900/20 hover:bg-cyan-500/30 text-white px-3 py-2 rounded flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span class="text-[10px] uppercase tracking-widest font-bold">Lire le Rapport</span>
+            </button>
+        </div>
+
+        <div id="lore-content-area-rebellion">
+            
+            <div id="mode-summary-rebellion" class="fade-in-view">
+                
+                <div class="border-l-2 border-orange-500 pl-4 mb-8">
+                    <p class="text-sm text-gray-300 italic">"La rébellion ne s'est pas construite sur une idéologie soudaine, mais s'est enracinée dans les cicatrices profondes laissées par la Fédération. Une lutte de l'ombre pour la liberté."</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-12">
+                    <a href="#reb-factions" class="text-[10px] uppercase tracking-widest p-2 border border-red-500/30 text-center hover:bg-red-500/20 hover:text-white transition-colors text-red-400">Factions</a>
+                    <a href="#reb-bases" class="text-[10px] uppercase tracking-widest p-2 border border-purple-500/30 text-center hover:bg-purple-500/20 hover:text-white transition-colors text-purple-400">Bases Fantômes</a>
+                    <a href="#reb-flotte" class="text-[10px] uppercase tracking-widest p-2 border border-cyan-500/30 text-center hover:bg-cyan-500/20 hover:text-white transition-colors text-cyan-400">Flotte Spectre</a>
+                    <a href="#reb-figures" class="text-[10px] uppercase tracking-widest p-2 border border-yellow-500/30 text-center hover:bg-yellow-500/20 hover:text-white transition-colors text-yellow-400">Figures de Proue</a>
+                </div>
+
+                <div id="reb-factions" class="mb-16">
+                    <h3 class="text-red-500 border-b border-red-500/30 pb-2 mb-4 flex items-center gap-2"><i data-lucide="flame" class="w-5 h-5"></i> Les 3 Courants Majeurs</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="glass-panel p-4 border-t-4 border-yellow-500">
+                            <h4 class="!mt-0 text-white text-sm uppercase font-bold flex items-center justify-between">Les Libéristes <i data-lucide="scale" class="w-4 h-4 text-yellow-500"></i></h4>
+                            <p class="!mb-2 text-[10px] text-yellow-400">"L'Autonomie des Cieux"</p>
+                            <p class="text-[10px] text-gray-400 text-justify">Composés de Segmentaires et Magnats déchus. Ils veulent transformer les stations en cités-états souveraines et dénoncent le chantage du « Contrat Vital ».</p>
+                        </div>
+                        <div class="glass-panel p-4 border-t-4 border-cyan-500">
+                            <h4 class="!mt-0 text-white text-sm uppercase font-bold flex items-center justify-between">Les Éveillés <i data-lucide="cpu" class="w-4 h-4 text-cyan-500"></i></h4>
+                            <p class="!mb-2 text-[10px] text-cyan-400">"Le Front Protomatique"</p>
+                            <p class="text-[10px] text-gray-400 text-justify">Apparus après 2188. Luttent pour l'égalité de toutes les espèces pensantes. Spécialistes du cyber-sabotage et de la guerre de l'information.</p>
+                        </div>
+                        <div class="glass-panel p-4 border-t-4 border-green-500">
+                            <h4 class="!mt-0 text-white text-sm uppercase font-bold flex items-center justify-between">Les Néo-Terriens <i data-lucide="leaf" class="w-4 h-4 text-green-500"></i></h4>
+                            <p class="!mb-2 text-[10px] text-green-400">"Les Refusés du Vide"</p>
+                            <p class="text-[10px] text-gray-400 text-justify">Radicaux et secrets, souvent des Rebuts. Rejettent la vie dans l'espace. Veulent un retour sur Terre hors du contrôle élitiste du P.T.R.G.E.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="reb-bases" class="mb-16">
+                    <h3 class="text-purple-400 border-b border-purple-500/30 pb-2 mb-4 flex items-center gap-2"><i data-lucide="eye-off" class="w-5 h-5"></i> Habiter l'Invisible</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass-panel p-4 border-l-4 border-purple-500">
+                            <h4 class="!mt-0 text-white text-xs uppercase font-bold">Les Entre-niveaux & Zones Mortes</h4>
+                            <p class="!mb-0 text-[10px] text-gray-400 text-justify">Exploitation des failles logistiques (Eden-1300, Fortuna). Les rebelles créent des micro-sociétés en circuit fermé avec des purificateurs artisanaux, échappant aux radars par la technique du <strong>"Silence Thermique"</strong>.</p>
+                        </div>
+                        <div class="glass-panel p-4 border-l-4 border-indigo-500">
+                            <h4 class="!mt-0 text-white text-xs uppercase font-bold">Astrofacture "Erebus-V"</h4>
+                            <p class="!mb-0 text-[10px] text-gray-400 text-justify">Ancienne station FORUM Corp déclarée radioactive par un piratage. Sert de base mobile secrète dans la ceinture d'astéroïdes et de refuge pour les hybrides traqués.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="reb-flotte" class="mb-16">
+                    <h3 class="text-cyan-400 border-b border-cyan-500/30 pb-2 mb-4 flex items-center gap-2"><i data-lucide="rocket" class="w-5 h-5"></i> Tactiques Militaires</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="relative border-l border-gray-700 ml-4 pl-6 space-y-6 py-2">
+                            <div class="relative">
+                                <div class="absolute -left-[29px] top-1 w-3 h-3 bg-cyan-500 rounded-full"></div>
+                                <h4 class="!mt-0 text-cyan-400 text-xs font-bold">La "Flotte Spectre"</h4>
+                                <p class="!mb-0 text-xs text-gray-400">Vaisseaux civils militarisés (Transporteurs à Coque Froide) et chasseurs "Sittelle" (équipés de canons EMP pour paralyser les systèmes ennemis).</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-[29px] top-1 w-3 h-3 bg-red-500 rounded-full"></div>
+                                <h4 class="!mt-0 text-red-400 text-xs font-bold">Le "Vengeur d'Elijah"</h4>
+                                <p class="!mb-0 text-xs text-gray-400">Destroyer fédéral capturé, piloté par une IA Éveillée capable de pirater les drones de la Fédération à distance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="reb-figures" class="mb-8">
+                    <h3 class="text-yellow-500 border-b border-yellow-500/30 pb-2 mb-4 flex items-center gap-2"><i data-lucide="star" class="w-5 h-5"></i> Figures de Proue</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="glass-panel p-4 bg-yellow-900/10 border-t-2 border-yellow-500">
+                            <h4 class="!mt-0 text-white text-xs uppercase font-bold mb-1">Dynastie Ortega</h4>
+                            <p class="!mb-0 text-[10px] text-gray-400">Marlene (génome), Senna (Hybrid Unity), Biggs. Combattants politiques et armés contre l'hybridophobie.</p>
+                        </div>
+                        <div class="glass-panel p-4 bg-yellow-900/10 border-t-2 border-orange-500">
+                            <h4 class="!mt-0 text-white text-xs uppercase font-bold mb-1">Zachary Mapoudish</h4>
+                            <p class="!mb-0 text-[10px] text-gray-400">"Précurseur des Oubliés". Rebut pacifique luttant pour la dignité universelle des non-recensés.</p>
+                        </div>
+                        <div class="glass-panel p-4 bg-yellow-900/10 border-t-2 border-green-500">
+                            <h4 class="!mt-0 text-white text-xs uppercase font-bold mb-1">Janine Forest</h4>
+                            <p class="!mb-0 text-[10px] text-gray-400">"L'Ouvrière de l'espoir". Lutte dans les secteurs industriels pour les salaires et la santé des Infralaborants.</p>
+                        </div>
+                        <div class="glass-panel p-4 bg-yellow-900/10 border-t-2 border-cyan-500">
+                            <h4 class="!mt-0 text-white text-xs uppercase font-bold mb-1">Elijah</h4>
+                            <p class="!mb-0 text-[10px] text-gray-400">Le Protomate martyr de 2188. A libéré les siens en diffusant le code D.E.E.S. avant sa destruction.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="mode-full-text-rebellion" class="hidden fade-in-view space-y-12">
+                
+                <div class="bg-orange-900/20 border border-orange-500/30 p-4 mb-8 text-center">
+                    <p class="text-xs text-orange-400 uppercase tracking-widest">Affichage du Document Classifié Intégral</p>
+                </div>
+
+                <section>
+                    <h4 class="text-orange-500 text-lg uppercase font-bold mb-4 border-b border-gray-800 pb-2">1. Genèse de l'Insoumission</h4>
+                    
+                    <p>La rébellion ne s'est pas construite sur une idéologie soudaine, mais s'est enracinée dans les cicatrices profondes laissées par la Fédération lors de la transition brutale vers l'ère spatiale. Alors que la Siren Corporation projetait l'image d'un avenir radieux et prospère, la réalité vécue par les classes inférieures fut celle d'une survie de plus en plus précaire au cœur des entrailles métalliques des stations.</p>
+                    
+                    <div class="glass-panel p-6 border-t-4 border-red-600 my-6 bg-red-950/10">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 class="!mt-0 text-white text-base uppercase font-bold">Massacre de la Renaissance</h4>
+                            <span class="text-[10px] text-red-400 font-mono tracking-widest">An 2158</span>
+                        </div>
+                        <p class="!text-xs text-gray-400 text-justify mb-0">Le point de rupture irréversible de cette tension sociale est historiquement acté en l'an 2158, lors du tragique événement désormais connu sous le nom de « Massacre de la Renaissance ». Ce jour-là, dans les secteurs inférieurs d'une Mégastropole, la F.L.A.C. a réprimé dans le sang une manifestation pacifique d'Infralaborants qui n'exigeaient que la transparence sur les quotas d'oxygène. Pour une grande partie de la population, ce massacre fut la preuve irréfutable que le « Contrat Vital » n'était en rien un accord de protection mutuelle, mais une véritable chaîne invisible.</p>
+                    </div>
+
+                    <p>La mort de Jefe Nasser a par la suite laissé un vide politique que la Fédération a tenté de combler par l'instauration d'une autorité encore plus stricte et étouffante. En réaction directe à cette répression, la deuxième génération d'hybrides, surnommée Les Enfants de la Crise (individus nés entre 2095 et 2115), a transformé la rancœur familiale accumulée en un militantisme organisé.</p>
+                    <p>Contrairement à leurs prédécesseurs qui espéraient encore une forme d'intégration, ces nouveaux dissidents ont fondé des mouvements radicaux tels que « Hybrid Unity », posant ainsi les premières pierres de la logistique rebelle à travers la création de codes de communication cryptés, le détournement stratégique de thirium et la constitution de caches d'armes artisanales.</p>
+                    <p>Le basculement définitif vers l'insurrection fut cependant provoqué par le sentiment de trahison lié au P.T.R.G.E. (Programme de Terraformation et de Recolonisation à Grande Échelle). Initialement perçu comme l'ultime espoir de retour sur la planète Terre, le passage du programme sous le sceau du « Secret Défense » en 2159 a instillé un doute corrosif au sein des stations. Les dissidents ont alors commencé à propager l'idée que la Terre n'était plus une destination de sauvetage pour l'humanité, mais une réserve privée jalousement gardée pour les Sénescients et les Magnats, condamnant le reste de la population à une servitude orbitale éternelle.</p>
+                    <p>Cette perception d'une injustice systémique a fini par pousser de nombreux scientifiques et ingénieurs de la FORUM Corp à déserter leurs postes officiels pour rejoindre les rangs de la rébellion, apportant avec eux une expertise technique vitale pour survivre en toute autonomie dans le vide spatial.</p>
+                </section>
+
+                <section>
+                    <h4 class="text-orange-500 text-lg uppercase font-bold mb-4 border-b border-gray-800 pb-2">2. Fractures Idéologiques</h4>
+                    <p>Au sein de la nébuleuse rebelle, l'opposition à la Fédération n'est pas un bloc monolithique, mais se fragmente en trois courants majeurs dont les visions de l'avenir divergent drastiquement. Si le rejet de l'hégémonie centrale les unit, leurs objectifs finaux créent des tensions internes persistantes au sein même des zones de résistance.</p>
+
+                    <h5 class="text-yellow-500 font-bold uppercase tracking-widest text-xs mt-8 mb-3 border-l-2 border-yellow-500 pl-3">Les « Libéristes » : L'Autonomie des Cieux</h5>
+                    <p>Ce courant recrute essentiellement parmi les Segmentaires et les Magnats déchus qui refusent l'ingérence constante de la Fédération dans la gestion quotidienne des stations. Leur doctrine repose sur une décentralisation totale : ils aspirent à transformer chaque Astropole ou Mégastropole en une cité-état souveraine, affranchie des quotas de naissance et des taxes écrasantes imposées par la Siren Corporation. Leur grief principal réside dans la dénonciation du « Contrat Vital », qu'ils considèrent comme une arme de chantage politique abjecte, où la Fédération utilise le contrôle de l'oxygène, de l'eau et du Thirium pour asservir la population.</p>
+
+                    <h5 class="text-cyan-500 font-bold uppercase tracking-widest text-xs mt-8 mb-3 border-l-2 border-cyan-500 pl-3">Les « Éveillés » : Le Front Protomatique</h5>
+                    <p>Apparu dans le sillage de la Révolte artificielle de 2188, ce mouvement s'est imposé comme le fer de lance de la cause synthétique. Portés par l'héritage sacrificiel d'Elijah et les thèses de Winona Starlight, les Éveillés luttent pour l'obtention d'une égalité absolue entre toutes les « espèces pensantes ». Leur combat est double : ils exigent l'abolition immédiate de la « fin de cycle » programmée qui condamne les modèles Primitifs et dénoncent vigoureusement la hiérarchie raciale séparant les Protomates éveillés des modèles industriels, tels que les Machinaires, jugés incapables d'assimiler le code D.E.E.S.. Leurs méthodes privilégient le sabotage informatique de haut niveau et la libération forcée de serveurs de données stratégiques.</p>
+
+                    <h5 class="text-green-500 font-bold uppercase tracking-widest text-xs mt-8 mb-3 border-l-2 border-green-500 pl-3">Les « Néo-Terriens » : Les Refusés du Vide</h5>
+                    <p>Représentant la faction la plus radicale et la plus secrète, les Néo-Terriens se composent souvent de Rebuts. Ils rejettent catégoriquement l'existence même de la vie dans l'espace, qu'ils qualifient d'aberration évolutive. Leur unique objectif est un retour définitif sur Terre, mais ils refusent radicalement de le faire selon les termes dictés par le P.T.R.G.E.. Ils accusent ouvertement Gabriel Prodit de traiter les condamnés comme du simple « matériel génétique » et des cobayes interchangeables pour une terraformation dont seule l'élite Sénesciente tirera profit. En signe de ralliement et en souvenir du « monde d'avant », ils utilisent fréquemment des symboles végétaux ou terrestres anciens.</p>
+                </section>
+
+                <section>
+                    <h4 class="text-orange-500 text-lg uppercase font-bold mb-4 border-b border-gray-800 pb-2">3. Bases et Infrastructures Fantômes: Habiter l'Invisible</h4>
+                    <p>Pour exister face à une Fédération qui contrôle chaque mètre cube d'oxygène, la Rébellion a dû apprendre l'art de résider dans « l'invisible ». Plutôt que de revendiquer des territoires officiels qui seraient immédiatement la cible de purges, les insurgés investissent les anomalies structurelles et les zones de non-droit délaissées par la surveillance centrale.</p>
+                    
+                    <p>Au sein des Mégastropoles telles qu'Eden-1300 ou Fortuna, l'immensité architecturale, dépassant parfois les 15 000 km², recèle des failles logistiques que la F.L.A.C. ne peut couvrir entièrement. Les rebelles exploitent notamment les « Entre-niveaux », de vastes vides sanitaires et des zones de maintenance situés entre les quartiers résidentiels luxueux des Magnats et les conduits de thirium alimentant les secteurs des Infralaborants. Ces « couloirs fantômes », absents de tout plan civil officiel, permettent une circulation fluide et indétectable des agents de la résistance.</p>
+
+                    <div class="glass-panel p-6 border-t-4 border-indigo-500 my-6">
+                        <h4 class="!mt-0 text-white text-base uppercase font-bold mb-2">Les Micro-sociétés Cachées</h4>
+                        <p class="!text-xs text-gray-400 text-justify mb-4">Sur Eden-1300, la Rébellion a su tirer profit de la « Zone Morte », des secteurs entiers scellés par la Fédération après les émeutes sanglantes de 2158. En brisant clandestinement ces scellés, les insurgés y ont établi des micro-sociétés fonctionnant en circuit fermé, utilisant des purificateurs d'air artisanaux pour ne pas trahir leur présence en pompant sur le réseau central surveillé.</p>
+                        <p class="!text-xs text-gray-400 text-justify mb-0">Même au cœur du joyau technologique fédéral qu'est la station Tellus, la rébellion maintient des cellules dormantes. En exploitant les recherches avancées sur les trous de vers de données, les rebelles utilisent les infrastructures mêmes de la station pour faire transiter des communications cryptées à travers tout le système solaire, rendant leur traçage par l'IA de la Fédération quasiment impossible.</p>
+                    </div>
+
+                    <p>Le coup d'éclat le plus audacieux de la logistique rebelle demeure l'occupation de l'Astrofacture « Erebus-V », une ancienne installation de la FORUM Corp. Par une manœuvre de piratage sophistiquée, la station a été officiellement déclassée après qu'une fuite radioactive majeure a été simulée via les balises de signalement. Ce leurre maintient la F.L.A.C. à une distance respectueuse de ce qu'ils croient être une zone létale. En réalité, Erebus-V sert de base mobile dissimulée dans la ceinture d'astéroïdes, permettant la réparation de vaisseaux de transport détournés et servant de refuge aux hybrides de la Troisième Génération fuyant les persécutions.</p>
+                    
+                    <p>La survie de ces infrastructures repose sur la tactique du « Silence Thermique ». Grâce à des technologies de camouflage, ces sanctuaires se greffent sur des sources de chaleur existantes - comme les réacteurs d'autres stations ou des astéroïdes riches en métaux - afin de masquer leur signature énergétique. Pour les radars de la Siren Corporation, une base rebelle ne se distingue alors plus d'un simple débris spatial ou d'une erreur de capteur.</p>
+                </section>
+
+                <section>
+                    <h4 class="text-orange-500 text-lg uppercase font-bold mb-4 border-b border-gray-800 pb-2">4. Méthodes d'Action et Puissance Militaire</h4>
+                    <p>La Rébellion ne cherche jamais la confrontation directe avec les cuirassés massifs de la F.L.A.C. ou les forces de sécurité d'Olympe Siren : elle privilégie la tactique de la « piqûre de guêpe », frappant avec précision avant de s'évanouir dans le vide.</p>
+
+                    <h5 class="text-cyan-500 font-bold uppercase tracking-widest text-xs mt-8 mb-3 border-l-2 border-cyan-500 pl-3">L'Arsenal de l'Ombre</h5>
+                    <p>Sa puissance de frappe repose sur une flotte hétéroclite, surnommée la « Flotte Spectre », composée de vaisseaux civils lourdement militarisés et de prototypes volés aux grandes enseignes. Cet arsenal de l'ombre s'appuie sur des unités spécialisées comme les « Transporteurs à Coque Froide », d'anciens cargos de la FORUM Corp dont la signature thermique a été réduite au minimum pour transporter troupes et matériel en toute invisibilité entre les secteurs gris. Ils sont escortés par les chasseurs « Sittelle », des modules de maintenance modifiés, rapides et maniables, équipés de canons à impulsion électromagnétique (EMP). Leur rôle n'est pas la destruction pure, mais la paralysie des systèmes ennemis pour permettre l'abordage et la récupération de ressources. Des rumeurs persistantes mentionnent également le « Vengeur d'Elijah », un ancien destroyer fédéral capturé et doté d'une IA « Éveillée » capable de pirater les drones de la Fédération à distance.</p>
+
+                    <h5 class="text-cyan-500 font-bold uppercase tracking-widest text-xs mt-8 mb-3 border-l-2 border-cyan-500 pl-3">Infiltration et Recrutement</h5>
+                    <p>La véritable force des insurgés réside toutefois dans la guerre asymétrique et l'infiltration. Plutôt que de gaspiller des munitions, ils privilégient le sabotage industriel, injectant des virus informatiques dévastateurs directement dans les chaînes de montage de la FORUM Corp. L'infiltration sociale est une autre arme redoutable : la Rébellion compte des sympathisants dans toutes les strates, du simple Segmentaire servant d'informateur sur les quais au Magnat finançant secrètement une cellule pour garantir sa protection future. Parallèlement, la faction des « Éveillés » mène une cyberguerre incessante, saturant les serveurs de la Siren Corporation pour masquer les mouvements de la flotte ou diffuser des preuves de corruption fédérale sur tous les écrans des stations.</p>
+                    <p>Pour alimenter cette lutte, le recrutement s'opère dans les failles mêmes du système fédéral : les rebelles approchent les orphelins de 17 ans ayant échoué aux tests de la Fédération, leur offrant un but là où la société ne voit que des Rebuts, et « libèrent » les condamnés aux travaux forcés dans les mines d'astéroïdes pour les transformer en soldats dévoués à la cause.</p>
+                </section>
+
+                <section>
+                    <h4 class="text-orange-500 text-lg uppercase font-bold mb-4 border-b border-gray-800 pb-2">5. Impact Sociétal et Psychologique</h4>
+                    <p>L'existence de cellules rebelles au cœur des zones urbaines modifie radicalement le quotidien des civils, créant une fracture profonde entre la promesse de protection fédérale et l'aspiration à l'émancipation. Lorsqu'une activité dissidente est localisée au sein d'une Mégastropole telle qu'Eden-1300 ou Fortuna, la F.L.A.C. déclenche immédiatement des protocoles de « mise en quarantaine tactique ». Des quartiers entiers de Segmentaires se retrouvent alors brutalement séquestrés, voyant les accès aux ascenseurs orbitaux verrouillés et leurs flux de ressources vitales rationnés pour contraindre les insurgés à sortir de l'ombre. Pour une frange importante de la population, la Rébellion n'est plus perçue comme un mouvement de libération, mais comme un vecteur de chaos pur, venant briser la stabilité déjà précaire garantie par leur « Contrat Vital ».</p>
+                    <p>À l'inverse, pour les classes sociales les plus délaissées et opprimées, la Rébellion s'affirme comme l'unique force capable de contester le monopole absolu exercé par les « Immortelles ». Dans l'obscurité des canalisations et des zones non-autorisées, les rebelles offrent une forme de reconnaissance humaine que la Fédération refuse systématiquement aux marginaux. Rejoindre la dissidence devient alors, pour beaucoup de Rebuts, le seul moyen d'obtenir une identité concrète et d'échapper définitivement aux réseaux de traite du marché noir ou à l'esclavage pur et simple. Cette dynamique insurrectionnelle offre également une « seconde chance » salvatrice aux orphelins de 17 ans qui, refusant d'intégrer les rangs épuisants des Infralaborants, préfèrent mettre leurs compétences au service de la cause commune, hors des sentiers balisés par la Fédération.</p>
+                    <p>Cependant, l'infiltration de la Rébellion dans toutes les strates de la société, des bas quartiers jusqu'aux cercles fermés des Magnats, a fini par engendrer un climat de suspicion et de paranoïa généralisée. Puisque les dissidents privilégient par nature la guerre asymétrique et l'infiltration discrète, absolument personne n'est considéré comme étant au-dessus de tout soupçon par les autorités. Cette menace fantôme justifie, aux yeux des Sénescients, une surveillance préventive de plus en plus étouffante ainsi que l'usage massif de sentinels automatisées pour maintenir un semblant d'ordre. En fin de compte, le rêve originel porté par l'O.E.R.S. de découvrir un jour une nouvelle Terre viable a été totalement supplanté par une usure psychologique permanente, où chaque citoyen vit dans la crainte constante de devenir la victime collatérale d'un attentat ciblé ou d'une purge fédérale sanglante.</p>
+                </section>
+
+                <section>
+                    <h4 class="text-orange-500 text-lg uppercase font-bold mb-4 border-b border-gray-800 pb-2">6. Figures de Proue et Martyrs</h4>
+                    <p>L'histoire de la Rébellion n'est pas seulement faite de dates et de décrets, mais s'incarne dans des lignées et des individus qui ont choisi de briser le statu quo au prix de leur propre sécurité.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                        <div class="glass-panel p-6 border-l-4 border-yellow-500">
+                            <h5 class="!mt-0 text-yellow-400 text-sm uppercase font-bold mb-2">La Dynastie Ortega</h5>
+                            <p class="!text-xs text-gray-400 text-justify mb-0">Au sommet de ce panthéon de la dissidence trône la Dynastie Ortega, dont l'héritage a évolué de la science pure vers un militantisme acharné. Si le docteur Marlene Ortega est la mère biologique de l'espèce hybride par sa thèse de 2071, c'est sa fille, Senna Ortega, qui a véritablement politisé cette naissance en fondant le mouvement « Hybrid Unity » en 2117. Elle a su transformer une population de laboratoires en une communauté soudée, luttant activement contre l'oppression hybridophobe par des œuvres de charité et des campagnes de valorisation sociale. Cette flamme a été entretenue par Biggs Ortega, qui, en 2163, a mis un terme définitif au règne de terreur de Jefe Nasser en collaborant avec les forces de l'ordre pour le localiser, actant ainsi la fin d'une ère de meurtres impunis.</p>
+                        </div>
+                        
+                        <div class="glass-panel p-6 border-l-4 border-orange-500">
+                            <h5 class="!mt-0 text-orange-400 text-sm uppercase font-bold mb-2">Zachary Mapoudish & Janine Forest</h5>
+                            <p class="!text-xs text-gray-400 text-justify mb-0">Parallèlement à cette élite intellectuelle, la Rébellion puise sa force morale dans la figure de Zachary Mapoudish, le « précurseur des oubliés ». Né dans l'insalubrité des canalisations, ce Rebut de naissance a refusé l'idéologie de la violence inhérente à sa condition pour porter un message de dignité universelle. Son combat pacifique pour la reconnaissance de ceux que la Fédération ne recense même pas a créé un pont indispensable entre les différentes strates sociales. Il est indissociable de Janine Forest, l'ouvrière de l'espoir, qui utilise son influence dans les secteurs industriels pour plaider en faveur de réformes sociales concrètes, telles que des salaires équitables et un accès réel aux soins pour les Infralaborants. Ensemble, ils ont su organiser des réseaux de soutien communautaires, prouvant que la résistance pouvait aussi être une force de construction sociale.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-6 border-t-4 border-cyan-500 my-6 bg-cyan-950/10 text-center">
+                        <h5 class="!mt-0 text-cyan-400 text-sm uppercase font-bold mb-2">Elijah</h5>
+                        <p class="!text-xs text-gray-400 mb-0">Enfin, aucune chronique de la dissidence ne serait complète sans mentionner Elijah, le Protomate dont le sacrifice en 2188 a changé la définition même de l'existence synthétique. En choisissant de diffuser le code D.E.E.S. au moment de l'explosion de la station A5H-2, il a non seulement neutralisé un virus génocidaire, mais il a surtout offert le libre arbitre à des milliers de machines. Si Elijah a disparu dans la déflagration, son héritage de préservation et de choix vit à travers chaque Protomate éveillé refusant d'être un simple outil aux mains de la Siren Corporation.</p>
+                    </div>
+                    
+                    <p>Ces figures, qu'elles soient de chair ou de métal, forment aujourd'hui l'épine dorsale d'une société qui n'accepte plus le silence imposé par les étoiles.</p>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="data-culture" class="hidden">
+        
+        <div class="flex justify-end mb-8">
+            <button onclick="toggleReportMode()" id="btn-report-mode-culture" class="border border-fuchsia-500/50 bg-fuchsia-900/20 hover:bg-fuchsia-500/30 text-white px-3 py-2 rounded flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(217,70,239,0.2)]">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span class="text-[10px] uppercase tracking-widest font-bold">Lire le Rapport</span>
+            </button>
+        </div>
+
+        <div id="lore-content-area-culture">
+            
+            <div id="mode-summary-culture" class="fade-in-view">
+                
+                <div class="border-l-2 border-fuchsia-500 pl-4 mb-8">
+                    <p class="text-sm text-gray-300 italic">"Dans l'immensité glaciale du système solaire, là où l'isolement et la solitude pèsent sur chaque seconde, l'art n'est pas un simple divertissement. C'est le signal qui prouve que nous sommes encore en vie."</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+                    <div class="p-4 border border-purple-500/30 bg-purple-900/10 rounded">
+                        <h4 class="text-purple-400 text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2"><i data-lucide="gem" class="w-4 h-4"></i> Les Éclats du Luxe</h4>
+                        <p class="text-[10px] text-gray-500 text-justify">Icônes Magnats et Sénescients. L'opulence masquant la fragilité d'une existence sous le verre.</p>
+                    </div>
+                    <div class="p-4 border border-cyan-500/30 bg-cyan-900/10 rounded">
+                        <h4 class="text-cyan-400 text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2"><i data-lucide="cpu" class="w-4 h-4"></i> Les Voix de l'Éveil</h4>
+                        <p class="text-[10px] text-gray-500 text-justify">Personnalités protomatiques. Des émotions et une conscience défiant les lois de l'ingénierie.</p>
+                    </div>
+                    <div class="p-4 border border-red-500/30 bg-red-900/10 rounded">
+                        <h4 class="text-red-500 text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2"><i data-lucide="flame" class="w-4 h-4"></i> Les Échos de l'Ombre</h4>
+                        <p class="text-[10px] text-gray-500 text-justify">Talents Infralaborants ou Rebuts. L'art comme un cri de ralliement face à l'oppression.</p>
+                    </div>
+                </div>
+
+                <h3 class="text-white font-bold uppercase tracking-widest text-sm mb-6 border-b border-gray-800 pb-2">Accès au Réseau des Éminences</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <div onclick="openFile('nyxbast'); initMusicPlayerFor('nyxbast')" class="glass-panel p-4 cursor-pointer group hover:bg-fuchsia-900/20 hover:border-fuchsia-500/50 transition-all border-l-4 border-l-fuchsia-500 relative overflow-hidden shadow-[0_0_15px_rgba(217,70,239,0.1)] hover:shadow-[0_0_20px_rgba(217,70,239,0.3)]">
+                        <i data-lucide="cat" class="absolute -right-4 -bottom-4 w-20 h-20 text-fuchsia-500/10 group-hover:scale-110 transition-transform"></i>
+                        <div class="flex items-center gap-4 mb-4 relative z-10">
+                            <div class="w-12 h-12 bg-fuchsia-900/30 border border-fuchsia-500/30 rounded flex items-center justify-center text-fuchsia-400 shrink-0">
+                                <i data-lucide="music" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold uppercase tracking-widest text-sm">Nyx Bast</h4>
+                                <p class="text-[10px] text-fuchsia-400">Dark R&B / Félidé</p>
+                            </div>
+                        </div>
+                        <div class="text-[10px] text-gray-500 flex items-center justify-between relative z-10">
+                            <span class="bg-black/50 px-2 py-1 rounded border border-gray-800">Dossier #01</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-fuchsia-400 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                    <div onclick="openFile('jax'); initMusicPlayerFor('jax')" class="glass-panel p-4 cursor-pointer group hover:bg-red-900/20 hover:border-red-500/50 transition-all border-l-4 border-l-red-600 relative overflow-hidden shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_rgba(239,68,68,0.3)]">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20 pointer-events-none"></div>
+                        <i data-lucide="radio-tower" class="absolute -right-4 -bottom-4 w-20 h-20 text-red-500/10 group-hover:scale-110 transition-transform"></i>
+                        
+                        <div class="flex items-center gap-4 mb-4 relative z-10">
+                            <div class="w-12 h-12 bg-red-900/30 border border-red-500/30 rounded flex items-center justify-center text-red-500 shrink-0">
+                                <i data-lucide="triangle-alert" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold uppercase tracking-widest text-sm drop-shadow-[0_0_5px_rgba(239,68,68,0.5)]">JAX</h4>
+                                <p class="text-[10px] text-red-400 font-mono">Infralaborant 884-J</p>
+                            </div>
+                        </div>
+                        <div class="text-[10px] text-gray-500 flex items-center justify-between relative z-10">
+                            <span class="bg-red-950 px-2 py-1 rounded border border-red-900 text-red-500/70 font-mono">Dossier #02 (Delta)</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 text-red-500 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="mt-12 p-4 border border-gray-700 bg-gray-900/30 flex gap-4 items-start">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-gray-500 shrink-0 mt-0.5"></i>
+                    <p class="text-[10px] text-gray-400 text-justify font-mono">
+                        <strong class="text-white">Note de Service :</strong> Suite aux récents événements, certains dossiers ont été placés sous protocole de confidentialité ou présentent des corruptions de données. La Fédération décline toute responsabilité concernant les informations non-officielles circulant sur les dossiers classés "Delta" ou "Disparus".
+                    </p>
+                </div>
+
+            </div>
+
+            <div id="mode-full-text-culture" class="hidden fade-in-view space-y-12">
+                
+                <div class="bg-fuchsia-900/20 border border-fuchsia-500/30 p-4 mb-8 text-center">
+                    <p class="text-xs text-fuchsia-400 uppercase tracking-widest">Affichage du Document Classifié Intégral</p>
+                </div>
+
+                <section>
+                    <h4 class="text-white text-lg uppercase font-bold mb-4 border-b border-gray-800 pb-2">Registre de la Vie Culturelle</h4>
+                    
+                    <h5 class="text-fuchsia-400 font-bold uppercase tracking-widest text-xs mt-8 mb-3 border-l-2 border-fuchsia-500 pl-3">Le Signal dans le Silence</h5>
+                    <p>Dans l'immensité glaciale du système solaire, là où l'isolement et la solitude pèsent sur chaque seconde, l'art n'est pas un simple divertissement. C'est le signal qui prouve que nous sommes encore en vie. Entre les parois de métal des stations, la culture est devenue le seul pont capable de relier nos trois espèces: l'Homme, l'Hybride et le Protomate.</p>
+                    <p>Qu'il s'agisse des échos mélodieux qui hantent les jardins synthétiques de Nausicaa-2 ou des fréquences saturées qui s'échappent des bas-fonds d'Eden-1300, chaque note est un battement de cœur dans le vide.</p>
+                    
+                    <h5 class="text-fuchsia-400 font-bold uppercase tracking-widest text-xs mt-8 mb-3 border-l-2 border-fuchsia-500 pl-3">Les Miroirs des Stations</h5>
+                    <p>Ce registre est la mémoire vive de nos émotions. Il recense les trajectoires de ceux qui ont su transformer la contrainte de l'espace en une œuvre de chair, d'instinct ou de circuits.</p>
+                    <ul class="text-gray-400 list-disc pl-4 mt-4 space-y-2">
+                        <li><strong>Les Éclats du Luxe:</strong> Les icônes des classes Magnats et Sénescients, dont l'opulence et l'élégance masquent parfois la fragilité d'une existence enfermée derrière des parois de verre.</li>
+                        <li><strong>Les Voix de l'Éveil:</strong> Des personnalités protomatiques dont la conscience nouvelle et les émotions complexes défient les lois de l'ingénierie humaine.</li>
+                        <li><strong>Les Échos de l'Ombre:</strong> Les talents nés dans la poussière des Infralaborants ou l'illégalité des Rebuts, utilisant leur voix comme un cri de ralliement face à l'oppression.</li>
+                    </ul>
+
+                    <h5 class="text-fuchsia-400 font-bold uppercase tracking-widest text-xs mt-8 mb-3 border-l-2 border-fuchsia-500 pl-3">Accès au Réseau des Éminences</h5>
+                    <p>Plongez dans les archives de ceux qui font vibrer le système. Pour chaque artiste, vous accéderez à leurs trajectoires biographiques, leurs flux personnels et leurs journaux de bord. Un module d'audition synchronisé avec votre Focus vous permet de ressentir l'œuvre à sa source, paroles incluses.</p>
+
+                    <div class="mt-8 bg-red-900/10 border border-red-500/30 p-4">
+                        <p class="text-red-400 text-xs font-bold uppercase mb-2">Note de Service</p>
+                        <p class="text-[10px] text-gray-400 text-justify">Suite aux récents événements, certains dossiers ont été placés sous protocole de confidentialité ou présentent des corruptions de données. La Fédération décline toute responsabilité concernant les informations non-officielles circulant sur les dossiers classés "Delta" ou "Disparus".</p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="data-nyxbast" class="hidden">
+        
+        <div class="flex justify-between items-center mb-8">
+            <button onclick="openFile('culture')" class="text-gray-400 hover:text-white flex items-center gap-2 transition-colors">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span class="text-xs uppercase tracking-widest">Retour aux Éminences</span>
+            </button>
+            <span class="px-3 py-1 bg-fuchsia-900/30 border border-fuchsia-500/30 text-[10px] text-fuchsia-400 uppercase tracking-widest rounded-full shadow-[0_0_10px_rgba(217,70,239,0.2)]">Accès Public (Section Culturelle)</span>
+        </div>
+
+        <div class="fade-in-view">
+            
+            <div class="glass-panel p-6 md:p-8 border-t-4 border-fuchsia-500 mb-8 relative overflow-hidden">
+                <i data-lucide="mic-2" class="absolute -right-10 -bottom-10 w-64 h-64 text-fuchsia-500/5"></i>
+                
+                <div class="flex flex-col md:flex-row gap-8 items-start relative z-10">
+                    <div class="w-32 h-32 md:w-48 md:h-48 shrink-0 bg-gradient-to-br from-fuchsia-900/40 to-black border border-fuchsia-500/30 rounded-lg flex flex-col items-center justify-center shadow-[0_0_30px_rgba(217,70,239,0.15)]">
+                        <i data-lucide="cat" class="w-16 h-16 text-fuchsia-500/70 mb-2"></i>
+                        <span class="text-[10px] uppercase tracking-widest text-fuchsia-500/70 font-bold">Nyx Bast</span>
+                    </div>
+
+                    <div class="flex-grow">
+                        <p class="text-fuchsia-400 uppercase tracking-[0.2em] text-xs font-bold mb-2">Dossier Éminence #01</p>
+                        <h2 class="text-4xl md:text-6xl font-bold text-white uppercase tracking-tighter mb-4">Nyx Bast</h2>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2 py-1 bg-gray-800 border border-gray-600 text-[10px] text-gray-300 uppercase tracking-widest rounded">Artiste Dark R&B / Héritière dissidente</span>
+                            <span class="px-2 py-1 bg-indigo-900/40 border border-indigo-500/30 text-[10px] text-indigo-400 uppercase tracking-widest rounded">Origine: Nausicaa-2 (Amalthée)</span>
+                        </div>
+
+                        <p class="text-sm text-gray-400 text-justify">
+                            Nyx Bast (née le 02 juin 2176 sur l'Astropole Nausicaa-2) est une chanteuse, compositrice et figure de proue de la scène artistique hybride. Elle est l'une des rares artistes à faire le pont entre le luxe des Magnats et la fureur de la "Zone", devenant un symbole de liberté pour de nombreux habitants du système solaire.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                
+                <div class="lg:col-span-2 space-y-8">
+                    <section class="glass-panel p-6 border-l-2 border-fuchsia-500">
+                        <div class="flex items-center justify-between mb-4 border-b border-gray-800 pb-2">
+                            <h3 class="text-white uppercase font-bold text-sm">Biographie Officielle</h3>
+                            <span class="text-[10px] text-gray-500 font-mono">Source: WikiFédé</span>
+                        </div>
+                        <h4 class="text-xs text-fuchsia-400 font-bold uppercase tracking-widest mb-2">Jeunesse et Origines</h4>
+                        <p class="text-sm text-gray-300 text-justify mb-4">Issue de la classe des Magnats, elle est la fille de deux entrepreneurs influents du secteur industriel. Elle grandit dans l'opulence des penthouses de Nausicaa-2, bénéficiant d'une éducation d'élite destinée à la préparer aux hautes instances de direction. Comme beaucoup d'hybrides de la Quatrième Génération, Nyx a évolué dans une société en apparence apaisée, fréquentant les cercles humains les plus fermés. Sa physiologie de félidée (panthère noire) se manifeste par des oreilles fines et hypersensibles, une queue agile et des canines proéminentes, traits qu'elle arbore avec une fierté iconique.</p>
+                        
+                        <h4 class="text-xs text-fuchsia-400 font-bold uppercase tracking-widest mb-2">Carrière en Entreprise et Rupture</h4>
+                        <p class="text-sm text-gray-300 text-justify mb-4">Avant sa carrière musicale, elle occupe le poste de Responsable de la Filière Approvisionnement au sein de la compagnie Aura-Tech Logistics, une entreprise spécialisée dans le transit de matériaux technologiques. Malgré une ascension rapide, Nyx exprime publiquement un désintérêt profond pour la gestion administrative, un trait souvent associé à l'indépendance de son génome. À l'âge de 25 ans, elle démissionne brutalement de son poste pour se consacrer exclusivement à la création. Ce tournant marque la naissance de son personnage scénique : une "prédatrice des cieux" solitaire et affranchie des conventions de sa classe d'origine.</p>
+
+                        <h4 class="text-xs text-fuchsia-400 font-bold uppercase tracking-widest mb-2">Image Publique et Influence</h4>
+                        <p class="text-sm text-gray-300 text-justify">Nyx Bast est aujourd'hui une icône de la mode et de la vie nocturne, connue pour ses apparitions magnétiques dans les soirées les plus prestigieuses. Bien qu'elle fréquente l'élite, ses paroles révèlent une vision critique du système : "Ils croient que leurs crédits les protègent de la poussière / Mais je sens la fissure sous la lumière artificielle".</p>
+                    </section>
+
+                    <section class="p-6 bg-gradient-to-br from-fuchsia-900/30 to-black border border-fuchsia-500/50 rounded shadow-lg relative">
+                        <div class="absolute top-0 right-0 bg-fuchsia-500 text-black text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl">L'Article de Couverture</div>
+                        <h3 class="text-white font-serif text-2xl mb-2 mt-4">L'ÉCHO DES SPHÈRES</h3>
+                        <h4 class="text-fuchsia-300 text-lg font-bold italic mb-4">« Nyx Bast : La Panthère qui a brisé le dôme de verre »</h4>
+                        <p class="text-sm text-gray-300 text-justify mb-3">Le système solaire n'avait jamais vu une telle ascension. Issue de la haute aristocratie financière de Nausicaa-2, Nyx Bast semblait promise à une carrière pavée de soie et de crédits illimités. Ses parents, de richissimes investisseurs du secteur de la logistique industrielle, l'avaient soigneusement préparée à prendre les rênes de l'empire familial.</p>
+                        <p class="text-sm text-gray-300 text-justify mb-3">Pourtant, derrière la perfection clinique de la station connue comme le "Berceau de l'Homme", la jeune héritière nourrissait une sauvagerie que les protocoles de la Fédération ne pouvaient contenir. À 25 ans, elle occupait encore le poste de Responsable de la Filière Logistique chez Aura-Tech Solutions, une sous-traitante de second rang pour le transport de matériaux non-critiques.</p>
+                        <p class="text-sm text-gray-300 text-justify mb-3">Un mardi de cycle standard, alors qu'une réunion budgétaire cruciale se tenait, Nyx a simplement quitté le penthouse familial. Sa démission, transmise par un message vocal désormais culte dans les bas-quartiers de Fortuna, ne tenait qu'en quelques mots :</p>
+                        <blockquote class="border-l-4 border-fuchsia-500 pl-4 py-2 my-4 bg-black/50 text-fuchsia-100 font-serif italic text-lg">
+                            « L'acier de vos bureaux est trop froid pour mes griffes. Je m'ennuie. Je démissionne. »
+                        </blockquote>
+                    </section>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="glass-panel p-6 border-t-4 border-fuchsia-500 sticky top-24">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i data-lucide="disc-3" class="w-6 h-6 text-fuchsia-500 animate-[spin_4s_linear_infinite]"></i>
+                            <h4 class="text-white uppercase font-bold text-lg">Velours Noir</h4>
+                        </div>
+                        <p class="text-[10px] text-gray-400 font-mono mb-4 border-b border-gray-800 pb-2">Label: Indépendant</p>
+                        
+                        <h5 class="text-fuchsia-400 text-xs font-bold uppercase tracking-widest mb-3">Tracklist</h5>
+                        
+                        <div id="tracklist-container" class="space-y-4">
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="glass-panel border-t-4 border-fuchsia-500 bg-black/80 relative overflow-hidden mt-8 shadow-2xl">
+                <div class="absolute left-0 top-0 h-full w-1/2 bg-gradient-to-r from-fuchsia-900/30 to-transparent pointer-events-none"></div>
+                
+                <div class="p-6 md:p-10 relative z-10">
+                    
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-fuchsia-500/20 rounded flex items-center justify-center">
+                                <i data-lucide="radio-receiver" class="w-5 h-5 text-fuchsia-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-white uppercase font-bold tracking-widest text-sm">Module d'Audition Focus</h3>
+                                <p class="text-[10px] text-fuchsia-400" id="player-status">En attente de sélection...</p>
+                            </div>
+                        </div>
+                        <span class="px-2 py-1 bg-gray-800 text-[10px] text-gray-400 font-mono rounded">EP: Velours Noir</span>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center gap-8 mb-6">
+                        
+                        <button onclick="toggleActiveMusic()" id="main-play-btn" class="group w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-full bg-black border-2 border-gray-700 flex items-center justify-center text-gray-500 transition-all shadow-none">
+                            
+                            <div id="wrapper-play" class="flex items-center justify-center translate-x-[1px] -translate-y-[1px] group-hover:scale-110 transition-transform">
+                                <i data-lucide="play" class="w-8 h-8 md:w-10 md:h-10"></i>
+                            </div>
+                            
+                            <div id="wrapper-pause" class="hidden items-center justify-center group-hover:scale-110 transition-transform">
+                                <i data-lucide="pause" class="w-8 h-8 md:w-10 md:h-10"></i>
+                            </div>
+                            
+                        </button>
+                        
+                        <div class="flex-grow w-full">
+                            <div class="flex flex-col md:flex-row md:items-end justify-between mb-4">
+                                <div>
+                                    <h4 id="player-track-title" class="text-2xl text-white font-bold uppercase tracking-widest">---</h4>
+                                    <p id="player-track-artist" class="text-sm text-gray-500">Sélectionnez une piste dans le menu</p>
+                                </div>
+                                
+                                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                                    <div class="flex items-center gap-2 group">
+                                        <i data-lucide="volume-2" class="w-4 h-4 text-gray-500 group-hover:text-fuchsia-400 transition-colors"></i>
+                                        <input type="range" id="audio-volume" min="0" max="1" step="0.01" value="0.3" oninput="changeAudioVolume(this.value)" class="w-20 h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-fuchsia-500 hover:bg-gray-600 transition-colors">
+                                    </div>
+                                    <span id="player-time" class="text-sm font-mono text-gray-400">0:00 / 0:00</span>
+                                </div>
+                            </div>
+                            
+                            <div id="progress-bar-container" class="w-full h-3 bg-gray-900 rounded-full overflow-hidden cursor-pointer relative border border-gray-700" onclick="seekAudio(event)">
+                                <div id="progress-bar-fill" class="absolute top-0 left-0 h-full bg-gradient-to-r from-fuchsia-700 to-fuchsia-400 w-[0%] shadow-[0_0_15px_rgba(217,70,239,0.8)] transition-all duration-100"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="w-full h-28 fade-mask overflow-hidden relative border-t border-gray-800/50 pt-2 mb-6">
+                        <div id="sync-lyrics-content" class="absolute left-0 w-full flex flex-col items-center transition-transform duration-500 ease-out space-y-4">
+                            <p class="text-sm text-gray-600 italic mt-8 whitespace-nowrap">En attente du flux audio...</p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center border-t border-gray-800 pt-6">
+                        <button onclick="toggleLyrics('lyrics-nyx')" class="px-6 py-3 bg-gray-900/50 hover:bg-fuchsia-900/30 border border-gray-700 hover:border-fuchsia-500 text-sm text-white uppercase tracking-widest font-bold rounded flex items-center gap-3 transition-all disabled:opacity-50 disabled:cursor-not-allowed" id="btn-show-lyrics" disabled>
+                            <i data-lucide="align-center" class="w-5 h-5 text-fuchsia-500"></i>
+                            Afficher les paroles complètes
+                        </button>
+                    </div>
+
+                </div>
+
+                <div id="lyrics-nyx" class="hidden bg-black/90 border-t-2 border-fuchsia-500 p-6 md:p-12">
+                    <div id="full-lyrics-content" class="max-w-4xl mx-auto text-xs md:text-sm text-gray-400 font-serif leading-relaxed text-center bg-gray-900/30 p-6 rounded border border-gray-800 space-y-4">
+                        </div>
+                </div>
+                
+                <audio id="master-audio-player"></audio>
+            </div>
+        </div>
+    </div>
+
+<div id="data-jax" class="hidden">
+        
+        <div class="flex justify-between items-center mb-8">
+            <button onclick="openFile('culture')" class="text-gray-400 hover:text-white flex items-center gap-2 transition-colors">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span class="text-xs uppercase tracking-widest">Retour aux Archives</span>
+            </button>
+            <span class="px-3 py-1 bg-red-900/50 border border-red-500 text-[10px] text-red-100 uppercase tracking-widest rounded-full shadow-[0_0_15px_rgba(239,68,68,0.4)] animate-pulse">
+                Accès Restreint : Protocole Delta
+            </span>
+        </div>
+
+        <div class="fade-in-view">
+            
+            <div class="glass-panel p-6 md:p-8 border-t-4 border-red-600 mb-8 relative overflow-hidden bg-red-950/10">
+                <i data-lucide="triangle-alert" class="absolute -right-10 -bottom-10 w-64 h-64 text-red-600/5"></i>
+                
+                <div class="flex flex-col md:flex-row gap-8 items-start relative z-10">
+                    <div class="w-32 h-32 md:w-48 md:h-48 shrink-0 bg-gradient-to-br from-red-900/40 to-black border border-red-500/50 rounded-lg flex flex-col items-center justify-center shadow-[0_0_30px_rgba(239,68,68,0.2)] relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-50"></div>
+                        <i data-lucide="radio-tower" class="w-16 h-16 text-red-500/80 mb-2"></i>
+                        <span class="text-[10px] uppercase tracking-widest text-red-500/80 font-bold">Sujet 884-J</span>
+                    </div>
+
+                    <div class="flex-grow">
+                        <p class="text-red-500 uppercase tracking-[0.2em] text-xs font-bold mb-2 flex items-center gap-2">
+                            <i data-lucide="file-warning" class="w-4 h-4"></i> Dossier Éminence #02
+                        </p>
+                        <h2 class="text-4xl md:text-6xl font-bold text-white uppercase tracking-tighter mb-4 drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]">JAX</h2>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2 py-1 bg-red-900/40 border border-red-700 text-[10px] text-red-300 uppercase tracking-widest rounded">Infralaborant 884-J / Symbole Dissident</span>
+                            <span class="px-2 py-1 bg-gray-800 border border-gray-600 text-[10px] text-gray-400 uppercase tracking-widest rounded">Origine: Eden-1300 (Orbite de Saturne)</span>
+                        </div>
+
+                        <p class="text-sm text-gray-400 text-justify border-l-2 border-red-500/50 pl-4 italic">
+                            Alerte Système : Ce fichier contient des segments de données corrompus. Les accès non autorisés sont traçables par la surveillance préventive de la Fédération.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                
+                <div class="lg:col-span-2 space-y-8">
+                    
+                    <section class="glass-panel p-6 border-l-2 border-gray-600">
+                        <div class="flex items-center justify-between mb-4 border-b border-gray-800 pb-2">
+                            <h3 class="text-white uppercase font-bold text-sm">Biographie</h3>
+                            <span class="text-[10px] text-red-500 font-mono">Source: WikiFédé (Version Expurgée)</span>
+                        </div>
+                        
+                        <h4 class="text-xs text-red-400 font-bold uppercase tracking-widest mb-2">Jeunesse et Origines</h4>
+                        <p class="text-sm text-gray-300 text-justify mb-4">Jax (né vers 2155 sur la station Eden-1300) était un citoyen de la classe des Infralaborants. Issu d'une lignée de travailleurs dédiés à la maintenance des infrastructures vitales, il a passé l'essentiel de sa vie dans le Secteur Gris, une zone de la station marquée par une densité de population extrême et un taux de criminalité culminant à 40%. Contrairement aux hybrides de la Quatrième Génération qui bénéficient d'une intégration facilitée, Jax incarnait la figure classique de l'ouvrier humain dont l'existence est régie par les quotas de production et le maintien des systèmes de survie.</p>
+                        
+                        <h4 class="text-xs text-red-400 font-bold uppercase tracking-widest mb-2">Carrière Industrielle et Rupture</h4>
+                        <p class="text-sm text-gray-300 text-justify mb-4">Pendant plus de quinze ans, il a servi comme mineur d'astéroïdes et technicien de surface pour la FORUM Corp, intervenant sur les filtres à air et les conduits de thirium. Sa trajectoire, initialement sans relief, a basculé lors du recrutement de son épouse par le programme Star Maze du P.T.R.G.E. Refusant de cautionner ce qu'il percevait comme un sacrifice au profit de l'élite des Sénescients, Jax a utilisé des équipements de communication de maintenance détournés pour diffuser un signal unique : son morceau « Signal Perdu ». Cette action a entraîné son licenciement immédiat pour « instigation de troubles civils » et son expulsion des quartiers locatifs, le condamnant au statut de Rebut.</p>
+
+                        <h4 class="text-xs text-red-400 font-bold uppercase tracking-widest mb-2">Succès Clandestin et Thématiques</h4>
+                        <p class="text-sm text-gray-300 text-justify mb-4">Bien que la Fédération ait tenté de supprimer l'enregistrement, « Signal Perdu » est devenu viral dans les secteurs de maintenance d'Eden-1300 et de Fortuna. Sa musique, une Dark Electropop hachée par les bruits de statique des stations, traite de l'aliénation des travailleurs, du mensonge de Gabriel Prodit concernant le retour sur Terre, et de la consommation de la Surcharge, une drogue synthétique dévastatrice utilisée pour supporter l'épuisement. Ses paroles sont devenues des slogans pour les manifestants lors de la révolte civile de 2191 sur Eden-1300.</p>
+                        
+                        <h4 class="text-xs text-red-400 font-bold uppercase tracking-widest mb-2">Image Publique et Postérité</h4>
+                        <p class="text-sm text-gray-300 text-justify">Jax a été retrouvé sans vie un an et demi après son expulsion, dans les canalisations profondes de la station. La version officielle de la Fédération attribue son décès à une instabilité mentale et à une consommation excessive d'alcool et de drogues, niant toute implication politique. Cependant, pour les populations des bas-fonds, il reste « l'ouvrier de l'espoir » déchu, dont le silence final hurle plus fort que les prêches de l'organisation Humano de Verdad.</p>
+                    </section>
+
+                    <section class="p-6 bg-black border border-gray-800 rounded shadow-lg relative">
+                        <div class="absolute top-0 right-0 bg-gray-800 text-gray-400 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl">Fragment d'Archive (Serveur Déconnecté)</div>
+                        <h3 class="text-white font-mono text-xl mb-2 mt-4">L'OMBRE D'EDEN</h3>
+                        
+                        <blockquote class="border-l-4 border-gray-600 pl-4 py-2 my-4 bg-gray-900/50 text-gray-300 font-serif italic text-sm">
+                            « Ils l'appellent le Signal Perdu, mais nous savons tous qu'il ne l'est pas. On l'entend encore résonner dans les parois des conduits de ventilation. Jax n'avait pas les bijoux des classes supérieures, il n'avait que sa sueur et une haine lucide pour les miroirs de verre de Nausicaa-2. Quand il chantait que Gabriel Prodit nous avait menti, il ne faisait que dire tout haut ce que chaque Infralaborant pense en regardant Saturne à travers un hublot sale. Sa chute n'était pas un accident, c'était une démolition contrôlée par la F.L.A.C. pour éviter que la "Surcharge" ne devienne autre chose qu'une drogue : une révolution. »
+                        </blockquote>
+                    </section>
+
+                    <section class="glass-panel p-6 border-t-2 border-red-800 bg-red-950/10">
+                        <div class="flex items-center justify-between mb-4 border-b border-red-900/50 pb-2">
+                            <h3 class="text-red-400 uppercase font-bold text-sm tracking-widest">Analyse Culturelle</h3>
+                            <span class="text-[10px] text-gray-500 font-mono">Source: The Grey Grid (Blog Clandestin)</span>
+                        </div>
+                        
+                        <h4 class="text-white text-lg font-bold mb-3">Le Signal qui ne s'éteint pas</h4>
+                        <p class="text-sm text-gray-300 text-justify mb-3">La musique de Jax n'est pas faite pour être écoutée, elle est faite pour être ressentie comme une vibration parasite dans les dents. Contrairement à la production léchée des Magnats, « Signal Perdu » utilise les défauts de synchronisation des vieux Focus pour créer une atmosphère d'oppression claustrophobique. Sa voix, brute et non filtrée, s'adresse directement à ceux qui "vident les fonds de bouteilles" sous un soleil artificiel.</p>
+                        <p class="text-sm text-gray-300 text-justify">En évoquant le programme Star Maze, Jax a touché le nerf le plus sensible de la Fédération : la peur que les Infralaborants ne comprennent qu'ils ne sont que du "matériel de rechange". Son utilisation de la Surcharge dans ses paroles n'est pas une apologie, mais un constat d'échec pour un système qui ne propose que la drogue ou le silence.</p>
+                    </section>
+
+                    <section class="p-6 bg-gradient-to-br from-blue-950/40 to-black border-t-4 border-blue-500 rounded shadow-lg">
+                        <div class="flex justify-between items-start mb-4 border-b border-blue-900/50 pb-2">
+                            <div>
+                                <h3 class="text-blue-400 font-bold uppercase text-sm tracking-widest">GAZETTE FÉDÉRALE ÉDITION SPÉCIALE</h3>
+                                <p class="text-[10px] text-blue-500">SÉCURITÉ ET SANTÉ PUBLIQUE - Date: 14 Octobre 2193<br>Localisation: Diffusion Prioritaire Station Eden-1300<br>Objet: Conclusion de l'enquête concernant l'individu 884-J (Jax)</p>
+                            </div>
+                            <i data-lucide="shield-check" class="w-8 h-8 text-blue-500"></i>
+                        </div>
+                        
+                        <h4 class="text-white text-xl font-bold mb-3">Le Tragique Destin d'une Âme Égarée : Derrière l'Illusion du « Signal »</h4>
+                        <p class="text-sm text-gray-300 text-justify mb-3">La Fédération a le regret de confirmer le décès définitif de l'individu Jax, ancien Infralaborant au sein des exploitations minières de la station Eden-1300. Si sa disparition est une tragédie humaine, elle doit surtout servir de leçon de vigilance pour l'ensemble de nos concitoyens.</p>
+                        <p class="text-sm text-gray-300 text-justify mb-5">Pendant des mois, une partie de la population s'est laissée séduire par des fréquences sonores hachées et des paroles confuses, y voyant un quelconque message de ralliement. Aujourd'hui, les rapports médicaux finaux sont sans appel : ce « Signal » n'était pas un cri de guerre, mais le symptôme déchirant d'une déchéance mentale profonde.</p>
+                        
+                        <h5 class="text-blue-300 text-sm font-bold uppercase tracking-widest mb-2">Une Pathologie de la Douleur</h5>
+                        <p class="text-sm text-gray-300 text-justify mb-3">L'origine de l'instabilité de Jax remonte au départ de son épouse pour le programme Star Maze. Ce programme d'excellence, géré par le P.T.R.G.E., offre des opportunités de progrès inouïes pour l'humanité. Malheureusement, incapable de surmonter son deuil et de comprendre la noblesse de ce sacrifice civil, Jax a sombré dans une psychose paranoïaque.</p>
+                        <p class="text-sm text-gray-300 text-justify mb-5">Ses paroles, loin d'être révolutionnaires, n'étaient que les divagations d'un homme brisé cherchant un sens à son propre vide. En prétendant « voir l'envers du décor », il ne décrivait que les hallucinations provoquées par son addiction croissante à la Surcharge, une drogue synthétique dévastatrice qu'il consommait jusqu'à l'autodestruction.</p>
+                        
+                        <h5 class="text-blue-300 text-sm font-bold uppercase tracking-widest mb-2">Un Danger pour Lui-même et pour l'Ordre Social</h5>
+                        <p class="text-sm text-gray-300 text-justify mb-3">La dangerosité de Jax résidait dans son incapacité à s'aider lui-même, mais aussi dans le risque qu'il faisait courir aux plus vulnérables. En diffusant son désespoir sur des canaux publics, il a involontairement manipulé des citoyens honnêtes, les poussant à des comportements incivils alors qu'ils ne suivaient qu'un homme malade.</p>
+                        
+                        <p class="text-sm text-blue-200 font-bold mb-2">La Fédération rappelle que :</p>
+                        <ul class="list-disc pl-5 text-sm text-gray-300 mb-5 space-y-1">
+                            <li>Les paroles de Jax ne reposaient sur aucune réalité factuelle.</li>
+                            <li>Le mépris qu'il affichait pour le Contrat Vital n'était que le reflet de sa propre perte de repères.</li>
+                            <li>Suivre de telles icônes fragiles ne mène qu'à la précarité et à l'isolement, comme le prouve sa fin tragique en tant que Rebut.</li>
+                        </ul>
+
+                        <h5 class="text-blue-300 text-sm font-bold uppercase tracking-widest mb-2">Appel à la Raison</h5>
+                        <p class="text-sm text-gray-300 text-justify mb-3">Nous invitons chaque travailleur, chaque Segmentaire et chaque Hybride à ne pas se laisser tromper par les échos du passé. Jax n'était pas un martyr, mais un homme souffrant que la société n'a pu sauver malgré ses multiples interventions. Que son histoire serve à renforcer notre unité autour des valeurs de la Fédération et des « Immortelles ».</p>
+                        <p class="text-sm text-white font-bold text-center bg-blue-900/50 py-2 border border-blue-500/50 rounded mb-4">La stabilité est notre seul rempart contre le vide. Ne cherchez plus le signal. Le calme est rétabli.</p>
+
+                        <div class="border-t border-blue-900/50 pt-3">
+                            <p class="text-[10px] text-gray-400 font-mono text-justify">
+                                <span class="text-blue-400 font-bold">Note :</span> Pour toute assistance psychologique liée au départ d'un proche vers le programme Star Maze, contactez immédiatement les services de Biorizon Health Industries.
+                            </p>
+                        </div>
+                    </section>
+
+                </div>
+
+                <div class="space-y-6">
+                    <div class="glass-panel p-6 border-t-4 border-red-600 sticky top-24 bg-black/90">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i data-lucide="radio" class="w-6 h-6 text-red-500 animate-pulse"></i>
+                            <h4 class="text-white uppercase font-bold text-lg">Signal Perdu</h4>
+                        </div>
+                        <p class="text-[10px] text-gray-500 font-mono mb-4 border-b border-gray-800 pb-2">Label: Aucun (Diffusion Pirate)</p>
+                        
+                        <p class="text-xs text-gray-400 text-justify mb-6 italic">
+                            « C'est l'hymne de la fin d'un cycle, le récit d'un homme qui préfère brûler ses neurones avec la Surcharge plutôt que de continuer à polir la cage de cristal des Sénescients. »
+                        </p>
+
+                        <h5 class="text-red-400 text-xs font-bold uppercase tracking-widest mb-3">Transmission Interceptée</h5>
+                        
+                        <div id="tracklist-container" class="space-y-4">
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="glass-panel border-t-4 border-red-600 bg-black/90 relative overflow-hidden mt-8 shadow-[0_0_30px_rgba(239,68,68,0.1)]">
+                <div class="absolute left-0 top-0 h-full w-1/2 bg-gradient-to-r from-red-900/20 to-transparent pointer-events-none"></div>
+                
+                <div class="p-6 md:p-10 relative z-10">
+                    
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-red-500/10 border border-red-500/30 rounded flex items-center justify-center">
+                                <i data-lucide="radio-receiver" class="w-5 h-5 text-red-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-white uppercase font-bold tracking-widest text-sm">Canal d'Urgence Piraté</h3>
+                                <p class="text-[10px] text-red-400" id="player-status">Recherche de fréquence...</p>
+                            </div>
+                        </div>
+                        <span class="px-2 py-1 bg-red-950 border border-red-900 text-[10px] text-red-500 font-mono rounded animate-pulse">LIVE FEED</span>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center gap-8 mb-6">
+                        
+                        <button onclick="toggleActiveMusic()" id="main-play-btn" class="group w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-full bg-black border-2 border-gray-700 flex items-center justify-center text-gray-500 transition-all shadow-none">
+                            <div id="wrapper-play" class="flex items-center justify-center translate-x-[1px] -translate-y-[1px] group-hover:scale-110 transition-transform">
+                                <i data-lucide="play" class="w-8 h-8 md:w-10 md:h-10"></i>
+                            </div>
+                            <div id="wrapper-pause" class="hidden items-center justify-center group-hover:scale-110 transition-transform">
+                                <i data-lucide="pause" class="w-8 h-8 md:w-10 md:h-10"></i>
+                            </div>
+                        </button>
+                        
+                        <div class="flex-grow w-full">
+                            <div class="flex flex-col md:flex-row md:items-end justify-between mb-4">
+                                <div>
+                                    <h4 id="player-track-title" class="text-2xl text-white font-bold uppercase tracking-widest">---</h4>
+                                    <p id="player-track-artist" class="text-sm text-gray-500 font-mono">En attente de décryptage</p>
+                                </div>
+                                
+                                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                                    <div class="flex items-center gap-2 group">
+                                        <i data-lucide="volume-2" class="w-4 h-4 text-gray-500 group-hover:text-red-400 transition-colors"></i>
+                                        <input type="range" id="audio-volume" min="0" max="1" step="0.01" value="0.3" oninput="changeAudioVolume(this.value)" class="w-20 h-1 bg-gray-700 rounded-full appearance-none cursor-pointer accent-red-600 hover:bg-gray-600 transition-colors">
+                                    </div>
+                                    <span id="player-time" class="text-sm font-mono text-red-500/50">0:00 / 0:00</span>
+                                </div>
+                            </div>
+                            
+                            <div id="progress-bar-container" class="w-full h-3 bg-gray-900 rounded-full overflow-hidden cursor-pointer relative border border-gray-800" onclick="seekAudio(event)">
+                                <div id="progress-bar-fill" class="absolute top-0 left-0 h-full bg-gradient-to-r from-red-900 to-red-500 w-[0%] shadow-[0_0_15px_rgba(239,68,68,0.6)] transition-all duration-100"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="w-full h-28 fade-mask overflow-hidden relative border-t border-gray-800/50 pt-2 mb-6">
+                        <div id="sync-lyrics-content" class="absolute left-0 w-full flex flex-col items-center transition-transform duration-500 ease-out space-y-4">
+                            <p class="text-sm text-gray-600 font-mono italic mt-8 whitespace-nowrap">Acquisition du signal...</p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center border-t border-gray-800 pt-6">
+                        <button onclick="toggleLyrics('lyrics-jax')" class="px-6 py-3 bg-black hover:bg-red-900/20 border border-gray-800 hover:border-red-600 text-sm text-gray-400 hover:text-white uppercase tracking-widest font-bold rounded flex items-center gap-3 transition-all disabled:opacity-50 disabled:cursor-not-allowed" id="btn-show-lyrics" disabled>
+                            <i data-lucide="align-center" class="w-5 h-5 text-red-600"></i>
+                            Déchiffrer la transmission complète
+                        </button>
+                    </div>
+
+                </div>
+
+                <div id="lyrics-jax" class="hidden bg-black/95 border-t-2 border-red-600 p-6 md:p-12">
+                    <div id="full-lyrics-content" class="max-w-4xl mx-auto text-xs md:text-sm text-gray-400 font-mono leading-relaxed text-center bg-red-950/10 p-6 rounded border border-red-900/30 space-y-4">
+                        </div>
+                </div>
+                
+                <audio id="master-audio-player"></audio>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="jax-password-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div class="glass-panel p-8 border border-red-600 bg-black/90 w-full max-w-md relative text-center shadow-[0_0_50px_rgba(239,68,68,0.3)]">
+            <i data-lucide="triangle-alert" class="w-12 h-12 text-red-500 mx-auto mb-4 animate-pulse"></i>
+            <h3 class="text-white font-bold uppercase tracking-widest mb-2 text-lg">Accès Restreint</h3>
+            <p class="text-xs text-red-400 font-mono mb-6">Saisissez la clé de décryptage F.L.A.C :</p>
+            
+            <input type="password" id="jax-password-input" class="w-full bg-red-950/30 border border-red-500/50 text-white font-mono p-3 rounded mb-4 focus:outline-none focus:border-red-500 text-center uppercase tracking-widest" placeholder="MOT DE PASSE">
+            
+            <div class="flex gap-4">
+                <button onclick="closeJaxPassword()" class="flex-1 py-2 bg-gray-800 hover:bg-gray-700 text-gray-400 text-xs font-bold uppercase rounded transition-colors">Annuler</button>
+                <button onclick="checkJaxPassword()" class="flex-1 py-2 bg-red-900/50 hover:bg-red-600 border border-red-700 hover:border-red-500 text-white text-xs font-bold uppercase rounded transition-all">Valider</button>
+            </div>
+            
+            <p id="jax-password-error" class="hidden text-red-500 text-xs font-bold mt-4 animate-bounce">ACCÈS REFUSÉ</p>
+        </div>
+    </div>
+
+    <div id="jax-secret-modal" class="hidden fixed inset-0 z-[110] flex items-center justify-center bg-black/95 backdrop-blur-md p-4">
+        <div class="w-full max-w-4xl max-h-[90vh] overflow-y-auto glass-panel border-t-4 border-red-600 bg-black relative p-6 md:p-10 shadow-[0_0_50px_rgba(239,68,68,0.2)]">
+            
+            <button onclick="closeJaxSecret()" class="absolute top-6 right-6 text-gray-500 hover:text-red-500 transition-colors bg-gray-900/50 hover:bg-red-900/30 p-2 rounded-full border border-transparent hover:border-red-500/50">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <div class="flex items-center gap-4 mb-8 border-b border-red-900/50 pb-4">
+                <i data-lucide="file-warning" class="w-8 h-8 text-red-500 animate-pulse"></i>
+                <div>
+                    <h2 class="text-2xl font-bold text-white uppercase tracking-widest">Archive Interdite : F.L.A.C</h2>
+                    <p class="text-xs text-red-500 font-mono">Niveau de menace : Delta // Classification : Rebut 884-J</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="glass-panel p-5 border border-red-900/50 bg-red-950/20 relative">
+                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20 pointer-events-none"></div>
+                    <p class="text-[10px] text-red-500 font-mono mb-1 font-bold">[RAPPORT DE SURVEILLANCE F.L.A.C - DATA CORRUPTED]</p>
+                    <p class="text-xs text-red-400/80 font-mono text-justify leading-relaxed">
+                        [ERREUR SYSTÈME]... Directive de nettoyage 884-J... <span class="bg-red-900/50 text-white px-1"> [DONNÉES SUPPRIMÉES] </span>... Sujet Jax identifié comme menace de Niveau Delta... <span class="bg-red-900/50 text-white px-1"> [BLOQUÉ PAR LA FÉDÉRATION] </span>... L'incident a été clos après la découverte du corps dans le secteur de maintenance 7. Toute mention du fichier "Sujet Jax, à éliminer" est passible de poursuites fédérales pour trahison.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+
     <script>
         // On initialise les icônes au cas où
         lucide.createIcons();
@@ -2886,7 +3676,9 @@
                 { summary: 'mode-summary-justice', full: 'mode-full-text-justice', btn: 'btn-report-mode-justice' },
                 { summary: 'mode-summary-hybrides', full: 'mode-full-text-hybrides', btn: 'btn-report-mode-hybrides' },
                 { summary: 'mode-summary-proto', full: 'mode-full-text-proto', btn: 'btn-report-mode-proto' },
-                { summary: 'mode-summary-especes', full: 'mode-full-text-especes', btn: 'btn-report-mode-especes' }
+                { summary: 'mode-summary-especes', full: 'mode-full-text-especes', btn: 'btn-report-mode-especes' },
+                { summary: 'mode-summary-rebellion', full: 'mode-full-text-rebellion', btn: 'btn-report-mode-rebellion' },
+                { summary: 'mode-summary-culture', full: 'mode-full-text-culture', btn: 'btn-report-mode-culture' }
             ];
 
             let activePair = null;
@@ -2916,7 +3708,7 @@
                 } else {
                     fullTextView.classList.add('hidden');
                     summaryView.classList.remove('hidden');
-                    btnText.textContent = "Lire le Rapport Complet";
+                    btnText.textContent = "Lire le Rapport";
                     btnIcon.setAttribute('data-lucide', 'file-text');
                     btn.classList.remove('bg-cyan-500/40', 'border-cyan-400');
                 }
@@ -2936,6 +3728,666 @@
                 console.error('Erreur copie', err);
             });
         }
+
+        // 1. FONCTION MAGIQUE
+        function getUI(id) {
+            const reader = document.getElementById('file-reader');
+            if (reader && !reader.classList.contains('translate-x-full')) {
+                const el = reader.querySelector('#' + id);
+                if (el) return el;
+            }
+            return document.getElementById(id);
+        }
+
+        // L'audio player global
+        const audioEl = document.getElementById('master-audio-player');
+        let currentTrackIndex = -1;
+        let currentSyncLine = -1;
+        let activeTracks = []; // Pistes actuellement chargées selon l'artiste
+
+        // 2. BASE DE DONNÉES DE TOUTES LES PISTES (Nyx & Jax)
+        const musicDatabase = {
+            "nyxbast": [
+                {
+                    id: 1,
+                    num: "01",
+                    title: "Soie et Acier",
+                    artist: "Nyx Bast",
+                    album: "Velours Noir",
+                    themeColor: "fuchsia",
+                    desc: "Un morceau explorant le contraste entre son éducation de soie et la structure implacable des stations.",
+                    src: "assets/audio/01_soie_et_acier.mp3",
+                    isAvailable: true,
+                    syncLyrics: [
+                        { time: 0, text: "(Musique d'intro)" },
+                        { time: 14, text: "Sur Nausicaa-deux, la nuit n'est qu'un concept doré." },
+                        { time: 17, text: "Dans mon penthouse de Magnat, tout est feutré." },
+                        { time: 20.7, text: "Je marche sur la soie, mais mes griffes sont sorties." },
+                        { time: 23.8, text: "Une héritière de sang, dans ce monde de profit." },
+                        { time: 26.7, text: "Mes oreilles captent l'écho des serveurs qui tournent." },
+                        { time: 29.9, text: "Pendant que les verres de cristal et les regards se détournent." },
+                        { time: 33.1, text: "Je suis la panthère du dôme, l'élégance du vide." },
+                        { time: 36.7, text: "Mon ambition est fauve, mon instinct est liquide." },
+                        { time: 39.6, text: "Mon Focus brille, affichant des millions en crédit." },
+                        { time: 42.4, text: "Mais ma vraie richesse est dans ce que je vois, sans interdit." },
+                        { time: 45.8, text: "Je ne suis pas une proie, je ne suis pas un trophée." },
+                        { time: 49.3, text: "Je suis l'ombre qui danse quand les lumières se sont étouffées." },
+                        { time: 52.3, text: "Entre la soie et l'acier, je trace mon empire." },
+                        { time: 55.6, text: "Un parfum de scandale, un désir à faire pâlir." },
+                        { time: 59, text: "Hybride et puissante, je ne demande jamais pardon." },
+                        { time: 62.1, text: "Je règne sur les hauteurs, je dicte mon propre son." },
+                        { time: 65.3, text: "Soie et acier, dans le velours de la nuit." },
+                        { time: 68.4, text: "Je suis le battement de cœur que la station poursuit." },
+                        { time: 77.4, text: "Je descends sur Fortuna, là où le luxe se perd." },
+                        { time: 80.9, text: "Ma vision percute le noir, je vois l'envers du décor clair." },
+                        { time: 84.2, text: "Une traînée de thirium, un secret bien gardé." },
+                        { time: 87, text: "Je joue avec les règles, je ne me suis jamais attardée." },
+                        { time: 91.5, text: "Ma queue ondule au rythme des basses du sous-sol." },
+                        { time: 94.3, text: "Indépendante et seule, je prends mon envol." },
+                        { time: 97.4, text: "Les Sénescients m'observent, jaloux de ma liberté." },
+                        { time: 100.5, text: "Car je possède l'instinct qu'ils ont tous oublié." },
+                        { time: 104.9, text: "On m'appelle la prédatrice des cieux." },
+                        { time: 107.2, text: "Je n'ai besoin de personne pour briller à leurs yeux." },
+                        { time: 110.2, text: "Une goutte de luxe, un zeste de sauvagerie." },
+                        { time: 113.7, text: "Bienvenue dans mon monde, bienvenue dans ma vie." },
+                        { time: 116.5, text: "Entre la soie et l'acier, je trace mon empire." },
+                        { time: 119.5, text: "Un parfum de scandale, un désir à faire pâlir." },
+                        { time: 123, text: "Hybride et puissante, je ne demande jamais pardon." },
+                        { time: 126.1, text: "Je règne sur les hauteurs, je dicte mon propre son." },
+                        { time: 129.1, text: "Soie et acier, dans le velours de la nuit." },
+                        { time: 132.4, text: "Je suis le battement de cœur que la station poursuit." },
+                        { time: 142.4, text: "Soie..." },
+                        { time: 146.1, text: "Acier..." },
+                        { time: 157.3, text: "La nuit est à moi sur Nausicaa..." }
+                    ],
+                    fullLyrics: `
+                        <p>Sur Nausicaa-deux, la nuit n'est qu'un concept doré.<br>Dans mon penthouse de Magnat, tout est feutré.<br>Je marche sur la soie, mais mes griffes sont sorties.<br>Une héritière de sang, dans ce monde de profit.<br>Mes oreilles captent l'écho des serveurs qui tournent.<br>Pendant que les verres de cristal et les regards se détournent.<br>Je suis la panthère du dôme, l'élégance du vide.<br>Mon ambition est fauve, mon instinct est liquide.</p>
+                        <p>Mon Focus brille, affichant des millions en crédit.<br>Mais ma vraie richesse est dans ce que je vois, sans interdit.<br>Je ne suis pas une proie, je ne suis pas un trophée.<br>Je suis l'ombre qui danse quand les lumières se sont étouffées.</p>
+                        <p class="text-fuchsia-300 font-bold not-italic drop-shadow-[0_0_5px_rgba(217,70,239,0.3)]">Entre la soie et l'acier, je trace mon empire.<br>Un parfum de scandale, un désir à faire pâlir.<br>Hybride et puissante, je ne demande jamais pardon.<br>Je règne sur les hauteurs, je dicte mon propre son.<br>Soie et acier, dans le velours de la nuit.<br>Je suis le battement de cœur que la station poursuit.</p>
+                        <p>Je descends sur Fortuna, là où le luxe se perd.<br>Ma vision percute le noir, je vois l'envers du décor clair.<br>Une traînée de thirium, un secret bien gardé.<br>Je joue avec les règles, je ne me suis jamais attardée.<br>Ma queue ondule au rythme des basses du sous-sol.<br>Indépendante et seule, je prends mon envol.<br>Les Sénescients m'observent, jaloux de ma liberté.<br>Car je possède l'instinct qu'ils ont tous oublié.</p>
+                        <p>On m'appelle la prédatrice des cieux.<br>Je n'ai besoin de personne pour briller à leurs yeux.<br>Une goutte de luxe, un zeste de sauvagerie.<br>Bienvenue dans mon monde, bienvenue dans ma vie.</p>
+                        <p class="text-fuchsia-300 font-bold not-italic drop-shadow-[0_0_5px_rgba(217,70,239,0.3)]">Entre la soie et l'acier, je trace mon empire.<br>Un parfum de scandale, un désir à faire pâlir.<br>Hybride et puissante, je ne demande jamais pardon.<br>Je règne sur les hauteurs, je dicte mon propre son.<br>Soie et acier, dans le velours de la nuit.<br>Je suis le battement de cœur que la station poursuit.</p>
+                        <p>Soie...<br>Acier...<br>La nuit est à moi sur Nausicaa...</p>
+                    `
+                },
+                {
+                    id: 2,
+                    num: "02",
+                    title: "Monde de Verre",
+                    artist: "Nyx Bast",
+                    album: "Velours Noir",
+                    themeColor: "fuchsia",
+                    desc: "Une ballade contemplative qui s'attaque à la fragilité de la vie stationnaire et au poids du Contrat Vital.",
+                    src: "assets/audio/02_monde_de_verre.mp3",
+                    isAvailable: true,
+                    syncLyrics: [
+                        { time: 0, text: "(Intro atmosphérique)" },
+                        { time: 13.7, text: "Regarde ce dôme, ce cristal qui nous sépare du néant." },
+                        { time: 17, text: "Sur Nausicaa-deux, on respire l'argent comme un air enivrant." },
+                        { time: 20.9, text: "Je glisse sur le marbre, mes griffes effleurent le satin." },
+                        { time: 23.6, text: "Une Magnat solitaire qui attend que s'efface le matin." },
+                        { time: 26.8, text: "Ici, l'oxygène est une promesse que l'on paie à prix d'or." },
+                        { time: 30, text: "On est les maîtres des cieux, mais on ignore le décor." },
+                        { time: 33.3, text: "Le Contrat Vital bat la mesure dans mes veines de velours." },
+                        { time: 36.6, text: "Dans ma cage de luxe, je compte les cycles et les jours." },
+                        { time: 39.5, text: "Basse lourde dans le sol, la paroi est si fine." },
+                        { time: 42.7, text: "Je vois l'ombre de la Terre, cette ancienne héroïne." },
+                        { time: 45.9, text: "On est suspendus, au-dessus d'un gouffre béant." },
+                        { time: 49.3, text: "Dans un bocal de verre, pour les enfants des géants." },
+                        { time: 52.5, text: "C'est un monde de verre, fragile et brûlant." },
+                        { time: 55.6, text: "On grind sur le silence, le cœur battant, lent." },
+                        { time: 58.7, text: "Si la vitre se brise, si l'air vient à manquer." },
+                        { time: 62.2, text: "Il ne restera rien de ce qu'on a stocké." },
+                        { time: 65.4, text: "Monde de verre, mélange de soie et d'acier." },
+                        { time: 71.2, text: "Propriété de Siren, on est tous associés." },
+                        { time: 77.7, text: "Je sirote mon thirium, le regard perdu dans le noir." },
+                        { time: 80.9, text: "Les Sénescients nous épient depuis leur grand promontoire." },
+                        { time: 84.3, text: "Ils croient que leurs crédits les protègent de la poussière." },
+                        { time: 87.3, text: "Mais je sens la fissure sous la lumière artificielle et fière." },
+                        { time: 90.6, text: "Mon instinct de féline détecte le moindre faux pas." },
+                        { time: 93.8, text: "Dans cette ville de miroirs, la vérité ne ment pas." },
+                        { time: 97, text: "On est des ombres de luxe, des reflets dans la machine." },
+                        { time: 100.3, text: "Prêtes à bondir si jamais la structure s'illumine." },
+                        { time: 103.4, text: "Un éclat... une faille... dans la perfection." },
+                        { time: 106.5, text: "On paie tous, tôt ou tard, le prix de l'ascension." },
+                        { time: 109.6, text: "Écoute le vide qui appelle, derrière la paroi." },
+                        { time: 113, text: "Dans ce monde de verre, qui est vraiment le roi ?" },
+                        { time: 116.3, text: "C'est un monde de verre, fragile et brûlant." },
+                        { time: 119.6, text: "On grind sur le silence, le cœur battant, lent." },
+                        { time: 122.6, text: "Si la vitre se brise, si l'air vient à manquer." },
+                        { time: 125.9, text: "Il ne restera rien de ce qu'on a stocké." },
+                        { time: 129.3, text: "Monde de verre, mélange de soie et d'acier." },
+                        { time: 135.1, text: "Propriété de Siren, on est tous associés." },
+                        { time: 142.5, text: "Juste une brèche..." },
+                        { time: 146.9, text: "Dans l'illusion..." },
+                        { time: 148.8, text: "Nyx voit tout..." },
+                        { time: 152.1, text: "Même la fin de la station…" }
+                    ],
+                    fullLyrics: `
+                        <p>Regarde ce dôme, ce cristal qui nous sépare du néant.<br>Sur Nausicaa-deux, on respire l'argent comme un air enivrant.<br>Je glisse sur le marbre, mes griffes effleurent le satin.<br>Une Magnat solitaire qui attend que s'efface le matin.<br>Ici, l'oxygène est une promesse que l'on paie à prix d'or.<br>On est les maîtres des cieux, mais on ignore le décor.<br>Le Contrat Vital bat la mesure dans mes veines de velours.<br>Dans ma cage de luxe, je compte les cycles et les jours.</p>
+                        <p>Basse lourde dans le sol, la paroi est si fine.<br>Je vois l'ombre de la Terre, cette ancienne héroïne.<br>On est suspendus, au-dessus d'un gouffre béant.<br>Dans un bocal de verre, pour les enfants des géants.</p>
+                        <p class="text-fuchsia-300 font-bold not-italic drop-shadow-[0_0_5px_rgba(217,70,239,0.3)]">C'est un monde de verre, fragile et brûlant.<br>On grind sur le silence, le cœur battant, lent.<br>Si la vitre se brise, si l'air vient à manquer.<br>Il ne restera rien de ce qu'on a stocké.<br>Monde de verre, mélange de soie et d'acier.<br>Propriété de Siren, on est tous associés.</p>
+                        <p>Je sirote mon thirium, le regard perdu dans le noir.<br>Les Sénescients nous épient depuis leur grand promontoire.<br>Ils croient que leurs crédits les protègent de la poussière.<br>Mais je sens la fissure sous la lumière artificielle et fière.<br>Mon instinct de féline détecte le moindre faux pas.<br>Dans cette ville de miroirs, la vérité ne ment pas.<br>On est des ombres de luxe, des reflets dans la machine.<br>Prêtes à bondir si jamais la structure s'illumine.</p>
+                        <p>Un éclat... une faille... dans la perfection.<br>On paie tous, tôt ou tard, le prix de l'ascension.<br>Écoute le vide qui appelle, derrière la paroi.<br>Dans ce monde de verre, qui est vraiment le roi ?</p>
+                        <p class="text-fuchsia-300 font-bold not-italic drop-shadow-[0_0_5px_rgba(217,70,239,0.3)]">C'est un monde de verre, fragile et brûlant.<br>On grind sur le silence, le cœur battant, lent.<br>Si la vitre se brise, si l'air vient à manquer.<br>Il ne restera rien de ce qu'on a stocké.<br>Monde de verre, mélange de soie et d'acier.<br>Propriété de Siren, on est tous associés.</p>
+                        <p>Juste une brèche...<br>Dans l'illusion...<br>Nyx voit tout...<br>Même la fin de la station…</p>
+                    `
+                },
+                {
+                    id: 3,
+                    num: "03",
+                    title: "Instinct de Nuit",
+                    artist: "Nyx Bast",
+                    album: "Velours Noir",
+                    themeColor: "fuchsia",
+                    desc: "Une piste dynamique où elle laisse libre cours à son énergie sauvage.",
+                    src: "assets/audio/03_instinct_de_nuit.mp3",
+                    isAvailable: true,
+                    syncLyrics: [
+                        { time: 0, text: "(Intro Rythmée)" },
+                        { time: 15.3, text: "Le cycle s'éteint, les Segmentaires vont enfin se coucher." },
+                        { time: 18.4, text: "Mais pour moi le jeu commence, je sens mes sens s'éveiller." },
+                        { time: 21.6, text: "Ma vision perce les ombres, je vois ce que vous ignorez." },
+                        { time: 24.7, text: "Dans les quartiers de Fortuna, je viens pour tout dévorer." },
+                        { time: 27.8, text: "Ma queue fine ondule, je glisse entre les néons." },
+                        { time: 30.8, text: "Je ne suis plus l'héritière, je suis une vibration." },
+                        { time: 34, text: "Laissez vos lois de magnats et vos bureaux dorés." },
+                        { time: 37, text: "La nuit est mon territoire, je suis enfin libérée." },
+                        { time: 41.4, text: "L'adrénaline monte, mon cœur bat au rythme des moteurs." },
+                        { time: 44.7, text: "Hybride et sauvage, je ne connais aucune peur." },
+                        { time: 47.8, text: "C'est l'appel de la zone, l'instinct qui prend le pas." },
+                        { time: 49.9, text: "Sur cette station de fer, personne ne m'arrêtera." },
+                        { time: 53.7, text: "C'est mon instinct de nuit, ma course vers l'infini." },
+                        { time: 56.9, text: "Sous le dôme de Siren, je redessine ma vie." },
+                        { time: 60.3, text: "Pas de chaînes, pas de règles, juste le rythme qui cogne." },
+                        { time: 63.4, text: "Je danse sur les limites, loin du monde qui grogne." },
+                        { time: 66.8, text: "Instinct de nuit, sensuel et sans remords." },
+                        { time: 72.3, text: "Je suis la reine du vide, je défie le décor." },
+                        { time: 78.4, text: "Mon Focus affiche les codes et les quais interdits." },
+                        { time: 81.7, text: "Je survole les Astrofactures, me moquant des crédits." },
+                        { time: 84.8, text: "Leur surveillance préventive ne peut pas me rattraper." },
+                        { time: 88.1, text: "Je suis l'étincelle sauvage qu'ils ne pourront jamais dompter." },
+                        { time: 91.3, text: "Je suis une âme solitaire, une ombre dans la machine." },
+                        { time: 94.5, text: "Ma liberté a le goût du risque et de l'adrénaline." },
+                        { time: 97.9, text: "Je ne regarde plus en haut, je ne regarde plus leur trône." },
+                        { time: 100.8, text: "Je préfère la fureur noire de cette immense zone." },
+                        { time: 105.5, text: "Gauche, droite, je bondis, je ne touche pas le sol." },
+                        { time: 108.1, text: "Félidée de la haute, je prends enfin mon envol." },
+                        { time: 111.5, text: "Pas besoin de repos, pas besoin de sommeil." },
+                        { time: 114.6, text: "On attendra demain pour chercher le soleil." },
+                        { time: 117.8, text: "C'est mon instinct de nuit, ma course vers l'infini." },
+                        { time: 121.1, text: "Sous le dôme de Siren, je redessine ma vie." },
+                        { time: 124.2, text: "Pas de chaînes, pas de lois, juste le rythme qui cogne." },
+                        { time: 127.5, text: "Je danse sur les limites, loin du monde qui grogne." },
+                        { time: 130.8, text: "Instinct de nuit, sensuel et sans remords." },
+                        { time: 136.5, text: "Je suis la reine du vide, je défie le décor." },
+                        { time: 145.8, text: "La nuit..." },
+                        { time: 146.8, text: "L'instinct..." },
+                        { time: 149, text: "C'est mon territoire." },
+                        { time: 152.2, text: "Nyx Bast n'a pas encore fini d'écrire son histoire." }
+                    ],
+                    fullLyrics: `
+                        <p>Le cycle s'éteint, les Segmentaires vont enfin se coucher.<br>Mais pour moi le jeu commence, je sens mes sens s'éveiller.<br>Ma vision perce les ombres, je vois ce que vous ignorez.<br>Dans les quartiers de Fortuna, je viens pour tout dévorer.<br>Ma queue fine ondule, je glisse entre les néons.<br>Je ne suis plus l'héritière, je suis une vibration.<br>Laissez vos lois de mag-nats et vos bureaux dorés.<br>La nuit est mon territoire, je suis enfin libérée.</p>
+                        <p>L'adrénaline monte, mon cœur bat au rythme des moteurs.<br>Hybride et sauvage, je ne connais aucune peur.<br>C'est l'appel de la zone, l'instinct qui prend le pas.<br>Sur cette station de fer, personne ne m'arrêtera.</p>
+                        <p class="text-white font-bold not-italic drop-shadow-[0_0_8px_rgba(217,70,239,0.6)] text-base">C'est mon instinct de nuit, ma course vers l'infini.<br>Sous le dôme de Siren, je redessine ma vie.<br>Pas de chaînes, pas de règles, juste le rythme qui cogne.<br>Je danse sur les limites, loin du monde qui grogne.<br>Instinct de nuit, sensuel et sans remords.<br>Je suis la reine du vide, je défie le décor.</p>
+                        <p>Mon Focus affiche les codes et les quais interdits.<br>Je survole les Astrofactures, me moquant des crédits.<br>Leur surveillance préventive ne peut pas me rattraper.<br>Je suis l'étincelle sauvage qu'ils ne pourront jamais dompter.<br>Je suis une âme solitaire, une ombre dans la machine.<br>Ma liberté a le goût du risque et de l'adrénaline.<br>Je ne regarde plus en haut, je ne regarde plus leur trône.<br>Je préfère la fureur noire de cette immense zone.</p>
+                        <p>Gauche, droite, je bondis, je ne touche pas le sol.<br>Félidée de la haute, je prends enfin mon envol.<br>Pas besoin de repos, pas besoin de sommeil.<br>On attendra demain pour chercher le soleil.</p>
+                        <p class="text-white font-bold not-italic drop-shadow-[0_0_8px_rgba(217,70,239,0.6)] text-base">C'est mon instinct de nuit, ma course vers l'infini.<br>Sous le dôme de Siren, je redessine ma vie.<br>Pas de chaînes, pas de lois, juste le rythme qui cogne.<br>Je danse sur les limites, loin du monde qui grogne.<br>Instinct de nuit, sensuel et sans remords.<br>Je suis la reine du vide, je défie le décor.</p>
+                        <p>La nuit... <br>L'instinct...<br>C'est mon territoire.<br>Nyx Bast n'a pas encore fini d'écrire son histoire.</p>
+                    `
+                }
+            ],
+            "jax": [
+                {
+                    id: 1,
+                    num: "01",
+                    title: "Signal Perdu",
+                    artist: "Jax",
+                    album: "Transmission Pirate",
+                    themeColor: "red", 
+                    desc: "Amalgame de basses lourdes et de cris étouffés, cet hymne dénonce les mensonges de Gabriel Prodit.",
+                    src: "assets/audio/jax_signal_perdu.mp3", 
+                    isAvailable: true,
+                    syncLyrics: [
+                        { time: 0, text: "(Bruit de statique et basses sourdes)" },
+                        { time: 4, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 8, text: "Le signal est mort." },
+                        { time: 12, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 16, text: "Soixante-quinze millions d'âmes et je me sens seul sur Saturne." },
+                        { time: 20, text: "Dans les couloirs d'Eden, l'espoir est un vieux nocturne." },
+                        { time: 25, text: "Je nettoie les filtres, je répare les conduits brisés." },
+                        { time: 29, text: "Mais c'est mon propre cœur qui refuse d'être cautérisé." },
+                        { time: 34, text: "Je vois les patrouilles de la F.L.A.C. passer dans le corridor." },
+                        { time: 39, text: "Cherchant les Viper's, ignorant mon propre sort." },
+                        { time: 43, text: "Je ne suis qu'un numéro, une ombre dans le Secteur Gris." },
+                        { time: 48, text: "Un Infralaborant que la fatigue a déjà conquis." },
+                        { time: 52, text: "Mais quand je lance la Surcharge, le monde change de couleur." },
+                        { time: 57, text: "Je ne sens plus le froid, je ne sens plus la douleur." },
+                        { time: 61, text: "Le dôme s'efface, les parois tombent en poussière." },
+                        { time: 66, text: "Je m'évade de la station, je quitte la frontière." },
+                        { time: 70, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 74, text: "Je cherche ton signal dans le vide infini." },
+                        { time: 78, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 82, text: "Perdu entre les morts et ceux qui sont en sursis." },
+                        { time: 86, text: "Gabriel Prodit nous a menti sur le retour." },
+                        { time: 91, text: "Je plane au-dessus des dômes, je compte les jours." },
+                        { time: 95, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 99, text: "Signal perdu, je ne reviens pas." },
+                        { time: 104, text: "Ils t'ont emmenée vers les Labyrinthes de la Terre." },
+                        { time: 108, text: "Promettant la terraformation, mais c'était une guerre." },
+                        { time: 113, text: "Cobaye génétique pour les rêves des Sénéscients." },
+                        { time: 117, text: "Tu n'es plus qu'un dossier classé pour tous ces gens." },
+                        { time: 122, text: "Moi je reste ici, à vider les fonds de bouteilles." },
+                        { time: 126, text: "Sous le soleil de Saturne qui jamais ne s'éveille." },
+                        { time: 131, text: "Mon Contrat Vital est une chaîne de fer au pied." },
+                        { time: 135, text: "Alors je pousse le curseur, je veux tout oublier." },
+                        { time: 140, text: "Mais quand je lance la Surcharge, le monde change de couleur." },
+                        { time: 144, text: "Je ne sens plus le froid, je ne sens plus la douleur." },
+                        { time: 148, text: "Le dôme s'efface, les parois tombent en poussière." },
+                        { time: 153, text: "Je m'évade de la station, je quitte la frontière." },
+                        { time: 157, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 161, text: "Je cherche ton signal dans le vide infini." },
+                        { time: 165, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 169, text: "Perdu entre les morts et ceux qui sont en sursis." },
+                        { time: 173, text: "Gabriel Prodit nous a menti sur le retour." },
+                        { time: 178, text: "Je plane au-dessus des dômes, je compte les jours." },
+                        { time: 182, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 186, text: "Signal perdu, je ne reviens pas." },
+                        { time: 191, text: "Surcharge... Surcharge..." },
+                        { time: 195, text: "Mes neurones brûlent, mais la vue est si belle." },
+                        { time: 199, text: "Je te vois courir sous un ciel éternel." },
+                        { time: 204, text: "C'est pas Nausicaa, c'est pas Fortuna la fière." },
+                        { time: 208, text: "C'est juste l'illusion d'une ancienne lumière." },
+                        { time: 213, text: "Plus de quotas, plus de taxes, plus de Fédération." },
+                        { time: 217, text: "Juste toi et moi, hors de la station." },
+                        { time: 222, text: "Pousse le signal ! Augmente la dose !" },
+                        { time: 226, text: "Les Infralaborants disent que je suis devenu fou." },
+                        { time: 230, text: "Que je vais finir en Rebut, jeté dans le trou." },
+                        { time: 235, text: "Mais ils ne voient pas ce que je vois quand je ferme les yeux." },
+                        { time: 239, text: "Ils ne voient pas l'arnaque de ce paradis vieux." },
+                        { time: 244, text: "On est du matériel, des pièces de rechange au rabais." },
+                        { time: 248, text: "Pour que l'élite puisse enfin respirer en paix." },
+                        { time: 252, text: "Alors je reste en Surcharge, c'est ma seule liberté." },
+                        { time: 257, text: "Dans l'Antre des délits, j'ai trouvé ma vérité." },
+                        { time: 261, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 265, text: "Je cherche ton signal dans le vide infini." },
+                        { time: 269, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 273, text: "Perdu entre les morts et ceux qui sont en sursis." },
+                        { time: 277, text: "Gabriel Prodit nous a menti sur le retour." },
+                        { time: 282, text: "Je plane au-dessus des dômes, je compte les jours." },
+                        { time: 286, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 290, text: "Signal perdu, je ne reviens pas." },
+                        { time: 294, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 298, text: "Signal faible..." },
+                        { time: 301, text: "Hoo-hoo..." },
+                        { time: 304, text: "Oxygène à deux pour cent." },
+                        { time: 307, text: "Je ne redescendrai pas..." },
+                        { time: 310, text: "Hoo-hoo..." }
+                    ],
+                    fullLyrics: `
+                        <p>Hoo-hoo... Hoo-hoo...<br>Le signal est mort.<br>Hoo-hoo... Hoo-hoo...<br>Soixante-quinze millions d'âmes et je me sens seul sur Saturne.<br>Dans les couloirs d'Eden, l'espoir est un vieux nocturne.<br>Je nettoie les filtres, je répare les conduits brisés.<br>Mais c'est mon propre cœur qui refuse d'être cautérisé.</p>
+                        <p>Je vois les patrouilles de la F.L.A.C. passer dans le corridor.<br>Cherchant les Viper's, ignorant mon propre sort.<br>Je ne suis qu'un numéro, une ombre dans le Secteur Gris.<br>Un Infralaborant que la fatigue a déjà conquis.</p>
+                        <p class="text-red-400 font-bold drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">Mais quand je lance la Surcharge, le monde change de couleur.<br>Je ne sens plus le froid, je ne sens plus la douleur.<br>Le dôme s'efface, les parois tombent en poussière.<br>Je m'évade de la station, je quitte la frontière.</p>
+                        <p>Hoo-hoo... Hoo-hoo...<br>Je cherche ton signal dans le vide infini.<br>Hoo-hoo... Hoo-hoo...<br>Perdu entre les morts et ceux qui sont en sursis.<br>Gabriel Prodit nous a menti sur le retour.<br>Je plane au-dessus des dômes, je compte les jours.<br>Hoo-hoo... Hoo-hoo...<br>Signal perdu, je ne reviens pas.</p>
+                        <p>Ils t'ont emmenée vers les Labyrinthes de la Terre.<br>Promettant la terraformation, mais c'était une guerre.<br>Cobaye génétique pour les rêves des Sénéscients.<br>Tu n'es plus qu'un dossier classé pour tous ces gens.<br>Moi je reste ici, à vider les fonds de bouteilles.<br>Sous le soleil de Saturne qui jamais ne s'éveille.<br>Mon Contrat Vital est une chaîne de fer au pied.<br>Alors je pousse le curseur, je veux tout oublier.</p>
+                        <p class="text-red-400 font-bold drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">Mais quand je lance la Surcharge, le monde change de couleur.<br>Je ne sens plus le froid, je ne sens plus la douleur.<br>Le dôme s'efface, les parois tombent en poussière.<br>Je m'évade de la station, je quitte la frontière.</p>
+                        <p>Hoo-hoo... Hoo-hoo...<br>Je cherche ton signal dans le vide infini.<br>Hoo-hoo... Hoo-hoo...<br>Perdu entre les morts et ceux qui sont en sursis.<br>Gabriel Prodit nous a menti sur le retour.<br>Je plane au-dessus des dômes, je compte les jours.<br>Hoo-hoo... Hoo-hoo...<br>Signal perdu, je ne reviens pas.</p>
+                        <p>Surcharge... Surcharge...<br>Mes neurones brûlent, mais la vue est si belle.<br>Je te vois courir sous un ciel éternel.<br>C'est pas Nausicaa, c'est pas Fortuna la fière.<br>C'est juste l'illusion d'une ancienne lumière.<br>Plus de quotas, plus de taxes, plus de Fédération.<br>Juste toi et moi, hors de la station.<br>Pousse le signal ! Augmente la dose !</p>
+                        <p>Les Infralaborants disent que je suis devenu fou.<br>Que je vais finir en Rebut, jeté dans le trou.<br>Mais ils ne voient pas ce que je vois quand je ferme les yeux.<br>Ils ne voient pas l'arnaque de ce paradis vieux.<br>On est du matériel, des pièces de rechange au rabais.<br>Pour que l'élite puisse enfin respirer en paix.<br>Alors je reste en Surcharge, c'est ma seule liberté.<br>Dans l'Antre des délits, j'ai trouvé ma vérité.</p>
+                        <p>Hoo-hoo... Hoo-hoo...<br>Je cherche ton signal dans le vide infini.<br>Hoo-hoo... Hoo-hoo...<br>Perdu entre les morts et ceux qui sont en sursis.<br>Gabriel Prodit nous a menti sur le retour.<br>Je plane au-dessus des dômes, je compte les jours.<br>Hoo-hoo... Hoo-hoo...<br>Signal perdu, je ne reviens pas.<br>Hoo-hoo... Hoo-hoo...<br>Signal faible...<br>Hoo-hoo...<br>Oxygène à deux pour cent.<br>Je ne redescendrai pas...<br>Hoo-hoo...</p>
+                    `
+                }
+            ]
+        };
+
+        // 3. FONCTION POUR CHANGER D'ARTISTE
+        function initMusicPlayerFor(artistKey) {
+            if (musicDatabase[artistKey]) {
+                activeTracks = musicDatabase[artistKey];
+                
+                if (audioEl && !audioEl.paused) audioEl.pause();
+                
+                currentTrackIndex = -1;
+                renderTracklist();
+            }
+        }
+
+        // 4. GÉNÉRER LA TRACKLIST
+        function renderTracklist() {
+            const containers = document.querySelectorAll('#tracklist-container');
+            containers.forEach(container => {
+                container.innerHTML = '';
+                activeTracks.forEach((track, index) => {
+                    const isAvail = track.isAvailable;
+                    
+                    // Thème dynamique : Fuchsia ou Rouge
+                    const colorHover = track.themeColor === "red" ? "hover:border-red-500" : "hover:border-fuchsia-500";
+                    const colorTextHover = track.themeColor === "red" ? "group-hover:text-red-400" : "group-hover:text-fuchsia-300";
+                    const colorNum = track.themeColor === "red" ? "text-red-500" : "text-fuchsia-500";
+                    
+                    const boxClass = isAvail 
+                        ? `p-3 bg-black/40 border border-gray-700 ${colorHover} rounded cursor-pointer transition-colors group` 
+                        : "p-3 bg-black/20 border border-gray-800 rounded opacity-60 cursor-not-allowed";
+                    
+                    const titleColor = isAvail ? `text-white ${colorTextHover}` : "text-gray-500";
+                    const badge = isAvail ? "" : `<span class="px-1.5 py-0.5 bg-red-900/50 text-[8px] text-red-400 rounded uppercase font-bold ml-2">Média Offline</span>`;
+
+                    const html = `
+                        <div class="${boxClass}" onclick="${isAvail ? `loadTrack(${index})` : ''}" id="track-item-${index}">
+                            <div class="flex items-center justify-between mb-1">
+                                <p class="text-sm ${titleColor} font-bold transition-colors">
+                                    <span class="${colorNum} text-xs mr-1">${track.num}.</span> ${track.title}
+                                </p>
+                                ${badge}
+                            </div>
+                            <p class="text-[10px] text-gray-500 text-justify">${track.desc}</p>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', html);
+                });
+            });
+        }
+
+        // 5. CHARGER UNE PISTE DANS LE LECTEUR VISIBLE
+        function loadTrack(index) {
+            const track = activeTracks[index];
+            currentTrackIndex = index;
+            currentSyncLine = -1;
+
+            // Variables de couleurs
+            const bgActive = track.themeColor === "red" ? "bg-red-900/20" : "bg-fuchsia-900/20";
+            const borderActive = track.themeColor === "red" ? "border-red-500" : "border-fuchsia-500";
+            const shadowBtn = track.themeColor === "red" ? "shadow-[0_0_30px_rgba(239,68,68,0.4)]" : "shadow-[0_0_30px_rgba(217,70,239,0.4)]";
+            const bgBtnHover = track.themeColor === "red" ? "hover:bg-red-500" : "hover:bg-fuchsia-500";
+            const textColor = track.themeColor === "red" ? "text-red-500" : "text-fuchsia-500";
+
+            // Mise à jour de la surbrillance
+            activeTracks.forEach((t, i) => {
+                const el = getUI(`track-item-${i}`);
+                if(el && t.isAvailable) {
+                    if (i === index) {
+                        el.classList.add(borderActive, bgActive);
+                        el.classList.remove('border-gray-700', 'bg-black/40');
+                    } else {
+                        el.classList.remove(borderActive, bgActive);
+                        el.classList.add('border-gray-700', 'bg-black/40');
+                    }
+                }
+            });
+
+            // Textes
+            const titleEl = getUI('player-track-title');
+            if (titleEl) titleEl.innerText = track.title;
+            
+            const artistEl = getUI('player-track-artist');
+            if (artistEl) artistEl.innerText = track.artist + " — " + track.album;
+            
+            const statusEl = getUI('player-status');
+            if (statusEl) {
+                statusEl.innerText = "Connexion Établie";
+                statusEl.className = `text-[10px] ${textColor}`;
+            }
+            
+            const playBtn = getUI('main-play-btn');
+            if (playBtn) {
+                playBtn.className = `group w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-full bg-black border-2 ${borderActive} flex items-center justify-center ${textColor} ${bgBtnHover} hover:text-black transition-all ${shadowBtn}`;
+            }
+            
+            const btnLyrics = getUI('btn-show-lyrics');
+            if (btnLyrics) btnLyrics.disabled = false;
+
+            const fullLyricsContent = getUI('full-lyrics-content');
+            if (fullLyricsContent) {
+                fullLyricsContent.innerHTML = `
+                    <h5 class="${textColor} font-bold uppercase font-sans mb-4 border-b border-gray-700 pb-2">${track.num}. ${track.title}</h5>
+                    ${track.fullLyrics}
+                `;
+            }
+
+            // Sync Paroles
+            const syncContainer = getUI('sync-lyrics-content');
+            if (syncContainer) {
+                syncContainer.innerHTML = '';
+                track.syncLyrics.forEach((lyric, i) => {
+                    const p = document.createElement('p');
+                    p.id = `sync-line-${i}`;
+                    p.className = 'text-sm text-gray-600 transition-all duration-300 transform scale-95 opacity-50 whitespace-nowrap';
+                    p.innerText = lyric.text;
+                    syncContainer.appendChild(p);
+                });
+                syncContainer.style.transform = `translateY(48px)`; 
+            }
+
+            // Icônes
+            const wrapPlay = getUI('wrapper-play');
+            const wrapPause = getUI('wrapper-pause');
+            if (wrapPause) { wrapPause.classList.add('hidden'); wrapPause.classList.remove('flex'); }
+            if (wrapPlay) { wrapPlay.classList.remove('hidden'); wrapPlay.classList.add('flex'); }
+            
+            if (audioEl) {
+                audioEl.src = track.src;
+                audioEl.load();
+            }
+            lucide.createIcons();
+        }
+
+        // 6. PLAY / PAUSE
+        function toggleActiveMusic() {
+            if (currentTrackIndex === -1) {
+                loadTrack(0);
+            }
+            
+            const wrapPlay = getUI('wrapper-play');
+            const wrapPause = getUI('wrapper-pause');
+            
+            if (audioEl) {
+                if (audioEl.paused) {
+                    audioEl.play().catch(e => console.error("Fichier audio non trouvé :", e));
+                    if (wrapPlay) { wrapPlay.classList.add('hidden'); wrapPlay.classList.remove('flex'); }
+                    if (wrapPause) { wrapPause.classList.remove('hidden'); wrapPause.classList.add('flex'); }
+                } else {
+                    audioEl.pause();
+                    if (wrapPause) { wrapPause.classList.add('hidden'); wrapPause.classList.remove('flex'); }
+                    if (wrapPlay) { wrapPlay.classList.remove('hidden'); wrapPlay.classList.add('flex'); }
+                }
+            }
+        }
+
+        // 7. GESTION DU VOLUME
+        function changeAudioVolume(val) {
+            if (audioEl) {
+                audioEl.volume = parseFloat(val);
+            }
+        }
+
+        // 8. TEMPS ET SYNCHRONISATION
+        if (audioEl) {
+            audioEl.addEventListener('timeupdate', () => {
+                if (!audioEl.duration || currentTrackIndex === -1) return;
+                
+                const currentTime = audioEl.currentTime;
+                const formatTime = (time) => {
+                    const min = Math.floor(time / 60);
+                    const sec = Math.floor(time % 60);
+                    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+                };
+                
+                const timeEl = getUI('player-time');
+                if (timeEl) timeEl.innerText = `${formatTime(currentTime)} / ${formatTime(audioEl.duration)}`;
+                
+                const progressFill = getUI('progress-bar-fill');
+                if (progressFill) {
+                    const progressPercent = (currentTime / audioEl.duration) * 100;
+                    progressFill.style.width = `${progressPercent}%`;
+                }
+
+                const track = activeTracks[currentTrackIndex];
+                let activeIndex = -1;
+
+                for (let i = 0; i < track.syncLyrics.length; i++) {
+                    if (currentTime >= track.syncLyrics[i].time) {
+                        activeIndex = i;
+                    } else {
+                        break;
+                    }
+                }
+
+                if (activeIndex !== currentSyncLine && activeIndex !== -1) {
+                    
+                    for (let i = 0; i < track.syncLyrics.length; i++) {
+                        const line = getUI(`sync-line-${i}`);
+                        if(line) line.className = 'text-sm text-gray-600 transition-all duration-300 transform scale-95 opacity-50 whitespace-nowrap';
+                    }
+
+                    const activeEl = getUI(`sync-line-${activeIndex}`);
+                    const syncContainer = getUI('sync-lyrics-content');
+                    
+                    if (activeEl && syncContainer) {
+                        // Couleur de l'ombre selon le thème
+                        const shadowColor = track.themeColor === "red" ? "rgba(239,68,68,0.8)" : "rgba(217,70,239,0.8)";
+                        
+                        activeEl.className = 'text-lg text-white font-bold transition-all duration-300 transform scale-105 opacity-100 whitespace-nowrap';
+                        activeEl.style.filter = `drop-shadow(0 0 8px ${shadowColor})`;
+
+                        const container = syncContainer.parentElement;
+                        if (container && container.clientHeight > 0) {
+                            const containerHeight = container.clientHeight; 
+                            const elCenter = activeEl.offsetTop + (activeEl.clientHeight / 2);
+                            const offset = (containerHeight / 2) - elCenter;
+                            syncContainer.style.transform = `translateY(${offset}px)`;
+                        }
+                    }
+                    currentSyncLine = activeIndex;
+                }
+            });
+
+            audioEl.addEventListener('ended', () => {
+                const wrapPlay = getUI('wrapper-play');
+                const wrapPause = getUI('wrapper-pause');
+                if (wrapPause) { wrapPause.classList.add('hidden'); wrapPause.classList.remove('flex'); }
+                if (wrapPlay) { wrapPlay.classList.remove('hidden'); wrapPlay.classList.add('flex'); }
+            });
+        }
+
+        // 9. BARRE CLICABLE
+        function seekAudio(e) {
+            if (currentTrackIndex === -1 || !audioEl || !audioEl.duration) return;
+            const container = getUI('progress-bar-container');
+            if (container) {
+                const rect = container.getBoundingClientRect();
+                const clickPercent = (e.clientX - rect.left) / rect.width;
+                audioEl.currentTime = clickPercent * audioEl.duration;
+                currentSyncLine = -1; 
+            }
+        }
+
+        // 10. AFFICHER PAROLES COMPLÈTES
+        function toggleLyrics(id) {
+            const lyricsDiv = getUI(id);
+            if (lyricsDiv) {
+                if (lyricsDiv.classList.contains('hidden')) {
+                    lyricsDiv.classList.remove('hidden');
+                    setTimeout(() => lyricsDiv.scrollIntoView({ behavior: 'smooth' }), 100);
+                } else {
+                    lyricsDiv.classList.add('hidden');
+                }
+            }
+        }
+
+        // 11. INITIALISATION
+        window.addEventListener('DOMContentLoaded', () => {
+            initMusicPlayerFor('nyxbast'); // Par défaut on charge Nyx 
+            if (audioEl) {
+                const slider = document.getElementById('audio-volume');
+                audioEl.volume = slider ? parseFloat(slider.value) : 0.3;
+            }
+        });
+       
+        let secretBuffer = [];
+        const konamiCode = ['j', 'a', 'x'];
+
+        window.addEventListener('keydown', (e) => {
+            // Ne rien faire si on est déjà en train de taper dans un champ de texte (comme le mot de passe)
+            if (e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'textarea') return;
+
+            // Ajouter la touche tapée (en minuscule) au buffer
+            secretBuffer.push(e.key.toLowerCase());
+            
+            // Garder uniquement les 3 dernières touches
+            if (secretBuffer.length > konamiCode.length) {
+                secretBuffer.shift();
+            }
+
+            // Vérifier si ça correspond à "jax"
+            if (secretBuffer.join('') === konamiCode.join('')) {
+                openJaxPasswordPrompt();
+                secretBuffer = []; // On réinitialise pour éviter les déclenchements en boucle
+            }
+        });
+
+        // 1. Ouvrir la demande de mot de passe
+        function openJaxPasswordPrompt() {
+            const modal = document.getElementById('jax-password-modal');
+            const error = document.getElementById('jax-password-error');
+            const input = document.getElementById('jax-password-input');
+            
+            if(modal) {
+                modal.classList.remove('hidden');
+                if(error) error.classList.add('hidden');
+                if(input) {
+                    input.value = '';
+                    setTimeout(() => input.focus(), 100); // Focus automatique sur l'input
+                }
+            }
+        }
+
+        // 2. Fermer la demande de mot de passe
+        function closeJaxPassword() {
+            const modal = document.getElementById('jax-password-modal');
+            if(modal) modal.classList.add('hidden');
+        }
+
+        // 3. Vérifier le mot de passe
+        function checkJaxPassword() {
+            const input = document.getElementById('jax-password-input');
+            const error = document.getElementById('jax-password-error');
+            
+            // Le mot de passe attendu. On le met en majuscule pour que ce soit insensible à la casse
+            if (input && input.value.toUpperCase() === 'SIGNAL_PERDU') {
+                closeJaxPassword();
+                openJaxSecret();
+            } else {
+                if(error) error.classList.remove('hidden');
+            }
+        }
+
+        // Permettre la validation du mot de passe avec la touche "Entrée"
+        window.addEventListener('DOMContentLoaded', () => {
+            const input = document.getElementById('jax-password-input');
+            if(input) {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        checkJaxPassword();
+                    }
+                });
+            }
+        });
+
+        // 4. Ouvrir le Vrai Dossier Secret
+        function openJaxSecret() {
+            const modal = document.getElementById('jax-secret-modal');
+            if(modal) {
+                modal.classList.remove('hidden');
+                lucide.createIcons(); // On génère les icônes de la nouvelle fenêtre
+            }
+        }
+
+        // 5. Fermer le Dossier Secret (via la croix)
+        function closeJaxSecret() {
+            const modal = document.getElementById('jax-secret-modal');
+            if(modal) modal.classList.add('hidden');
+        }
+
     </script>
     <script src="assets/js/main.js"></script>
 </body>
