@@ -492,7 +492,7 @@
 
             <div class="flex items-center justify-between p-6 border-b border-cyan-900/50 bg-cyan-950/10">
                 
-                <button onclick="closeFile()" class="text-cyan-400 hover:text-white uppercase text-xs tracking-widest flex items-center gap-2 border border-cyan-500/50 px-4 py-2 rounded hover:bg-cyan-900/50 transition-all">
+                <button onclick="stopMusic(); closeFile()" class="text-cyan-400 hover:text-white uppercase text-xs tracking-widest flex items-center gap-2 border border-cyan-500/50 px-4 py-2 rounded hover:bg-cyan-900/50 transition-all">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i> Fermer le dossier
                 </button>
 
@@ -3020,7 +3020,7 @@
     <div id="data-nyxbast" class="hidden">
         
         <div class="flex justify-between items-center mb-8">
-            <button onclick="openFile('culture')" class="text-gray-400 hover:text-white flex items-center gap-2 transition-colors">
+            <button onclick="stopMusic(); openFile('culture')" class="text-gray-400 hover:text-white flex items-center gap-2 transition-colors">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i>
                 <span class="text-xs uppercase tracking-widest">Retour aux Éminences</span>
             </button>
@@ -3185,7 +3185,7 @@
 <div id="data-jax" class="hidden">
         
         <div class="flex justify-between items-center mb-8">
-            <button onclick="openFile('culture')" class="text-gray-400 hover:text-white flex items-center gap-2 transition-colors">
+            <button onclick="stopMusic(); openFile('culture')" class="text-gray-400 hover:text-white flex items-center gap-2 transition-colors">
                 <i data-lucide="arrow-left" class="w-4 h-4"></i>
                 <span class="text-xs uppercase tracking-widest">Retour aux Archives</span>
             </button>
@@ -3949,92 +3949,90 @@
                     src: "assets/audio/jax_signal_perdu.mp3", 
                     isAvailable: true,
                     syncLyrics: [
-                        { time: 0, text: "(Bruit de statique et basses sourdes)" },
-                        { time: 4, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 8, text: "Le signal est mort." },
-                        { time: 12, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 16, text: "Soixante-quinze millions d'âmes et je me sens seul sur Saturne." },
-                        { time: 20, text: "Dans les couloirs d'Eden, l'espoir est un vieux nocturne." },
-                        { time: 25, text: "Je nettoie les filtres, je répare les conduits brisés." },
-                        { time: 29, text: "Mais c'est mon propre cœur qui refuse d'être cautérisé." },
-                        { time: 34, text: "Je vois les patrouilles de la F.L.A.C. passer dans le corridor." },
-                        { time: 39, text: "Cherchant les Viper's, ignorant mon propre sort." },
-                        { time: 43, text: "Je ne suis qu'un numéro, une ombre dans le Secteur Gris." },
-                        { time: 48, text: "Un Infralaborant que la fatigue a déjà conquis." },
-                        { time: 52, text: "Mais quand je lance la Surcharge, le monde change de couleur." },
-                        { time: 57, text: "Je ne sens plus le froid, je ne sens plus la douleur." },
-                        { time: 61, text: "Le dôme s'efface, les parois tombent en poussière." },
-                        { time: 66, text: "Je m'évade de la station, je quitte la frontière." },
-                        { time: 70, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 74, text: "Je cherche ton signal dans le vide infini." },
-                        { time: 78, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 82, text: "Perdu entre les morts et ceux qui sont en sursis." },
-                        { time: 86, text: "Gabriel Prodit nous a menti sur le retour." },
-                        { time: 91, text: "Je plane au-dessus des dômes, je compte les jours." },
-                        { time: 95, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 99, text: "Signal perdu, je ne reviens pas." },
-                        { time: 104, text: "Ils t'ont emmenée vers les Labyrinthes de la Terre." },
-                        { time: 108, text: "Promettant la terraformation, mais c'était une guerre." },
-                        { time: 113, text: "Cobaye génétique pour les rêves des Sénéscients." },
-                        { time: 117, text: "Tu n'es plus qu'un dossier classé pour tous ces gens." },
-                        { time: 122, text: "Moi je reste ici, à vider les fonds de bouteilles." },
-                        { time: 126, text: "Sous le soleil de Saturne qui jamais ne s'éveille." },
-                        { time: 131, text: "Mon Contrat Vital est une chaîne de fer au pied." },
-                        { time: 135, text: "Alors je pousse le curseur, je veux tout oublier." },
-                        { time: 140, text: "Mais quand je lance la Surcharge, le monde change de couleur." },
-                        { time: 144, text: "Je ne sens plus le froid, je ne sens plus la douleur." },
-                        { time: 148, text: "Le dôme s'efface, les parois tombent en poussière." },
-                        { time: 153, text: "Je m'évade de la station, je quitte la frontière." },
-                        { time: 157, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 161, text: "Je cherche ton signal dans le vide infini." },
-                        { time: 165, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 169, text: "Perdu entre les morts et ceux qui sont en sursis." },
-                        { time: 173, text: "Gabriel Prodit nous a menti sur le retour." },
-                        { time: 178, text: "Je plane au-dessus des dômes, je compte les jours." },
-                        { time: 182, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 186, text: "Signal perdu, je ne reviens pas." },
-                        { time: 191, text: "Surcharge... Surcharge..." },
-                        { time: 195, text: "Mes neurones brûlent, mais la vue est si belle." },
-                        { time: 199, text: "Je te vois courir sous un ciel éternel." },
-                        { time: 204, text: "C'est pas Nausicaa, c'est pas Fortuna la fière." },
-                        { time: 208, text: "C'est juste l'illusion d'une ancienne lumière." },
-                        { time: 213, text: "Plus de quotas, plus de taxes, plus de Fédération." },
-                        { time: 217, text: "Juste toi et moi, hors de la station." },
-                        { time: 222, text: "Pousse le signal ! Augmente la dose !" },
-                        { time: 226, text: "Les Infralaborants disent que je suis devenu fou." },
-                        { time: 230, text: "Que je vais finir en Rebut, jeté dans le trou." },
-                        { time: 235, text: "Mais ils ne voient pas ce que je vois quand je ferme les yeux." },
-                        { time: 239, text: "Ils ne voient pas l'arnaque de ce paradis vieux." },
-                        { time: 244, text: "On est du matériel, des pièces de rechange au rabais." },
-                        { time: 248, text: "Pour que l'élite puisse enfin respirer en paix." },
-                        { time: 252, text: "Alors je reste en Surcharge, c'est ma seule liberté." },
-                        { time: 257, text: "Dans l'Antre des délits, j'ai trouvé ma vérité." },
-                        { time: 261, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 265, text: "Je cherche ton signal dans le vide infini." },
-                        { time: 269, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 273, text: "Perdu entre les morts et ceux qui sont en sursis." },
+                        { time: 0, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 13, text: "Le signal est mort." },
+                        { time: 15.3, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 25, text: "Soixante-quinze millions d'âmes et je me sens seul sur Saturne." },
+                        { time: 28.8, text: "Dans les couloirs d'Eden, l'espoir est un vieux nocturne." },
+                        { time: 32.7, text: "Je nettoie les filtres, je répare les conduits brisés." },
+                        { time: 36.4, text: "Mais c'est mon propre cœur qui refuse d'être cautérisé." },
+                        { time: 40.1, text: "Je vois les patrouilles de la F.L.A.C. passer dans le corridor." },
+                        { time: 44, text: "Cherchant les Viper's, ignorant mon propre sort." },
+                        { time: 47.7, text: "Je ne suis qu'un numéro, une ombre dans le Secteur Gris." },
+                        { time: 51.4, text: "Un Infralaborant que la fatigue a déjà conquis." },
+                        { time: 55.1, text: "Mais quand je lance la Surcharge, le monde change de couleur." },
+                        { time: 58.7, text: "Je ne sens plus le froid, je ne sens plus la douleur." },
+                        { time: 62.9, text: "Le dôme s'efface, les parois tombent en poussière." },
+                        { time: 66.1, text: "Je m'évade de la station, je quitte la frontière." },
+                        { time: 74.4, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 76.3, text: "Je cherche ton signal dans le vide infini." },
+                        { time: 82, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 83.2, text: "Perdu entre les morts et ceux qui sont en sursis." },
+                        { time: 88, text: "Gabriel Prodit nous a menti sur le retour." },
+                        { time: 91.6, text: "Je plane au-dessus des dômes, je compte les jours." },
+                        { time: 95.9, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 98.4, text: "Signal perdu, je ne reviens pas." },
+                        { time: 103.7, text: "Ils t'ont emmenée vers les Labyrinthes de la Terre." },
+                        { time: 107.2, text: "Promettant la terraformation, mais c'était une guerre." },
+                        { time: 110.8, text: "Cobaye génétique pour les rêves des Sénéscients." },
+                        { time: 114.5, text: "Tu n'es plus qu'un dossier classé pour tous ces gens." },
+                        { time: 118.4, text: "Moi je reste ici, à vider les fonds de bouteilles." },
+                        { time: 121.9, text: "Sous le soleil de Saturne qui jamais ne s'éveille." },
+                        { time: 125.7, text: "Mon Contrat Vital est une chaîne de fer au pied." },
+                        { time: 129.6, text: "Alors je pousse le curseur, je veux tout oublier." },
+                        { time: 133.2, text: "Mais quand je lance la Surcharge, le monde change de couleur." },
+                        { time: 136.9, text: "Je ne sens plus le froid, je ne sens plus la douleur." },
+                        { time: 141.1, text: "Le dôme s'efface, les parois tombent en poussière." },
+                        { time: 144.3, text: "Je m'évade de la station, je quitte la frontière." },
+                        { time: 153.1, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 154.5, text: "Je cherche ton signal dans le vide infini." },
+                        { time: 160.2, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 161.3, text: "Perdu entre les morts et ceux qui sont en sursis." },
+                        { time: 166.2, text: "Gabriel Prodit nous a menti sur le retour." },
+                        { time: 169.7, text: "Je plane au-dessus des dômes, je compte les jours." },
+                        { time: 174.9, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 176.3, text: "Signal perdu, je ne reviens pas." },
+                        { time: 184.3, text: "Surcharge... Surcharge..." },
+                        { time: 188.6, text: "Mes neurones brûlent, mais la vue est si belle." },
+                        { time: 192.3, text: "Je te vois courir sous un ciel éternel." },
+                        { time: 195.7, text: "C'est pas Nausicaa, c'est pas Fortuna la fière." },
+                        { time: 199.7, text: "C'est juste l'illusion d'une ancienne lumière." },
+                        { time: 204.1, text: "Plus de quotas, plus de taxes, plus de Fédération." },
+                        { time: 208.1, text: "Juste toi et moi, hors de la station." },
+                        { time: 225.1, text: "Pousse le signal ! Augmente la dose !" },
+                        { time: 230.5, text: "Les Infralaborants disent que je suis devenu fou." },
+                        { time: 234, text: "Que je vais finir en Rebut, jeté dans le trou." },
+                        { time: 237.4, text: "Mais ils ne voient pas ce que je vois quand je ferme les yeux." },
+                        { time: 241.3, text: "Ils ne voient pas l'arnaque de ce paradis vieux." },
+                        { time: 244.8, text: "On est du matériel, des pièces de rechange au rabais." },
+                        { time: 248.5, text: "Pour que l'élite puisse enfin respirer en paix." },
+                        { time: 252.2, text: "Alors je reste en Surcharge, c'est ma seule liberté." },
+                        { time: 256.1, text: "Dans l'Antre des délits, j'ai trouvé ma vérité." },
+                        { time: 262.4, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 263.8, text: "Je cherche ton signal dans le vide infini." },
+                        { time: 270, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 274.1, text: "Perdu entre les morts et ceux qui sont en sursis." },
                         { time: 277, text: "Gabriel Prodit nous a menti sur le retour." },
-                        { time: 282, text: "Je plane au-dessus des dômes, je compte les jours." },
-                        { time: 286, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 290, text: "Signal perdu, je ne reviens pas." },
-                        { time: 294, text: "Hoo-hoo... Hoo-hoo..." },
-                        { time: 298, text: "Signal faible..." },
-                        { time: 301, text: "Hoo-hoo..." },
-                        { time: 304, text: "Oxygène à deux pour cent." },
-                        { time: 307, text: "Je ne redescendrai pas..." },
-                        { time: 310, text: "Hoo-hoo..." }
+                        { time: 279.6, text: "Je plane au-dessus des dômes, je compte les jours." },
+                        { time: 285, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 285.9, text: "Signal perdu, je ne reviens pas." },
+                        { time: 292, text: "Hoo-hoo... Hoo-hoo..." },
+                        { time: 295, text: "Signal faible..." },
+                        { time: 298.8, text: "Oxygène à deux pour cent." },
+                        { time: 302.2, text: "Je ne redescendrai pas..." },
+                        { time: 308, text: "Hoo-hoo..." }
                     ],
                     fullLyrics: `
                         <p>Hoo-hoo... Hoo-hoo...<br>Le signal est mort.<br>Hoo-hoo... Hoo-hoo...<br>Soixante-quinze millions d'âmes et je me sens seul sur Saturne.<br>Dans les couloirs d'Eden, l'espoir est un vieux nocturne.<br>Je nettoie les filtres, je répare les conduits brisés.<br>Mais c'est mon propre cœur qui refuse d'être cautérisé.</p>
                         <p>Je vois les patrouilles de la F.L.A.C. passer dans le corridor.<br>Cherchant les Viper's, ignorant mon propre sort.<br>Je ne suis qu'un numéro, une ombre dans le Secteur Gris.<br>Un Infralaborant que la fatigue a déjà conquis.</p>
-                        <p class="text-red-400 font-bold drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">Mais quand je lance la Surcharge, le monde change de couleur.<br>Je ne sens plus le froid, je ne sens plus la douleur.<br>Le dôme s'efface, les parois tombent en poussière.<br>Je m'évade de la station, je quitte la frontière.</p>
-                        <p>Hoo-hoo... Hoo-hoo...<br>Je cherche ton signal dans le vide infini.<br>Hoo-hoo... Hoo-hoo...<br>Perdu entre les morts et ceux qui sont en sursis.<br>Gabriel Prodit nous a menti sur le retour.<br>Je plane au-dessus des dômes, je compte les jours.<br>Hoo-hoo... Hoo-hoo...<br>Signal perdu, je ne reviens pas.</p>
+                        <p>Mais quand je lance la Surcharge, le monde change de couleur.<br>Je ne sens plus le froid, je ne sens plus la douleur.<br>Le dôme s'efface, les parois tombent en poussière.<br>Je m'évade de la station, je quitte la frontière.</p>
+                        <p class="text-red-400 font-bold drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">Hoo-hoo... Hoo-hoo...<br>Je cherche ton signal dans le vide infini.<br>Hoo-hoo... Hoo-hoo...<br>Perdu entre les morts et ceux qui sont en sursis.<br>Gabriel Prodit nous a menti sur le retour.<br>Je plane au-dessus des dômes, je compte les jours.<br>Hoo-hoo... Hoo-hoo...<br>Signal perdu, je ne reviens pas.</p>
                         <p>Ils t'ont emmenée vers les Labyrinthes de la Terre.<br>Promettant la terraformation, mais c'était une guerre.<br>Cobaye génétique pour les rêves des Sénéscients.<br>Tu n'es plus qu'un dossier classé pour tous ces gens.<br>Moi je reste ici, à vider les fonds de bouteilles.<br>Sous le soleil de Saturne qui jamais ne s'éveille.<br>Mon Contrat Vital est une chaîne de fer au pied.<br>Alors je pousse le curseur, je veux tout oublier.</p>
-                        <p class="text-red-400 font-bold drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">Mais quand je lance la Surcharge, le monde change de couleur.<br>Je ne sens plus le froid, je ne sens plus la douleur.<br>Le dôme s'efface, les parois tombent en poussière.<br>Je m'évade de la station, je quitte la frontière.</p>
-                        <p>Hoo-hoo... Hoo-hoo...<br>Je cherche ton signal dans le vide infini.<br>Hoo-hoo... Hoo-hoo...<br>Perdu entre les morts et ceux qui sont en sursis.<br>Gabriel Prodit nous a menti sur le retour.<br>Je plane au-dessus des dômes, je compte les jours.<br>Hoo-hoo... Hoo-hoo...<br>Signal perdu, je ne reviens pas.</p>
+                        <p>Mais quand je lance la Surcharge, le monde change de couleur.<br>Je ne sens plus le froid, je ne sens plus la douleur.<br>Le dôme s'efface, les parois tombent en poussière.<br>Je m'évade de la station, je quitte la frontière.</p>
+                        <p class="text-red-400 font-bold drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">Hoo-hoo... Hoo-hoo...<br>Je cherche ton signal dans le vide infini.<br>Hoo-hoo... Hoo-hoo...<br>Perdu entre les morts et ceux qui sont en sursis.<br>Gabriel Prodit nous a menti sur le retour.<br>Je plane au-dessus des dômes, je compte les jours.<br>Hoo-hoo... Hoo-hoo...<br>Signal perdu, je ne reviens pas.</p>
                         <p>Surcharge... Surcharge...<br>Mes neurones brûlent, mais la vue est si belle.<br>Je te vois courir sous un ciel éternel.<br>C'est pas Nausicaa, c'est pas Fortuna la fière.<br>C'est juste l'illusion d'une ancienne lumière.<br>Plus de quotas, plus de taxes, plus de Fédération.<br>Juste toi et moi, hors de la station.<br>Pousse le signal ! Augmente la dose !</p>
                         <p>Les Infralaborants disent que je suis devenu fou.<br>Que je vais finir en Rebut, jeté dans le trou.<br>Mais ils ne voient pas ce que je vois quand je ferme les yeux.<br>Ils ne voient pas l'arnaque de ce paradis vieux.<br>On est du matériel, des pièces de rechange au rabais.<br>Pour que l'élite puisse enfin respirer en paix.<br>Alors je reste en Surcharge, c'est ma seule liberté.<br>Dans l'Antre des délits, j'ai trouvé ma vérité.</p>
-                        <p>Hoo-hoo... Hoo-hoo...<br>Je cherche ton signal dans le vide infini.<br>Hoo-hoo... Hoo-hoo...<br>Perdu entre les morts et ceux qui sont en sursis.<br>Gabriel Prodit nous a menti sur le retour.<br>Je plane au-dessus des dômes, je compte les jours.<br>Hoo-hoo... Hoo-hoo...<br>Signal perdu, je ne reviens pas.<br>Hoo-hoo... Hoo-hoo...<br>Signal faible...<br>Hoo-hoo...<br>Oxygène à deux pour cent.<br>Je ne redescendrai pas...<br>Hoo-hoo...</p>
+                        <p class="text-red-400 font-bold drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]">Hoo-hoo... Hoo-hoo...<br>Je cherche ton signal dans le vide infini.<br>Hoo-hoo... Hoo-hoo...<br>Perdu entre les morts et ceux qui sont en sursis.<br>Gabriel Prodit nous a menti sur le retour.<br>Je plane au-dessus des dômes, je compte les jours.<br>Hoo-hoo... Hoo-hoo...<br>Signal perdu, je ne reviens pas.<br>Hoo-hoo... Hoo-hoo...<br>Signal faible...<br>Hoo-hoo...<br>Oxygène à deux pour cent.<br>Je ne redescendrai pas...<br>Hoo-hoo...</p>
                     `
                 }
             ]
@@ -4386,6 +4384,18 @@
         function closeJaxSecret() {
             const modal = document.getElementById('jax-secret-modal');
             if(modal) modal.classList.add('hidden');
+        }
+
+        // FONCTION POUR COUPER LA MUSIQUE QUAND ON QUITTE LE DOSSIER
+        function stopMusic() {
+            if (audioEl && !audioEl.paused) {
+                audioEl.pause();
+                // On remet les boutons sur Play visuellement
+                const wrapsPlay = document.querySelectorAll('#wrapper-play');
+                const wrapsPause = document.querySelectorAll('#wrapper-pause');
+                wrapsPause.forEach(w => { w.classList.add('hidden'); w.classList.remove('flex'); });
+                wrapsPlay.forEach(w => { w.classList.remove('hidden'); w.classList.add('flex'); });
+            }
         }
 
     </script>
