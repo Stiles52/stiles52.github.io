@@ -1,13 +1,13 @@
 <?php
 
-    $ticket_type = array(
+    $ticket_type = [
         "haut-staff" => "Haut-Staff",
         "modo" => "Modération",
         "recrute" => "Recrutement",
         "qa" => "Question & Réponse",
         "ban" => "Débanissement",
         "developper" => "Développement"
-    );
+    ];
 
 ?>
 
@@ -43,7 +43,11 @@
         if(isset($_GET['ticket'])) {
             if($_GET['ticket'] == "bug") {
                 ?>
-                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 1000px;">
+                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 100%; max-width: 1000px;">
+                        <a href="./dashboard?page=ticket-actions" class="inline-flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors mb-6 text-sm uppercase tracking-widest">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Retour
+                        </a>
                         <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Création d'un ticket "Rapport de bug"</h3>
 
                         <form id="discord-form" onsubmit="sendToDiscord(event)">
@@ -101,7 +105,11 @@
             } else
             if($_GET['ticket'] == "special") {
                 ?>
-                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 1000px;">
+                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 100%; max-width: 1000px;">
+                        <a href="./dashboard?page=ticket-actions" class="inline-flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors mb-6 text-sm uppercase tracking-widest">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Retour
+                        </a>
                         <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Création d'un ticket "Spécialisation"</h3>
 
                         <form id="discord-form" onsubmit="sendToDiscord(event)">
@@ -156,7 +164,11 @@
                 <?php
             } elseif(array_key_exists($_GET['ticket'], $ticket_type)) {
                 ?>
-                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 1000px;">
+                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 100%; max-width: 1000px;">
+                        <a href="./dashboard?page=ticket-actions" class="inline-flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors mb-6 text-sm uppercase tracking-widest">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Retour
+                        </a>
                         <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Création d'un ticket "<?php echo $ticket_type[$_GET['ticket']] ?>"</h3>
 
                         <form id="discord-form" onsubmit="sendToDiscord(event)">
