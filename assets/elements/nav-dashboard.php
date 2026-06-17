@@ -49,6 +49,10 @@
             <i data-lucide="tickets" class="lucide lucide-history w-4 h-4"></i>
             Gérer vos tickets
         </a>
+        <a href="./dashboard?page=personnages" class="origin-nav--categorie-button <?php if($_GET['page'] == 'personnages') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+            <i data-lucide="theater" class="lucide lucide-history w-4 h-4"></i>
+            Gestion des personnages
+        </a>
 
         <div class="origin-nav--categorie-separator"></div>
 
@@ -81,7 +85,7 @@
             <i data-lucide="scroll-text" class="lucide lucide-history w-4 h-4"></i>
             Gestion des tickets
         </a>
-        <a href="./dashboard?page=permissions" class="origin-nav--categorie-button <?php if($_GET['page'] == 'permissions') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <a href="./dashboard?page=candidatures" class="origin-nav--categorie-button <?php if($_GET['page'] == 'candidatures') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="notebook-text" class="lucide lucide-history w-4 h-4"></i>
             Gest. candidatures
         </a>
