@@ -24,36 +24,38 @@
         </div>
 
         <!-- Outils -->
-        <div class="flex justify-end m-4 gap-4 flex-wrap">
-            <input type="text" id="cand-search" style="width: 320px;" placeholder="Rechercher un pseudo...">
-            <button onclick="searchCandidatures()" class="origin-btn btn--graphic btn--primary">
-                <i data-lucide="search" class="btn--icon"></i>
-            </button>
-            <button class="dropdown origin-btn btn--full-graphic btn--primary ml-4">
-                Filtres
-                <i data-lucide="sliders-horizontal" class="btn--icon"></i>
-                <div class="dropdown-container dropdown-container--popup hidden" style="min-width: 400px; top: 60px;">
-                    <div class="p-6 flex gap-4">
-                        <div style="flex: 1;">
-                            <label class="text-xs text-cyan-400 uppercase tracking-widest mb-2">Statut</label>
-                            <select style="width: 100%;" class="mt-2">
-                                <option>Tous</option>
-                                <option>En attente</option>
-                                <option>Acceptée</option>
-                                <option>Refusée</option>
-                            </select>
-                        </div>
-                        <div style="flex: 1;">
-                            <label class="text-xs text-cyan-400 uppercase tracking-widest mb-2">Ordre</label>
-                            <select style="width: 100%;" class="mt-2">
-                                <option>Date (récent)</option>
-                                <option>Date (ancien)</option>
-                                <option>Alphabétique</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </button>
+        <div class="page-toolbar">
+            <div class="page-toolbar--search">
+                <input type="text" id="cand-search" placeholder="Rechercher un pseudo...">
+                <button onclick="searchCandidatures()" class="origin-btn btn--graphic btn--primary" style="flex-shrink:0;">
+                    <i data-lucide="search" class="btn--icon"></i>
+                </button>
+            </div>
+            <div class="page-toolbar--actions">
+                <button class="dropdown origin-btn btn--full-graphic btn--primary">
+                    Filtres
+                    <i data-lucide="sliders-horizontal" class="btn--icon"></i>
+                </button>
+            </div>
+        </div>
+        <div class="dropdown-container hidden w-full flex p-8 gap-4">
+            <div style="width: 350px;">
+                <label>Statut</label>
+                <select style="width: 100%;">
+                    <option>Tous</option>
+                    <option>En attente</option>
+                    <option>Acceptée</option>
+                    <option>Refusée</option>
+                </select>
+            </div>
+            <div style="width: 350px;">
+                <label>Ordre d'apparition</label>
+                <select style="width: 100%;">
+                    <option>Date (récent)</option>
+                    <option>Date (ancien)</option>
+                    <option>Alphabétique</option>
+                </select>
+            </div>
         </div>
 
         <table id="cand-table">
@@ -195,13 +197,13 @@
             </tbody>
         </table>
 
-        <div class="flex justify-end mt-8 mb-24 gap-4">
-            <a href="#" class="origin-btn btn--graphic btn--primary">
+        <div class="pagination">
+            <a href="#" class="origin-btn btn--graphic btn--secondary">
                 <i data-lucide="arrow-big-left" class="btn--icon"></i>
             </a>
-            <a href="#" class="origin-btn btn--full-graphic btn--primary"><span>1</span></a>
-            <a href="#" class="origin-btn btn--full-graphic btn--primary"><span>2</span></a>
-            <a href="#" class="origin-btn btn--full-graphic btn--secondary"><span>...</span></a>
+            <a href="#" class="pagination--page pagination--current origin-btn btn--full-graphic btn--primary"><span>1</span></a>
+            <a href="#" class="pagination--page origin-btn btn--full-graphic btn--secondary"><span>2</span></a>
+            <a href="#" class="pagination--ellipsis origin-btn btn--full-graphic btn--secondary"><span>...</span></a>
             <a href="#" class="origin-btn btn--graphic btn--primary">
                 <i data-lucide="arrow-big-right" class="btn--icon"></i>
             </a>

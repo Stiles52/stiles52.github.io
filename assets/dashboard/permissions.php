@@ -24,10 +24,10 @@
 
 <main id="main-container" class="flex-1 relative overflow-hidden bg-black pb-24 md:pb-0">
     <div class="absolute inset-0 overflow-y-auto p-6 pb-32 md:p-12 fade-in-view">
-        <div class="flex items-center justify-between pb-12">
-            <h3 class="text-cyan-400">Gestion des permissions</h3>
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; padding-bottom:2rem;">
+            <h3 class="text-cyan-400" style="margin:0;">Gestion des permissions</h3>
             <button class="origin-btn btn--full-graphic btn--success" onclick="savePerms()">
-                Sauvegarder les modifications
+                Sauvegarder
                 <i data-lucide="save" class="btn--icon"></i>
             </button>
         </div>

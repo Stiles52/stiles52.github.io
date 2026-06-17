@@ -22,12 +22,14 @@
         <h3 class="pb-12 text-cyan-400">Visualisateur des profils</h3>
 
         <!-- Barre de recherche -->
-        <div class="flex gap-4 mb-8 flex-wrap">
-            <input type="text" id="profile-search" style="flex: 1; min-width: 250px;" placeholder="Pseudo Minecraft ou pseudo du site...">
-            <button onclick="loadProfile()" class="origin-btn btn--full-graphic btn--primary">
-                Rechercher
-                <i data-lucide="search" class="btn--icon"></i>
-            </button>
+        <div class="page-toolbar" style="justify-content: flex-start; margin-bottom: 2rem; padding: 0;">
+            <div class="page-toolbar--search" style="max-width: 600px; flex: 1;">
+                <input type="text" id="profile-search" placeholder="Pseudo Minecraft ou pseudo du site...">
+                <button onclick="loadProfile()" class="origin-btn btn--full-graphic btn--primary" style="flex-shrink:0; white-space:nowrap;">
+                    Rechercher
+                    <i data-lucide="search" class="btn--icon"></i>
+                </button>
+            </div>
         </div>
 
         <!-- Zone profil (cachée par défaut, affichée après recherche) -->

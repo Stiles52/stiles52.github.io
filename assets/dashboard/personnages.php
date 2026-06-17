@@ -42,11 +42,13 @@
         </div>
 
         <!-- Barre de recherche -->
-        <div class="flex justify-end mb-6 gap-4">
-            <input type="text" id="char-search" style="width: 380px;" placeholder="Rechercher un personnage...">
-            <button onclick="searchChars()" class="origin-btn btn--graphic btn--primary">
-                <i data-lucide="search" class="btn--icon"></i>
-            </button>
+        <div class="page-toolbar" style="margin-bottom: 1.5rem;">
+            <div class="page-toolbar--search">
+                <input type="text" id="char-search" placeholder="Rechercher un personnage...">
+                <button onclick="searchChars()" class="origin-btn btn--graphic btn--primary" style="flex-shrink:0;">
+                    <i data-lucide="search" class="btn--icon"></i>
+                </button>
+            </div>
         </div>
 
         <!-- Liste -->

@@ -3,18 +3,22 @@
         <h3 class="pb-12 text-cyan-400">Gestion des utilisateurs</h3>
 
         <div class="page-toolbar">
-            <input type="text" id="user-search" placeholder="Rechercher un pseudo...">
-            <button onclick="searchUsers()" class="origin-btn btn--graphic btn--primary">
-                <i data-lucide="search" class="btn--icon"></i>
-            </button>
-            <button class="dropdown origin-btn btn--full-graphic btn--primary">
-                Filtres
-                <i data-lucide="sliders-horizontal" class="btn--icon"></i>
-            </button>
-            <button class="origin-btn btn--full-graphic btn--success">
-                Créer un utilisateur
-                <i data-lucide="user-plus" class="btn--icon"></i>
-            </button>
+            <div class="page-toolbar--search">
+                <input type="text" id="user-search" placeholder="Rechercher un pseudo...">
+                <button onclick="searchUsers()" class="origin-btn btn--graphic btn--primary" style="flex-shrink:0;">
+                    <i data-lucide="search" class="btn--icon"></i>
+                </button>
+            </div>
+            <div class="page-toolbar--actions">
+                <button class="dropdown origin-btn btn--full-graphic btn--primary">
+                    Filtres
+                    <i data-lucide="sliders-horizontal" class="btn--icon"></i>
+                </button>
+                <button class="origin-btn btn--full-graphic btn--success">
+                    Créer un utilisateur
+                    <i data-lucide="user-plus" class="btn--icon"></i>
+                </button>
+            </div>
         </div>
         <div class="dropdown-container hidden w-full flex p-8 gap-4">
             <div style="width: 350px;">
@@ -244,13 +248,13 @@
             </tbody>
         </table>
 
-        <div class="flex justify-end mt-8 mb-24 gap-4">
-            <a href="#" class="origin-btn btn--graphic btn--primary">
+        <div class="pagination">
+            <a href="#" class="origin-btn btn--graphic btn--secondary">
                 <i data-lucide="arrow-big-left" class="btn--icon"></i>
             </a>
-            <a href="#" class="origin-btn btn--full-graphic btn--primary"><span>1</span></a>
-            <a href="#" class="origin-btn btn--full-graphic btn--primary"><span>2</span></a>
-            <a href="#" class="origin-btn btn--full-graphic btn--secondary"><span>...</span></a>
+            <a href="#" class="pagination--page pagination--current origin-btn btn--full-graphic btn--primary"><span>1</span></a>
+            <a href="#" class="pagination--page origin-btn btn--full-graphic btn--secondary"><span>2</span></a>
+            <a href="#" class="pagination--ellipsis origin-btn btn--full-graphic btn--secondary"><span>...</span></a>
             <a href="#" class="origin-btn btn--graphic btn--primary">
                 <i data-lucide="arrow-big-right" class="btn--icon"></i>
             </a>
