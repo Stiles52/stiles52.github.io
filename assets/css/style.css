@@ -1386,3 +1386,130 @@ tbody tr:nth-child(even) td {
 .dropdown-container--popup a:hover {
     background: #2727271a;
 }
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE GLOBAL
+═══════════════════════════════════════════════════════ */
+
+/* Tables — scroll horizontal sur écrans étroits */
+@media (max-width: 1100px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ── Barre d'outils des pages (recherche + filtres + actions) ── */
+.page-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.25rem 1rem;
+    margin-bottom: 0;
+}
+.page-toolbar input[type=text],
+.page-toolbar input[type=search] {
+    flex: 1 1 200px;
+    max-width: 400px;
+    min-width: 150px;
+    width: auto !important;
+    margin: 0 !important;
+}
+@media (max-width: 900px) {
+    .page-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.5rem;
+    }
+    .page-toolbar input[type=text],
+    .page-toolbar input[type=search] {
+        max-width: none;
+        width: 100% !important;
+    }
+    .page-toolbar .origin-btn,
+    .page-toolbar button,
+    .page-toolbar a.origin-btn {
+        width: 100% !important;
+        justify-content: center;
+        margin-left: 0 !important;
+    }
+}
+
+/* ── Filtre inline — wrapping automatique ── */
+.dropdown-container:not(.dropdown-container--popup) {
+    flex-wrap: wrap;
+}
+.dropdown-container:not(.dropdown-container--popup) > div {
+    min-width: 220px;
+    flex: 1;
+}
+@media (max-width: 767px) {
+    .dropdown-container:not(.dropdown-container--popup) {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem !important;
+    }
+    .dropdown-container:not(.dropdown-container--popup) > div {
+        width: 100% !important;
+    }
+}
+
+/* ── Inputs & selects ── */
+@media (max-width: 767px) {
+    input[type=text], input[type=password], input[type=number],
+    input[type=color], input[type=tel], input[type=email],
+    input[type=week], input[type=url], input[type=time],
+    input[type=search], input[type=date], input[type=month],
+    input[type=datetime-local], select, textarea {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box;
+    }
+}
+
+/* ── Formulaires glass-panel — fluides ── */
+.glass-panel {
+    width: 100% !important;
+    max-width: 1000px;
+    box-sizing: border-box;
+}
+
+/* ── Cards stats/KPI — wrap mobile ── */
+@media (max-width: 767px) {
+    .card-glass-panel {
+        min-width: unset !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+}
+
+/* ── Aside nav — légère sur petits desktops ── */
+@media (min-width: 768px) and (max-width: 1024px) {
+    aside.origin-nav {
+        width: 13rem;
+    }
+    .origin-nav--categorie-button {
+        font-size: 0.65rem;
+        padding: 0.6rem 0.5rem;
+    }
+    .origin-nav--header h6,
+    .origin-nav--header h5 {
+        font-size: 0.8rem !important;
+    }
+}
+
+/* ── Grilles de pages ── */
+@media (max-width: 900px) {
+    /* Paramètres : 2 colonnes → 1 colonne */
+    .params-grid {
+        grid-template-columns: 1fr !important;
+    }
+    /* Groupes : largeur minimale réduite */
+    .group-card {
+        min-width: unset;
+    }
+}
