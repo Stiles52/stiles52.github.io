@@ -4,16 +4,16 @@
         <h3 class="pb-12 text-cyan-400">Gérer vos tickets</h3>
 
         <div class="mt-8">
-            <div class="flex justify-end m-4">
-                <input type="text" style="width: 400px;" placeholder="Recherche">
+            <div class="page-toolbar">
+                <input type="text" placeholder="Recherche">
                 <button class="origin-btn btn--graphic btn--primary">
                     <i data-lucide="search" class="btn--icon"></i>
                 </button>
-                <button class="dropdown origin-btn btn--full-graphic btn--primary ml-8">
+                <button class="dropdown origin-btn btn--full-graphic btn--primary">
                     Filtres
                     <i data-lucide="sliders-horizontal" class="btn--icon"></i>
                 </button>
-                <a href="lore.html" class="dropdown origin-btn btn--full-graphic btn--success ml-8">
+                <a href="./dashboard?page=ticket-actions" class="dropdown origin-btn btn--full-graphic btn--success">
                     Créer un ticket
                     <i data-lucide="circle-plus" class="btn--icon"></i>
                 </a>
