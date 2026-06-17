@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 
 /* BODY */
+html {
+    overflow-x: hidden;
+}
 body {
     font-family: 'JetBrains Mono', monospace;
     background-color: black;
@@ -460,90 +463,169 @@ a.btn--glass:hover, button.btn--glass:hover {
 }
 
 /*NAVIGATION*/
-@media (min-width: 768px) {
-    nav.origin-nav {
-        padding: 2rem !important;
-        justify-content: flex-end !important;
-    }
+@keyframes navSlideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
-nav.origin-nav {
+
+/* ── Barre de navigation — défauts MOBILE (mobile-first) ── */
+#main-nav {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 50;
-
+    z-index: 100;
     width: 100%;
-    padding: 1rem;
-
+    box-sizing: border-box;
+    overflow: hidden;                      /* empêche tout débordement enfant */
+    padding: 0.85rem 1.25rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 2rem;
-
+    gap: 0;
     background-color: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgb(22 78 99 / 0.3);
 }
-ul.origin-nav-list {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    justify-content: center;
+/* Brand — visible par défaut (mobile) */
+#main-nav .origin-nav-brand {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    white-space: nowrap;
 }
+/* Liste inline — cachée par défaut (mobile) */
+.origin-nav-list--inline {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+/* Hamburger — visible par défaut (mobile) */
+#main-nav .origin-nav-burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+#main-nav .origin-nav-burger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #9ca3af;
+    transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
+    transform-origin: center;
+}
+#main-nav .origin-nav-burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg);  background: #22d3ee; }
+#main-nav .origin-nav-burger.active span:nth-child(2) { opacity: 0; }
+#main-nav .origin-nav-burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: #22d3ee; }
+
+/* ── Desktop — overrides ── */
+@media (min-width: 768px) {
+    #main-nav {
+        padding: 1.25rem 2rem;
+        justify-content: flex-end;
+        gap: 2rem;
+        overflow: visible;
+        width: calc(100%);
+    }
+    #main-nav .origin-nav-brand  { display: none; }
+    #main-nav .origin-nav-burger { display: none; }
+    .origin-nav-list--inline {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+}
+
+/* ── Overlay mobile — frère de <nav> → z-index indépendant ── */
+.origin-nav-list--overlay {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.origin-nav-list--overlay.open {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99;          /* sous la nav (100) → navbar toujours visible */
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    background: rgba(3, 3, 3, 0.98);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-top: 56px;    /* espace réservé à la navbar */
+    animation: navSlideIn 0.2s ease both;
+}
+.origin-nav-list--overlay.open li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
+}
+.origin-nav-list--overlay.open li:last-child { border-bottom: none; }
+.origin-nav-list--overlay.open a.origin-nav-list-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.1rem 1.5rem;
+    font-size: 0.8rem;
+    color: #d1d5db;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+.origin-nav-list--overlay.open a.origin-nav-list-active { color: #22d3ee; }
+.origin-nav-list--overlay.open .origin-nav-list-special-item a.origin-nav-list-link {
+    padding: 1rem 1.5rem;
+    height: auto;
+}
+
+/* ── Liens (communs desktop + overlay) ── */
 a.origin-nav-list-link {
     font-size: 0.75rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-
     color: #9ca3af;
     transition: color 0.3s ease;
+    text-decoration: none;
 }
-a.origin-nav-list-link:hover {
-    color: #ffffff;
-}
+a.origin-nav-list-link:hover { color: #fff; }
 a.origin-nav-list-active {
-    height: 24px;
     color: #22d3ee;
     font-weight: bold;
-
-    display: flex;
+    display: inline-flex;
     gap: 0.5rem;
     align-items: center;
-    justify-content: center;
 }
-a.origin-nav-list-special {
-    height: 24px;
-
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    justify-content: center;
-}
+a.origin-nav-list-special { display: inline-flex; align-items: center; }
 div.active-pin {
     width: 0.5rem;
     height: 0.5rem;
     background-color: #22d3ee;
     border-radius: 9999px;
-
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 span.special-pin {
     display: block;
-    
-    width: 0px;
+    width: 0;
     height: 1px;
-
     background-color: #22d3ee;
-
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
-}
-@media (min-width: 768px) {
-    nav.origin-nav {
-        padding: 2rem !important;
-        justify-content: flex-end !important;
-    }
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /*ASIDE MENU*/
@@ -1404,37 +1486,50 @@ tbody tr:nth-child(even) td {
 .page-toolbar {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    padding: 0.25rem 1rem;
+    gap: 0.75rem;
+    padding: 0 1rem;
     margin-bottom: 0;
 }
-.page-toolbar input[type=text],
-.page-toolbar input[type=search] {
+/* Groupe recherche : s'étire jusqu'à 480px */
+.page-toolbar--search {
+    display: flex;
+    align-items: center;
     flex: 1 1 200px;
-    max-width: 400px;
-    min-width: 150px;
+    max-width: 480px;
+}
+.page-toolbar--search input[type=text],
+.page-toolbar--search input[type=search] {
+    flex: 1;
     width: auto !important;
     margin: 0 !important;
+    border-right: none !important;
 }
-@media (max-width: 900px) {
+/* Groupe actions : boutons alignés à droite */
+.page-toolbar--actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+@media (max-width: 767px) {
     .page-toolbar {
         flex-direction: column;
         align-items: stretch;
         padding: 0.5rem;
     }
-    .page-toolbar input[type=text],
-    .page-toolbar input[type=search] {
+    .page-toolbar--search {
         max-width: none;
-        width: 100% !important;
     }
-    .page-toolbar .origin-btn,
-    .page-toolbar button,
-    .page-toolbar a.origin-btn {
+    .page-toolbar--actions {
+        flex-direction: column;
+    }
+    .page-toolbar--actions .origin-btn,
+    .page-toolbar--actions button,
+    .page-toolbar--actions a.origin-btn {
         width: 100% !important;
         justify-content: center;
-        margin-left: 0 !important;
     }
 }
 
@@ -1500,6 +1595,72 @@ tbody tr:nth-child(even) td {
     .origin-nav--header h5 {
         font-size: 0.8rem !important;
     }
+}
+
+/* ── Pagination ── */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+    margin-top: 2rem;
+    margin-bottom: 6rem;
+    padding: 0 0.5rem;
+}
+/* Boutons de pagination plus compacts */
+.pagination a.origin-btn {
+    padding: 0.7rem 1rem;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+}
+@media (max-width: 767px) {
+    .pagination {
+        justify-content: center;
+        margin-bottom: 8rem;
+        padding: 0;
+        gap: 0.25rem;
+    }
+    /* Boutons encore plus compacts sur mobile */
+    .pagination a.origin-btn {
+        padding: 0.55rem 0.65rem;
+        font-size: 0.62rem;
+        letter-spacing: 0.04em;
+        gap: 0.25rem;
+    }
+    .pagination a.origin-btn .btn--icon {
+        width: 0.85rem;
+        height: 0.85rem;
+    }
+    /* Masquer les pages intermédiaires : ne garder que courante + ellipsis */
+    .pagination .pagination--page:not(.pagination--current) {
+        display: none;
+    }
+}
+
+/* ── Menu mobile (overlay plein écran) ── */
+.mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: rgba(0, 0, 0, 0.97);
+    backdrop-filter: blur(12px);
+    overflow-y: auto;
+    padding: 1.5rem 1.25rem 6rem;
+    animation: fadeIn 0.15s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.mobile-menu-overlay .origin-nav--categorie-button {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 0.7rem;
+}
+.mobile-menu-overlay .origin-nav--categorie-title {
+    margin-top: 1.25rem;
+    margin-bottom: 0.4rem;
 }
 
 /* ── Grilles de pages ── */
