@@ -35,15 +35,25 @@
     .fade-in { animation: fadeIn 0.5s ease-out forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* Fix texte dans les boutons de sélection */
+    .btn--glass blockquote {
+        text-align: left;
+        text-transform: none;
+        letter-spacing: 0;
+    }
 
+    @media (max-width: 640px) {
+        #ticket-selection { padding: 1.25rem !important; }
+        .ticket-form-panel { padding: 1.25rem !important; }
+    }
 </style>
 
-<main class="flex items-center w-full h-screen column gap-4 p-8" style="flex-direction: column; overflow-y: auto;">
+<main class="flex items-center w-full min-h-screen column gap-4 p-4 md:p-8 pb-28 md:pb-8" style="flex-direction: column; overflow-y: auto;">
     <?php
         if(isset($_GET['ticket'])) {
             if($_GET['ticket'] == "bug") {
                 ?>
-                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 100%; max-width: 1000px;">
+                    <div id="ticket-selection" class="glass-panel ticket-form-panel p-4 md:p-8 relative" style="width: 100%; max-width: 1000px;">
                         <a href="./dashboard?page=ticket-actions" class="inline-flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors mb-6 text-sm uppercase tracking-widest">
                             <i data-lucide="arrow-left" class="w-4 h-4"></i>
                             Retour
@@ -105,7 +115,7 @@
             } else
             if($_GET['ticket'] == "special") {
                 ?>
-                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 100%; max-width: 1000px;">
+                    <div id="ticket-selection" class="glass-panel ticket-form-panel p-4 md:p-8 relative" style="width: 100%; max-width: 1000px;">
                         <a href="./dashboard?page=ticket-actions" class="inline-flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors mb-6 text-sm uppercase tracking-widest">
                             <i data-lucide="arrow-left" class="w-4 h-4"></i>
                             Retour
@@ -164,7 +174,7 @@
                 <?php
             } elseif(array_key_exists($_GET['ticket'], $ticket_type)) {
                 ?>
-                    <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 100%; max-width: 1000px;">
+                    <div id="ticket-selection" class="glass-panel ticket-form-panel p-4 md:p-8 relative" style="width: 100%; max-width: 1000px;">
                         <a href="./dashboard?page=ticket-actions" class="inline-flex items-center gap-2 text-gray-400 hover:text-cyan-400 transition-colors mb-6 text-sm uppercase tracking-widest">
                             <i data-lucide="arrow-left" class="w-4 h-4"></i>
                             Retour
@@ -212,7 +222,7 @@
             }
         } else {
         ?>
-            <div id="ticket-selection" class="glass-panel p-8 relative" style="width: 800px;">        
+            <div id="ticket-selection" class="glass-panel p-4 md:p-8 relative" style="width: 100%; max-width: 800px;">        
                 <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Sélectionnez votre type de ticket</h3>
 
                 <h5 class="mt-12 mb-4">Administration & Gestion</h5>

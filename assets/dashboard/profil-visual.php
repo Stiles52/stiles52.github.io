@@ -15,6 +15,30 @@
     }
     .profile-stat .value { font-size: 1.5rem; font-weight: bold; color: white; }
     .profile-stat .label { font-size: 10px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+
+    .table-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    @media (max-width: 768px) {
+        .profile-header-inner { gap: 1rem !important; }
+        .profile-avatar { width: 60px; height: 60px; font-size: 1.5rem; }
+        .profile-actions { width: 100%; }
+        .profile-actions .origin-btn { flex: 1; justify-content: center; }
+        .profile-stat { min-width: calc(50% - 6px); }
+
+        /* Titre plus compact */
+        #main-container h3:first-child { font-size: 1.35rem !important; line-height: 1.6rem; }
+
+        /* Bouton recherche : icône seule sur mobile */
+        #btn-search-text { display: none; }
+    }
+    @media (max-width: 480px) {
+        .profile-stat { min-width: 100%; }
+        .profile-actions { flex-direction: column; }
+        .profile-actions .origin-btn { width: 100%; }
+    }
 </style>
 
 <main id="main-container" class="flex-1 relative overflow-hidden bg-black pb-24 md:pb-0">
@@ -26,7 +50,7 @@
             <div class="page-toolbar--search" style="max-width: 600px; flex: 1;">
                 <input type="text" id="profile-search" placeholder="Pseudo Minecraft ou pseudo du site...">
                 <button onclick="loadProfile()" class="origin-btn btn--full-graphic btn--primary" style="flex-shrink:0; white-space:nowrap;">
-                    Rechercher
+                    <span id="btn-search-text">Rechercher</span>
                     <i data-lucide="search" class="btn--icon"></i>
                 </button>
             </div>
@@ -36,7 +60,7 @@
         <div id="profile-zone" class="<?php echo isset($_GET['user']) ? '' : 'hidden'; ?>">
 
             <!-- En-tête profil -->
-            <div class="card-glass-panel mb-6" style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+            <div class="card-glass-panel mb-6 profile-header-inner" style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
                 <div class="profile-avatar" id="profile-avatar">M</div>
                 <div style="flex: 1; min-width: 200px;">
                     <div class="flex items-center gap-3 mb-2 flex-wrap">
@@ -54,7 +78,7 @@
                         <span class="text-xs text-gray-400" id="profile-date">Inscrit le 01/01/2025 — Dernière connexion : 17/06/2026 à 14:32</span>
                     </div>
                 </div>
-                <div class="flex gap-3 flex-wrap">
+                <div class="flex gap-3 flex-wrap profile-actions">
                     <a href="./dashboard?page=users" class="origin-btn btn--graphic btn--primary text-sm">
                         <i data-lucide="pen" class="btn--icon"></i>
                         Éditer
@@ -92,7 +116,7 @@
 
             <!-- Historique de sanctions -->
             <h4 class="pb-4">Historique des sanctions</h4>
-            <div class="mb-8" id="sanctions-zone">
+            <div class="mb-8 table-scroll" id="sanctions-zone">
                 <table>
                     <thead>
                         <tr>
@@ -113,7 +137,7 @@
 
             <!-- Historique des tickets -->
             <h4 class="pb-4">Historique des tickets</h4>
-            <div id="tickets-zone">
+            <div id="tickets-zone" class="table-scroll">
                 <table>
                     <thead>
                         <tr>

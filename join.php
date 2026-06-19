@@ -14,8 +14,70 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* ═══ join.php — Responsive fixes ═══ */
+
+        /* H1 hero : 3.85rem beaucoup trop grand sur mobile */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.1rem !important; line-height: 1.15; }
+        }
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.65rem !important; }
+        }
+
+        /* Paragraphes : text-align justify global → left sur mobile (évite l'espacement forcé des mots) */
+        @media (max-width: 768px) {
+            p, .text-justify { text-align: left !important; }
+        }
+
+        /* H3 dans les cartes et les erreurs : réduction pour éviter l'overflow */
+        @media (max-width: 768px) {
+            .card-glass-panel h3,
+            .card-error h3 {
+                font-size: 1.2rem !important;
+                line-height: 1.4;
+                flex-wrap: wrap;       /* permet à l'icône + texte de passer à la ligne */
+            }
+
+            /* card-error--title : passe en colonne sur mobile */
+            .card-error--title {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            /* Réduction du padding des panneaux (minimum 1.25rem à gauche pour ne pas empiéter sur les cercles de la timeline) */
+            .card-glass-panel { padding: 1.25rem; }
+            .card-error       { padding: 1.25rem; }
+
+            /* Bouton "Accéder au Formulaire" pleine largeur sur mobile */
+            .join-form-link {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Scénarios : réduction padding interne */
+            .join-scenario { padding: 1rem !important; }
+
+            /* H4 : tracking-widest + 1.5rem → "INDISPENSABLES" déborde (370px dans ~290px) */
+            .card-glass-panel h4 {
+                font-size: 1rem !important;
+                letter-spacing: 0.04em;
+                text-align: left;
+                overflow-wrap: break-word;
+                word-break: break-word;
+            }
+
+            /* Li flex : <strong> + texte créent deux colonnes → revenir en block flow */
+            .card-glass-panel ul li.flex {
+                display: block;
+            }
+            .card-glass-panel ul li.flex > span:first-child {
+                margin-right: 0.35rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-black min-h-screen flex flex-col pb-24 md:pb-0" id="page-body">
+<body class="bg-black min-h-screen flex flex-col pb-4 md:pb-0" id="page-body">
 
     <div class="scanline"></div>
 
@@ -106,7 +168,7 @@
                         
                         <div class="space-y-6">
                             
-                            <div class="bg-blue-900/10 border border-blue-500/20 p-6 rounded relative overflow-hidden">
+                            <div class="join-scenario bg-blue-900/10 border border-blue-500/20 p-6 rounded relative overflow-hidden">
                                 <div class="absolute top-0 right-0 p-4 opacity-10">
                                     <i data-lucide="file-signature" class="w-16 h-16 text-blue-400"></i>
                                 </div>
@@ -119,7 +181,7 @@
                                 </div>
                             </div>
 
-                            <div class="bg-orange-900/10 border border-orange-500/20 p-6 rounded relative overflow-hidden">
+                            <div class="join-scenario bg-orange-900/10 border border-orange-500/20 p-6 rounded relative overflow-hidden">
                                 <div class="absolute top-0 right-0 p-4 opacity-10">
                                     <i data-lucide="help-circle" class="w-16 h-16 text-orange-400"></i>
                                 </div>
@@ -132,7 +194,7 @@
                                 </div>
                             </div>
 
-                            <div class="bg-red-900/10 border border-red-500/20 p-6 rounded relative overflow-hidden">
+                            <div class="join-scenario bg-red-900/10 border border-red-500/20 p-6 rounded relative overflow-hidden">
                                 <div class="absolute top-0 right-0 p-4 opacity-10">
                                     <i data-lucide="gavel" class="w-16 h-16 text-red-400"></i>
                                 </div>
@@ -159,7 +221,7 @@
                         <h3 class="text-2xl font-bold text-white uppercase flex items-center gap-3">
                             <i data-lucide="send" class="w-6 h-6 text-cyan-400"></i> Envoi de Candidature
                         </h3>
-                        <a href="https://forms.gle/iPgeb3HqQje2PNZ88" target="_blank" class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded uppercase tracking-widest text-xs transition-colors flex items-center gap-2">
+                        <a href="https://forms.gle/iPgeb3HqQje2PNZ88" target="_blank" class="join-form-link bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 py-3 rounded uppercase tracking-widest text-xs transition-colors flex items-center gap-2">
                             Accéder au Formulaire <i data-lucide="external-link" class="w-4 h-4"></i>
                         </a>
                     </div>

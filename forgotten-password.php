@@ -15,6 +15,29 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @media (max-width: 640px) {
+            body { display: flex; flex-direction: column; }
+            section {
+                position: relative !important;
+                height: auto !important;
+                flex: 1;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+            .login--footer {
+                position: relative !important;
+                bottom: auto !important;
+                left: auto !important;
+            }
+            .auth-wrapper { width: 100%; padding: 0 1rem; box-sizing: border-box; }
+            .auth-card { width: 100% !important; box-sizing: border-box; }
+            .auth-card label { width: 100% !important; }
+            .auth-actions { flex-direction: column; gap: 0.5rem; }
+            .auth-actions a { width: 100%; justify-content: center; }
+            section h4 { font-size: 1.1rem !important; line-height: 1.3; }
+        }
+    </style>
 </head>
 <body class="bg-black min-h-screen relative">
 
@@ -31,8 +54,8 @@
 
     <!-- SECTION PRÉSENTATION -->
     <section style="width: 100%; height: calc(100vh - 53px); display: flex; align-items: center; justify-content: center; color: #FFFFFF; z-index: 50; position: absolute;">
-        <div>
-            <div style="padding: 15px; border: 1px solid #20d3ee33; width: 600px;">
+        <div class="auth-wrapper">
+            <div class="auth-card" style="padding: 15px; border: 1px solid #20d3ee33;">
                 <h4 class="font-bold text-white uppercase">Avez-vous oubliés <span class="text-cyan-400">votre mot de passe ?</span></h4>
                 <div style="display: flex; justify-content: center; flex-direction: column; align-items: center; padding-top: 45px;">
                     <div style="width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center; padding-bottom: 25px;">
@@ -44,7 +67,7 @@
                     </div>
                 </div>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+            <div class="auth-actions" style="display: flex; justify-content: space-between; margin-top: 15px;">
                 <a href="./login" class="origin-btn btn--graphic btn--danger" data-sound-attached="true">
                     <i data-lucide="arrow-left" class="lucide lucide-x btn--icon"></i> 
                     <span>Retour en arrière</span>

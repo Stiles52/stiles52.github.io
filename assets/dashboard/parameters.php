@@ -100,13 +100,39 @@
         border-top: 3px solid #22d3ee;
         padding: 2rem; width: 520px; max-width: 95vw;
     }
+
+    .params-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+    }
+    .modal-fields-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+
+    @media (max-width: 768px) {
+        .params-grid-2 { grid-template-columns: 1fr; }
+        .modal-fields-grid { grid-template-columns: 1fr; }
+        .section-panel { padding: 1.25rem; }
+        .param-avatar { width: 56px; height: 56px; font-size: 1.4rem; }
+        .link-card { flex-wrap: wrap; }
+        .link-card--info { min-width: 0; flex: 1; }
+        .modal-box { padding: 1.25rem; }
+    }
+    @media (max-width: 480px) {
+        .section-panel { padding: 1rem; }
+        .link-card button { width: 100%; justify-content: center; }
+    }
 </style>
 
 <main id="main-container" class="flex-1 relative overflow-hidden bg-black pb-24 md:pb-0">
     <div class="absolute inset-0 overflow-y-auto p-6 pb-32 md:p-12 fade-in-view">
 
         <!-- En-tête -->
-        <div class="flex items-center justify-between pb-10">
+        <div class="flex items-center justify-between pb-10" style="flex-wrap: wrap; gap: 0.75rem;">
             <h3 class="text-cyan-400">Paramètres</h3>
             <div id="btn-edit-group" class="flex gap-3">
                 <button onclick="enterEdit()" class="origin-btn btn--full-graphic btn--primary">
@@ -216,7 +242,7 @@
                     <!-- Sécurité -->
                     <div class="section-panel">
                         <div class="section-panel--title"><i data-lucide="lock" class="w-3 h-3"></i> Sécurité</div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                        <div class="params-grid-2">
                             <div class="param-field">
                                 <span class="param-field--label">Mot de passe</span>
                                 <span class="param-field--value text-gray-500">••••••••••••</span>
@@ -231,7 +257,7 @@
                     <!-- Préférences -->
                     <div class="section-panel">
                         <div class="section-panel--title"><i data-lucide="sliders-horizontal" class="w-3 h-3"></i> Préférences</div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                        <div class="params-grid-2">
                             <div class="param-field">
                                 <span class="param-field--label">Notifications par e-mail</span>
                                 <span class="param-field--value" id="disp-notif">Activées</span>
@@ -413,7 +439,7 @@
 <div id="modal-char" class="modal-overlay hidden">
     <div class="modal-box">
         <h4 class="text-cyan-400 mb-6" id="modal-char-title">Ajouter un personnage</h4>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;">
+        <div class="modal-fields-grid">
             <div style="grid-column: 1 / -1;">
                 <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Prénom & Nom du personnage</label>
                 <input type="text" id="char-name" style="width: 100%;" placeholder="Ex : Alaric Vorn">

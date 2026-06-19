@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self';">
 
-    <title>SUPPORT & RÈGLEMENT - ORIGIN</title>
+    <title>RÈGLEMENT - ORIGIN</title>
 
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
 
@@ -23,12 +23,6 @@
             transition: all 0.3s ease;
         }
 
-        .active-tab-btn {
-            background-color: rgba(34, 211, 238, 0.1);
-            border-color: #22d3ee;
-            color: #22d3ee;
-        }
-
         .scanline {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3) 51%);
@@ -37,9 +31,43 @@
         
         .fade-in { animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ═══ rules.php — Responsive fixes ═══ */
+
+        /* H1 "CENTRE ADMINISTRATIF" : 3.85rem trop grand */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.9rem !important; line-height: 1.2; }
+        }
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.5rem !important; }
+        }
+
+        @media (max-width: 768px) {
+            /* Paragraphes : supprime le justify global sur mobile */
+            p, .text-justify { text-align: left !important; }
+            /* Exception : sous-titre header reste centré */
+            header p { text-align: center !important; }
+
+            /* H3 section headers (Règles Générales, Communication…) : 1.85rem → trop large */
+            main h3 {
+                font-size: 1.2rem !important;
+                line-height: 1.4;
+                flex-wrap: wrap;
+            }
+
+            /* Glass-panels : padding réduit sur mobile */
+            .glass-panel { padding: 1rem !important; }
+
+            /* Footer inline : fix justify + font-size hérité de la règle p{} globale */
+            #page-footer p {
+                text-align: left !important;
+                font-size: inherit !important;
+                line-height: inherit !important;
+            }
+        }
     </style>
 </head>
-<body class="bg-black min-h-screen flex flex-col pb-24 md:pb-0">
+<body class="bg-black min-h-screen flex flex-col pb-4 md:pb-0">
 
     <div class="scanline"></div>
 
@@ -48,25 +76,12 @@
 
     <header class="pt-32 pb-8 px-6 text-center relative z-10">
         <h1 class="font-bold text-white mb-4">CENTRE <span class="text-cyan-400">ADMINISTRATIF</span></h1>
-        <p class="text-gray-400 text-xs md:text-sm uppercase text-center">Règlementation & Assistance</p>
+        <p class="text-gray-400 text-xs md:text-sm uppercase text-center">Règlementation du serveur</p>
     </header>
-
-    <div class="max-w-4xl mx-auto px-6 mb-12 relative z-10">
-        <div class="grid grid-cols-2 gap-4">
-            <button onclick="switchTab('rules')" id="btn-rules" class="active-tab-btn glass-panel p-4 text-center uppercase tracking-widest text-xs font-bold hover:bg-cyan-900/20 transition-all">
-                <i data-lucide="book" class="w-6 h-6 mx-auto mb-2"></i>
-                Règlement
-            </button>
-            <button onclick="switchTab('support')" id="btn-support" class="glass-panel p-4 text-center uppercase tracking-widest text-xs font-bold text-gray-500 hover:text-white hover:bg-cyan-900/20 transition-all border-gray-800">
-                <i data-lucide="life-buoy" class="w-6 h-6 mx-auto mb-2"></i>
-                Support
-            </button>
-        </div>
-    </div>
 
     <main class="max-w-5xl mx-auto px-6 relative z-10 mb-40 min-h-[50vh]">
 
-        <div id="view-rules" class="fade-in space-y-16">
+        <div class="fade-in space-y-16">
             
             <div class="border-l-4 border-red-500 pl-6 py-4 bg-red-900/10">
                 <p class="text-sm text-gray-300 italic font-medium">
@@ -225,228 +240,11 @@
 
         </div>
 
-        <div id="view-support" class="hidden fade-in">
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                <div onclick="openForm('bug')" class="glass-panel p-6 cursor-pointer hover:bg-orange-900/10 hover:border-orange-500 transition-all group">
-                    <i data-lucide="bug" class="w-8 h-8 text-orange-500 mb-4 group-hover:scale-110 transition-transform"></i>
-                    <h3 class="text-lg font-bold text-white">Signaler un Bug</h3>
-                    <p class="text-xs text-gray-500 mt-2">Glitch, erreur map, item bugué...</p>
-                </div>
-                <div onclick="openForm('info')" class="glass-panel p-6 cursor-pointer hover:bg-blue-900/10 hover:border-blue-500 transition-all group">
-                    <i data-lucide="info" class="w-8 h-8 text-blue-500 mb-4 group-hover:scale-110 transition-transform"></i>
-                    <h3 class="text-lg font-bold text-white">Question / Aide</h3>
-                    <p class="text-xs text-gray-500 mt-2">Besoin d'aide sur le lore ou le gameplay.</p>
-                </div>
-                <div onclick="openForm('unban')" class="glass-panel p-6 cursor-pointer hover:bg-red-900/10 hover:border-red-500 transition-all group">
-                    <i data-lucide="shield-off" class="w-8 h-8 text-red-500 mb-4 group-hover:scale-110 transition-transform"></i>
-                    <h3 class="text-lg font-bold text-white">Débanissement</h3>
-                    <p class="text-xs text-gray-500 mt-2">Demande de grâce ou contestation.</p>
-                </div>
-            </div>
-
-            <div id="form-container" class="hidden glass-panel p-8 border-t-4 border-cyan-500 relative">
-                <button onclick="closeForm()" class="absolute top-4 right-4 text-gray-500 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
-                
-                <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">TITRE DU FORMULAIRE</h3>
-                
-                <form id="discord-form" onsubmit="sendToDiscord(event)" class="space-y-6">
-                    <input type="hidden" id="ticket-type" name="type">
-
-                    <div>
-                        <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Votre Pseudo Discord</label>
-                        <input type="text" id="username" required class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Ex: Pseudo#0000">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Sujet</label>
-                        <input type="text" id="subject" required class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Titre de votre demande">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Détails</label>
-                        <textarea id="message" required rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
-                        <div id="char-count" class="text-right text-[10px] text-gray-500 mt-1 font-mono">0 / 4000</div>
-                    </div>
-
-                    <button type="submit" id="submit-btn" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 rounded uppercase tracking-widest transition-colors flex justify-center items-center gap-2">
-                        <span>Envoyer la demande</span>
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                    </button>
-
-                    <p id="form-status" class="text-center text-xs mt-2 hidden"></p>
-                </form>
-            </div>
-
-        </div>
-
     </main>
 
-    <footer id="page-footer" class="reveal w-full bg-black/95 border-t border-cyan-900/50 z-50 py-3 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-center text-gray-500 text-[10px] space-y-1 md:space-y-0 md:gap-6 tracking-wider">
-            <div class="flex items-center gap-1 text-cyan-400">
-                <i data-lucide="copyright" class="w-3 h-3"></i>
-                <span class="font-bold">2025 par L'équipe d'Origin</span>
-            </div>
-            <div class="hidden md:block text-gray-700">|</div>
-            <p class="text-xs text-gray-400 text-center">© OriginRp, 2024. Tous droits réservés.</p>
-            <div class="hidden md:block text-gray-700">|</div>
-            <p class="text-[9px] text-red-500/70 uppercase font-bold text-center">PAS DE MINECRAFT OFFICIEL.</p>
-        </div>
-    </footer>
+    <?php include './assets/elements/footer.html'; ?>
 
     <script>
         lucide.createIcons();
-
-        // GESTION COMPTEUR CARACTÈRES
-        const messageInput = document.getElementById('message');
-        const charCount = document.getElementById('char-count');
-
-        if(messageInput && charCount) {
-            messageInput.addEventListener('input', function() {
-                const current = this.value.length;
-                const max = this.getAttribute('maxlength');
-                charCount.textContent = `${current} / ${max}`;
-                
-                if(current >= max) {
-                    charCount.classList.remove('text-gray-500');
-                    charCount.classList.add('text-red-500');
-                } else {
-                    charCount.classList.add('text-gray-500');
-                    charCount.classList.remove('text-red-500');
-                }
-            });
-        }
-
-        function switchTab(tab) {
-            const rulesView = document.getElementById('view-rules');
-            const supportView = document.getElementById('view-support');
-            const btnRules = document.getElementById('btn-rules');
-            const btnSupport = document.getElementById('btn-support');
-
-            if (tab === 'rules') {
-                rulesView.classList.remove('hidden');
-                supportView.classList.add('hidden');
-                btnRules.classList.add('active-tab-btn', 'text-cyan-400');
-                btnRules.classList.remove('text-gray-500', 'border-gray-800');
-                btnSupport.classList.remove('active-tab-btn', 'text-cyan-400');
-                btnSupport.classList.add('text-gray-500', 'border-gray-800');
-            } else {
-                rulesView.classList.add('hidden');
-                supportView.classList.remove('hidden');
-                btnSupport.classList.add('active-tab-btn', 'text-cyan-400');
-                btnSupport.classList.remove('text-gray-500', 'border-gray-800');
-                btnRules.classList.remove('active-tab-btn', 'text-cyan-400');
-                btnRules.classList.add('text-gray-500', 'border-gray-800');
-            }
-        }
-
-        function openForm(type) {
-            const container = document.getElementById('form-container');
-            const title = document.getElementById('form-title');
-            const inputType = document.getElementById('ticket-type');
-            
-            container.classList.remove('hidden');
-            // Petit délai pour l'animation de scroll
-            setTimeout(() => {
-                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
-
-            if (type === 'bug') {
-                title.textContent = "SIGNALEMENT DE BUG";
-                title.className = "text-2xl font-bold text-orange-500 mb-6 uppercase";
-                container.className = "glass-panel p-8 border-t-4 border-orange-500 relative fade-in";
-                inputType.value = "Bug";
-            } else if (type === 'info') {
-                title.textContent = "DEMANDE D'INFORMATION";
-                title.className = "text-2xl font-bold text-blue-500 mb-6 uppercase";
-                container.className = "glass-panel p-8 border-t-4 border-blue-500 relative fade-in";
-                inputType.value = "Info";
-            } else if (type === 'unban') {
-                title.textContent = "DEMANDE DE DÉBANISSEMENT";
-                title.className = "text-2xl font-bold text-red-500 mb-6 uppercase";
-                container.className = "glass-panel p-8 border-t-4 border-red-500 relative fade-in";
-                inputType.value = "Unban";
-            }
-        }
-
-        function closeForm() {
-            document.getElementById('form-container').classList.add('hidden');
-        }
-
-        function sendToDiscord(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('submit-btn');
-            const status = document.getElementById('form-status');
-            status.classList.remove('hidden');
-            
-            btn.disabled = true;
-            btn.innerHTML = '<span class="animate-pulse">Envoi en cours...</span>';
-
-            const type = document.getElementById('ticket-type').value;
-            const username = document.getElementById('username').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-
-            // Couleurs pour l'embed Discord
-            let color = 3447003; // Bleu (Info)
-            if (type === 'Bug') color = 15105570; // Orange
-            if (type === 'Unban') color = 15158332; // Rouge
-
-            // Construction du message JSON pour Discord
-            const payload = {
-                username: "Support Fédérale",
-                embeds: [{
-                    title: `Nouveau Ticket : ${type}`,
-                    description: `**Description :**\n${message}`,
-                    fields: [
-                        { name: "Joueur", value: username, inline: true },
-                        { name: "Sujet", value: subject, inline: true }
-                    ],
-                    color: color,
-                    footer: { text: "Envoyé depuis le site Origin • " + new Date().toLocaleString() }
-                }]
-            };
-
-            // On appelle la fonction locale (qui sera gérée par l'hébergeur)
-            // On appelle la fonction locale
-            fetch('/.netlify/functions/send-ticket', {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            })
-            .then(response => {
-                // Si la réponse est positive (Code 200)
-                if (response.ok) {
-                    // 1. Message de succès visuel
-                    status.textContent = "Message transmis au serveur !";
-                    status.className = "text-center text-xs mt-2 text-green-400";
-                    btn.innerHTML = '<span>Envoyé !</span>';
-                    
-                    // 2. On vide le formulaire
-                    document.getElementById('discord-form').reset();
-                    
-                    // 3. On ferme après 3 secondes
-                    setTimeout(() => { 
-                        closeForm(); 
-                        btn.disabled = false; 
-                        btn.innerHTML = '<span>Envoyer la demande</span><i data-lucide="send" class="w-4 h-4"></i>'; 
-                        status.textContent = ""; 
-                        status.classList.add('hidden'); 
-                    }, 3000);
-                } else {
-                    // Si le serveur répond une erreur
-                    throw new Error('Erreur serveur');
-                }
-            })
-            .catch(error => {
-                // Si la connexion échoue vraiment
-                console.error(error);
-                status.textContent = "Une erreur est survenue. Réessayez.";
-                status.className = "text-center text-xs mt-2 text-red-500";
-                btn.disabled = false;
-                btn.innerHTML = '<span>Réessayer</span>';
-            });
-        }
     </script>
     <script src="assets/js/main.js" defer></script>
