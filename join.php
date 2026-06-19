@@ -3,103 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self';">
+
     <title>CANDIDATURE - ORIGIN</title>
+
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+    <link href="./assets/css/style.css" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background-color: black;
-            color: white;
-            overflow-x: hidden;
-            transition: all 0.3s ease; /* Transition fluide pour le mode dys */
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #0e7490; border-radius: 4px; }
-
-        .glass-panel {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(34, 211, 238, 0.2);
-            box-shadow: 0 0 30px rgba(34, 211, 238, 0.05);
-        }
-
-        .scanline {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3) 51%);
-            background-size: 100% 4px; pointer-events: none; z-index: 40; opacity: 0.3;
-        }
-
-        body {
-            transition: opacity 0.5s ease-in-out;
-        }
-        body.fade-out {
-            opacity: 0;
-        }
-    </style>
 </head>
 <body class="bg-black min-h-screen flex flex-col pb-24 md:pb-0" id="page-body">
 
     <div class="scanline"></div>
 
-    <nav class="fixed top-0 left-0 w-full p-4 md:p-8 z-50 flex justify-center md:justify-end items-center backdrop-blur-sm bg-black/20 border-b border-cyan-900/30">
-        <ul class="flex gap-4 md:gap-8">
-            <li><a href="index.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">Accueil</a></li>
-            <li><a href="lore.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-gray-400 hover:text-white transition-colors">Lore</a></li>
-            <li>
-                <a href="join.html" class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-cyan-400 font-bold flex items-center gap-2">
-                    Nous Rejoindre
-                    <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                </a>
-            </li>
-            <li>
-                <a href="support.html" class="text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase text-gray-400 hover:text-white transition-colors group flex items-center gap-2">
-                    Support
-                    <span class="block h-[1px] w-0 group-hover:w-4 transition-all duration-300 bg-cyan-400"></span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <?php include './assets/elements/header.php'; ?>
 
     <header class="pt-32 pb-12 px-6 text-center relative z-10">
         <div class="inline-block mb-4 border border-cyan-500/30 px-4 py-1 rounded-full bg-cyan-900/10">
             <span class="text-cyan-400 text-xs uppercase tracking-[0.3em]">Protocole d'Admission</span>
         </div>
-        <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-6">REJOINDRE <span class="text-cyan-400">L'AVENTURE</span></h1>
-        <p class="text-gray-400 max-w-2xl mx-auto text-sm leading-relaxed">
+        <h1 class="font-bold">REJOINDRE <span class="text--primary">L'AVENTURE</span></h1>
+        <blockquote class="max-w-2xl mx-auto" style="text-align: center;">
             Le processus de recrutement est strict mais ouvert à tous. Suivez ce guide pas à pas pour intégrer la simulation Star Maze.
-        </p>
+        </blockquote>
     </header>
 
     <main class="max-w-5xl mx-auto px-6 relative z-10 mb-24">
-        
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
-            <a href="https://discord.gg/YmVxZCqEYs" target="_blank" class="glass-panel p-4 flex items-center justify-center gap-3 hover:bg-cyan-900/20 transition-colors group border-l-4 border-l-indigo-500">
-                <i data-lucide="message-circle" class="w-5 h-5 text-indigo-400 group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-bold uppercase tracking-wider">Rejoindre le Discord</span>
+            <a href="https://discord.gg/YmVxZCqEYs" target="_blank" class="origin-btn btn--glass btn--discord">
+                <i data-lucide="message-circle" class="btn--icon text-indigo-400"></i>
+                <span>Rejoindre le Discord</span>
             </a>
             
-            <button onclick="toggleDyslexicMode()" class="glass-panel p-4 flex items-center justify-center gap-3 hover:bg-cyan-900/20 transition-colors group border-l-4 border-l-cyan-500 cursor-pointer w-full">
-                <i data-lucide="eye" class="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-bold uppercase tracking-wider">Mode Dyslexique</span>
+            <button onclick="toggleDyslexicMode()" class="origin-btn btn--glass btn--info">
+                <i data-lucide="eye" class="btn--icon text-cyan-400"></i>
+                <span>Mode Dyslexique</span>
             </button>
 
-            <a href="https://docs.google.com/document/d/1aIMRrDGG6UiTVuZOJLTYfV0bnT2qBOyKumnNablnVnc/edit?usp=sharing" target="_blank" class="glass-panel p-4 flex items-center justify-center gap-3 hover:bg-cyan-900/20 transition-colors group border-l-4 border-l-green-500">
-                <i data-lucide="shirt" class="w-5 h-5 text-green-400 group-hover:scale-110 transition-transform"></i>
-                <span class="text-sm font-bold uppercase tracking-wider">Guide du Skin</span>
+            <a href="https://docs.google.com/document/d/1aIMRrDGG6UiTVuZOJLTYfV0bnT2qBOyKumnNablnVnc/edit?usp=sharing" target="_blank" class="origin-btn btn--glass btn--success">
+                <i data-lucide="shirt" class="btn--icon text-green-400"></i>
+                <span>Guide du Skin</span>
             </a>
         </div>
-        <div class="border border-red-500/50 bg-red-950/30 p-6 rounded mb-16 relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(239,68,68,0.05)_10px,rgba(239,68,68,0.05)_20px)] pointer-events-none"></div>
+        
+        <div class="card-error mb-16">
+            <div class="card-error--background"></div>
             
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-6 relative z-10">
+            <div class="card-error--container--double">
                 <div class="p-4 bg-red-500/20 rounded-full border border-red-500 shrink-0">
                     <i data-lucide="lock" class="w-8 h-8 text-red-500 animate-pulse"></i>
                 </div>
@@ -114,13 +67,14 @@
                 </div>
             </div>
         </div>
+
         <div class="relative border-l border-cyan-900/50 ml-4 md:ml-0 md:pl-12 space-y-16">
             
             <div class="relative">
                 <div class="absolute -left-[21px] md:-left-[53px] top-0 w-10 h-10 bg-black border border-cyan-500 rounded-full flex items-center justify-center z-20">
                     <span class="text-cyan-400 font-bold">01</span>
                 </div>
-                <div class="glass-panel p-8">
+                <div class="card-glass-panel">
                     <h3 class="text-2xl font-bold text-white mb-2 uppercase flex items-center gap-3">
                         <i data-lucide="book-open" class="w-6 h-6 text-cyan-400"></i> Conception du Personnage
                     </h3>
@@ -200,7 +154,7 @@
                 <div class="absolute -left-[21px] md:-left-[53px] top-0 w-10 h-10 bg-black border border-cyan-500 rounded-full flex items-center justify-center z-20">
                     <span class="text-cyan-400 font-bold">02</span>
                 </div>
-                <div class="glass-panel p-8">
+                <div class="card-glass-panel">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                         <h3 class="text-2xl font-bold text-white uppercase flex items-center gap-3">
                             <i data-lucide="send" class="w-6 h-6 text-cyan-400"></i> Envoi de Candidature
@@ -233,25 +187,25 @@
                 <div class="absolute -left-[21px] md:-left-[53px] top-0 w-10 h-10 bg-black border border-cyan-500 rounded-full flex items-center justify-center z-20">
                     <span class="text-cyan-400 font-bold">03</span>
                 </div>
-                <div class="glass-panel p-8">
+                <div class="card-glass-panel">
                     <h3 class="text-2xl font-bold text-white mb-4 uppercase flex items-center gap-3">
                         <i data-lucide="mic" class="w-6 h-6 text-cyan-400"></i> L'Entretien Oral
                     </h3>
-                    <p class="text-sm text-gray-400 mb-4">
+                    <blockquote class="mb-4">
                         Une discussion vocale pour vérifier que vous maîtrisez les règles et le lore. C'est aussi le moment de vérifier votre configuration technique.
-                    </p>
-                    <div class="bg-gray-900/50 p-4 border-l-2 border-cyan-500 text-xs text-gray-300 italic">
-                        "Conseil : Lancez votre jeu et votre launcher avant l'entretien pour détecter d'éventuels problèmes de RAM ou de connexion."
-                    </div>
+                    </blockquote>
+                    <cite>
+                        Conseil : Lancez votre jeu et votre launcher avant l'entretien pour détecter d'éventuels problèmes de RAM ou de connexion."
+                    </cite>
                 </div>
             </div>
 
         </div>
 
-        <div class="mt-24 border border-red-500/50 bg-red-950/20 p-8 rounded relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,#ef4444_10px,#ef4444_20px)] opacity-50"></div>
+        <div class="card-error mt-24">
+            <div class="card-error--top"></div>
             
-            <div class="flex items-center gap-4 mb-6">
+            <div class="card-error--title">
                 <div class="p-3 bg-red-500/20 rounded-full border border-red-500">
                     <i data-lucide="alert-triangle" class="w-8 h-8 text-red-500"></i>
                 </div>
@@ -277,19 +231,9 @@
         </div>
 
     </main>
-    <footer id="page-footer" class="reveal w-full bg-black/95 border-t border-cyan-900/50 z-50 py-3 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-center text-gray-500 text-[10px] space-y-1 md:space-y-0 md:gap-6 tracking-wider">
-            <div class="flex items-center gap-1 text-cyan-400">
-                <i data-lucide="copyright" class="w-3 h-3"></i>
-                <span class="font-bold">2025 par L'équipe d'Origin</span>
-            </div>
-            <div class="hidden md:block text-gray-700">|</div>
-            <p class="text-xs text-gray-400 text-center">© OriginRp, 2024. Tous droits réservés.</p>
-            <div class="hidden md:block text-gray-700">|</div>
-            <p class="text-[9px] text-red-500/70 uppercase font-bold text-center">PAS DE MINECRAFT OFFICIEL.</p>
-        </div>
-        <div class="text-black select-text text-[1px]">PASSWORD COMPLETE: LIBERTY_2203</div>
-    </footer>
+
+    <!-- FOOTER -->
+    <?php include './assets/elements/footer.html'; ?>
     <script src="assets/js/main.js"></script>
 </body>
 </html>
