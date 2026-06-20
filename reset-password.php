@@ -1,11 +1,8 @@
 <?php
 require_once __DIR__ . '/assets/import/init.php';
 
-if ($auth->check()) {
-    header('Location: ./dashboard');
-    exit;
-}
-
+$token = trim($_GET['token'] ?? '');
+$valid = !empty($token) && $auth->isResetTokenValid($token);
 $csrf  = Auth::generateCsrfToken();
 $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
@@ -15,11 +12,10 @@ unset($_SESSION['flash']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self';">
-    <title>CONNEXION - ORIGIN</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
+    <title>Nouveau mot de passe - ORIGIN</title>
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <link href="./assets/css/style.css" rel="stylesheet">
-    <link href="./assets/css/easter-egg-mars.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -32,11 +28,8 @@ unset($_SESSION['flash']);
             .login--footer { position: relative !important; bottom: auto !important; left: auto !important; }
             .auth-wrapper { width: 100%; padding: 0 1rem; box-sizing: border-box; }
             .auth-card { width: 100% !important; box-sizing: border-box; }
-            .auth-card label { width: 100% !important; }
-            .auth-remember-row { flex-wrap: wrap; gap: 0.5rem; }
             .auth-actions { width: 100% !important; box-sizing: border-box; flex-direction: column; gap: 0.5rem; }
             .auth-actions a, .auth-actions button { width: 100%; justify-content: center; }
-            section h3 { font-size: 1.4rem !important; line-height: 1.3; }
         }
     </style>
 </head>
@@ -53,40 +46,30 @@ unset($_SESSION['flash']);
 
     <section style="width:100%;height:calc(100vh - 53px);display:flex;align-items:center;justify-content:center;color:#fff;z-index:50;position:absolute;">
         <div class="auth-wrapper">
-            <form id="login-form" method="POST" action="assets/handlers/auth-login">
+            <?php if ($valid): ?>
+
+            <form id="reset-form" method="POST" action="assets/handlers/auth-reset-password">
                 <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf, ENT_QUOTES) ?>">
+                <input type="hidden" name="token"      value="<?= htmlspecialchars($token, ENT_QUOTES) ?>">
 
                 <div class="auth-card" style="padding:15px;border:1px solid #20d3ee33;">
-                    <h3 class="font-bold text-white uppercase">Connexion <span class="text-cyan-400">au support</span></h3>
+                    <h4 class="font-bold text-white uppercase">Nouveau <span class="text-cyan-400">mot de passe</span></h4>
                     <div style="display:flex;justify-content:center;flex-direction:column;align-items:center;padding-top:45px;">
 
                         <div style="width:100%;display:flex;justify-content:center;flex-direction:column;align-items:center;padding-bottom:25px;">
                             <label style="text-align:left;width:340px;">
-                                <i data-lucide="user" class="lucide w-5 h-5" style="margin-right:10px;"></i>
-                                E-Mail ou Pseudonyme
+                                <i data-lucide="key-round" class="lucide w-5 h-5" style="margin-right:10px;"></i>
+                                Nouveau mot de passe
                             </label>
-                            <input type="text" name="identifier" placeholder="Identifiant" autocomplete="username" required>
+                            <input type="password" name="password" placeholder="Min. 8 caractères" required>
                         </div>
 
                         <div style="width:100%;display:flex;justify-content:center;flex-direction:column;align-items:center;padding-bottom:25px;">
                             <label style="text-align:left;width:340px;">
                                 <i data-lucide="key-round" class="lucide w-5 h-5" style="margin-right:10px;"></i>
-                                Mot de passe
+                                Confirmer le mot de passe
                             </label>
-                            <input type="password" name="password" placeholder="Clés" autocomplete="current-password" required>
-                        </div>
-
-                        <div class="auth-remember-row" style="display:flex;width:100%;justify-content:space-between;flex-direction:row;align-items:center;padding-top:25px;">
-                            <div style="display:flex;justify-content:center;gap:10px;">
-                                <label class="checkbox">
-                                    <input type="checkbox" name="remember" value="1" class="checkbox-content">
-                                    <span class="checkbox-mark"></span>
-                                    <span class="checkbox-label-text">Se souvenir de moi</span>
-                                </label>
-                            </div>
-                            <div>
-                                <a href="./forgotten-password">Mot de passe oublié ?</a>
-                            </div>
+                            <input type="password" name="password2" placeholder="Confirmer" required>
                         </div>
 
                         <?php if ($flash): ?>
@@ -94,36 +77,34 @@ unset($_SESSION['flash']);
                             <?= htmlspecialchars($flash['message']) ?>
                         </p>
                         <?php endif; ?>
-
-                        <p style="text-align:center;padding-top:15px;">Vous n'avez pas de compte ? <a href="./register">Inscrivez-vous !</a></p>
                     </div>
                 </div>
             </form>
 
             <div class="auth-actions" style="display:flex;justify-content:space-between;margin-top:15px;">
-                <a href="./" class="origin-btn btn--graphic btn--danger" data-sound-attached="true">
+                <a href="./login" class="origin-btn btn--graphic btn--danger" data-sound-attached="true">
                     <i data-lucide="arrow-left" class="lucide btn--icon"></i>
-                    <span>Retour en arrière</span>
+                    <span>Annuler</span>
                 </a>
-                <button type="submit" form="login-form" class="origin-btn btn--graphic btn--primary" data-sound-attached="true" style="font-size:16px;">
-                    <span>Connexion</span>
+                <button type="submit" form="reset-form" class="origin-btn btn--graphic btn--primary" data-sound-attached="true" style="font-size:16px;">
+                    <span>Enregistrer</span>
                     <i data-lucide="arrow-right" class="lucide btn--icon"></i>
                 </button>
             </div>
 
-            <div style="display:flex;justify-content:flex-start;margin-top:60px;flex-direction:column;gap:15px;align-items:stretch;">
-                <h6 style="text-align:center;">Ou connectez-vous par :</h6>
-                <a href="lore.html" class="origin-btn btn--glass btn--danger" data-sound-attached="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 640" fill="#ef4444" class="lucide lucide-message-circle btn--icon">
-                        <path d="M96 96L310.6 96L310.6 310.6L96 310.6L96 96zM329.4 96L544 96L544 310.6L329.4 310.6L329.4 96zM96 329.4L310.6 329.4L310.6 544L96 544L96 329.4zM329.4 329.4L544 329.4L544 544L329.4 544L329.4 329.4z"/>
-                    </svg>
-                    <span>Microsoft</span>
-                </a>
-                <a href="lore.html" class="origin-btn btn--glass btn--discord" data-sound-attached="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle btn--icon"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg>
-                    <span>Discord</span>
+            <?php else: ?>
+
+            <div class="auth-card" style="padding:40px;border:1px solid rgba(239,68,68,0.3);text-align:center;">
+                <i data-lucide="circle-x" class="w-12 h-12 text-red-500 mx-auto mb-4"></i>
+                <h4 class="font-bold text-white uppercase mb-3">Lien invalide</h4>
+                <p class="text-gray-400 text-sm mb-8">Ce lien de réinitialisation est invalide ou a expiré.</p>
+                <a href="./forgotten-password" class="origin-btn btn--graphic btn--primary">
+                    <span>Faire une nouvelle demande</span>
+                    <i data-lucide="arrow-right" class="btn--icon"></i>
                 </a>
             </div>
+
+            <?php endif; ?>
         </div>
     </section>
 
@@ -134,7 +115,6 @@ unset($_SESSION['flash']);
     <script src="assets/js/main.js"></script>
     <script src="assets/js/intro.js"></script>
     <script src="assets/js/matinal.js"></script>
-    <script src="assets/js/statut-system.js"></script>
     <script>lucide.createIcons();</script>
 </body>
 </html>
