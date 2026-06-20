@@ -21,7 +21,7 @@ class Auth
     //  INSCRIPTION
     // ----------------------------------------------------------------
 
-    public function register(string $pseudo, string $email, string $password, Mailer $mailer): array
+    public function register(string $pseudo, string $email, string $password, string $password2, Mailer $mailer): array
     {
         $pseudo = trim($pseudo);
         $email  = strtolower(trim($email));
@@ -34,6 +34,9 @@ class Auth
         }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return $this->err('Adresse e-mail invalide.');
+        }
+        if ($password !== $password2) {
+            return $this->err('Les mots de passe ne correspondent pas.');
         }
         if (strlen($password) < 8) {
             return $this->err('Le mot de passe doit contenir au moins 8 caractères.');
@@ -303,10 +306,13 @@ class Auth
         );
     }
 
-    public function resetPassword(string $token, string $newPassword): array
+    public function resetPassword(string $token, string $newPassword, string $newPassword2): array
     {
         if (!ctype_alnum($token)) {
             return $this->err('Token invalide.');
+        }
+        if ($newPassword !== $newPassword2) {
+            return $this->err('Les mots de passe ne correspondent pas.');
         }
         if (strlen($newPassword) < 8) {
             return $this->err('Le mot de passe doit contenir au moins 8 caractères.');
@@ -337,38 +343,20 @@ class Auth
     //  PROTECTION CSRF
     // ----------------------------------------------------------------
 
-    /**
-     * Génère un token CSRF stateless :
-     *   base64(payload_json) . "." . hmac_sha256(payload, APP_SECRET_KEY)
-     * Aucune session requise. Valide 2 heures.
-     */
     public static function generateCsrfToken(): string
     {
-        $payload = base64_encode(json_encode([
-            'ts'    => time(),
-            'nonce' => bin2hex(random_bytes(8)),
-        ]));
-        $sig = hash_hmac('sha256', $payload, $_ENV['APP_SECRET_KEY']);
-        return $payload . '.' . $sig;
+        if (empty($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        return $_SESSION['csrf_token'];
     }
 
     public static function validateCsrfToken(string $submitted): bool
     {
-        if (empty($submitted) || substr_count($submitted, '.') !== 1) {
+        if (empty($_SESSION['csrf_token']) || empty($submitted)) {
             return false;
         }
-
-        [$payload, $sig] = explode('.', $submitted, 2);
-
-        // Vérifie la signature (hash_equals = temps constant)
-        $expectedSig = hash_hmac('sha256', $payload, $_ENV['APP_SECRET_KEY']);
-        if (!hash_equals($expectedSig, $sig)) {
-            return false;
-        }
-
-        // Vérifie que le token n'a pas expiré (2 heures max)
-        $data = json_decode(base64_decode($payload), true);
-        return isset($data['ts']) && time() - (int) $data['ts'] < 7200;
+        return hash_equals($_SESSION['csrf_token'], $submitted);
     }
 
     // ----------------------------------------------------------------
