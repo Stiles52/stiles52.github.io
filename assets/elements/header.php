@@ -1,7 +1,6 @@
 <?php
     $currentPage = basename($_SERVER['PHP_SELF'], '.php');
 ?>
-
 <!-- Barre de navigation (brand + hamburger) -->
 <nav id="main-nav">
     <div class="origin-nav-brand">
@@ -10,10 +9,30 @@
 
     <!-- Liens — desktop uniquement dans le flux de la nav -->
     <ul class="origin-nav-list origin-nav-list--inline" id="nav-list-desktop">
-        <li><a href="index" class="origin-nav-list-link <?php if($currentPage=='index') echo 'origin-nav-list-active'; ?>">Accueil<?php if($currentPage=='index') echo '<div class="active-pin"></div>'; ?></a></li>
-        <li><a href="lore"  class="origin-nav-list-link <?php if($currentPage=='lore')  echo 'origin-nav-list-active'; ?>">Lore<?php  if($currentPage=='lore')  echo '<div class="active-pin"></div>'; ?></a></li>
-        <li><a href="join"  class="origin-nav-list-link <?php if($currentPage=='join')  echo 'origin-nav-list-active'; ?>">Nous Rejoindre<?php if($currentPage=='join') echo '<div class="active-pin"></div>'; ?></a></li>
-        <li><a href="rules" class="origin-nav-list-link <?php if($currentPage=='rules') echo 'origin-nav-list-active'; ?>">Règlement<?php if($currentPage=='rules') echo '<div class="active-pin"></div>'; ?></a></li>
+        <li>
+            <a href="index" class="origin-nav-list-link <?php if($currentPage=='index') echo 'origin-nav-list-active'; ?>">
+                Accueil
+                <?php if($currentPage=='index') echo '<div class="active-pin"></div>'; ?>
+            </a>
+        </li>
+        <li>
+            <a href="lore"  class="origin-nav-list-link <?php if($currentPage=='lore')  echo 'origin-nav-list-active'; ?>">
+                Lore
+                <?php  if($currentPage=='lore')  echo '<div class="active-pin"></div>'; ?>
+            </a>
+        </li>
+        <li>
+            <a href="join"  class="origin-nav-list-link <?php if($currentPage=='join')  echo 'origin-nav-list-active'; ?>">
+                Nous Rejoindre
+                <?php if($currentPage=='join') echo '<div class="active-pin"></div>'; ?>
+            </a>
+        </li>
+        <li>
+            <a href="rules" class="origin-nav-list-link <?php if($currentPage=='rules') echo 'origin-nav-list-active'; ?>">
+                Règlement
+                <?php if($currentPage=='rules') echo '<div class="active-pin"></div>'; ?>
+            </a>
+        </li>
         <li class="origin-nav-list-special-item">
             <a href="login" class="origin-nav-list-link origin-nav-list-special">
                 <button class="origin-btn btn--full-graphic btn--primary"><span>Support</span><i data-lucide="log-in" class="btn--icon"></i></button>

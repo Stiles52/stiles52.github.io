@@ -894,6 +894,7 @@ a.origin-nav--categorie-link:visited {
 
         margin-bottom: 1.5rem;
     }
+    .card-error--container {}
     @media (min-width: 768px) {
         .card-error--container--double {
             flex-direction: row !important;
