@@ -160,7 +160,7 @@
         </div>
         <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
             <div class="text-[10px] text-gray-600 uppercase tracking-[0.2em] font-bold mb-3 px-2">Navigation</div>
-            <a href="index.html" class="flex items-center gap-3 px-3 py-2 text-xs uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 rounded transition-all group mb-6">
+            <a href="./" class="flex items-center gap-3 px-3 py-2 text-xs uppercase tracking-widest text-gray-400 hover:text-white hover:bg-white/5 rounded transition-all group mb-6">
                 <i data-lucide="power" class="w-4 h-4 group-hover:text-red-400 transition-colors"></i> Déconnexion
             </a>
             <div class="h-px bg-gray-900 mb-6"></div>
@@ -194,7 +194,7 @@
         
         <div class="w-px h-8 bg-gray-800"></div>
 
-        <a href="index.html" class="flex flex-col items-center gap-1 text-red-500/70 hover:text-red-400 transition-colors group">
+        <a href="./" class="flex flex-col items-center gap-1 text-red-500/70 hover:text-red-400 transition-colors group">
             <i data-lucide="power" class="w-6 h-6 group-hover:scale-110 transition-transform"></i>
             <span class="text-[10px] uppercase tracking-widest">Sortir</span>
         </a>
