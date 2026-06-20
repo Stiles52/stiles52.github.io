@@ -16,6 +16,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        /* Desktop : auth-actions aligne sur la largeur de la carte */
+        .auth-card { width: 600px; }
+        .auth-actions { width: 600px; gap: 1.5rem; }
+
         @media (max-width: 640px) {
             /* Section + footer en flux normal pour éviter la superposition */
             body { display: flex; flex-direction: column; }

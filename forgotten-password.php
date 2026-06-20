@@ -16,6 +16,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        .auth-card { width: 600px; }
+        .auth-actions { width: 600px; gap: 1.5rem; }
+
         @media (max-width: 640px) {
             body { display: flex; flex-direction: column; }
             section {
