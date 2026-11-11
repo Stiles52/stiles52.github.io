@@ -1,3 +1,11 @@
+<?php
+require_once __DIR__ . '/assets/import/init.php';
+
+if (!$auth->check()) {
+    header('Location: ./login');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
