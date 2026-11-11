@@ -19,6 +19,10 @@ class Database
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => false, // vraies requêtes préparées côté MySQL
         ]);
+
+        // Aligne NOW() / CURDATE() sur le fuseau de PHP : les dates calculées en PHP (expirations)
+        // sont comparées à NOW() côté SQL
+        $this->pdo->exec("SET time_zone = '" . date('P') . "'");
     }
 
     public static function getInstance(): self

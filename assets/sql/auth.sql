@@ -4,6 +4,9 @@
 --  Exécuter dans phpMyAdmin ou via mysql CLI
 -- ============================================================
 
+-- Le fichier est en UTF-8 : indispensable pour le client mysql Windows (cp850 par défaut)
+SET NAMES utf8mb4;
+
 CREATE TABLE IF NOT EXISTS `users` (
     `id`                CHAR(36)        NOT NULL,
     `pseudo`            VARCHAR(50)     NOT NULL,

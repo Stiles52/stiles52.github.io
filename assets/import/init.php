@@ -3,6 +3,9 @@
 // Charge le .env et vérifie les variables obligatoires
 require_once __DIR__ . '/../../config.php';
 
+// --- Fuseau horaire (PHP et MySQL doivent être alignés : voir Database) ---
+date_default_timezone_set($_ENV['APP_TIMEZONE'] ?? 'Europe/Paris');
+
 // --- Affichage des erreurs selon l'environnement ---
 if (($_ENV['APP_ENV'] ?? 'production') === 'development' && ($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
     ini_set('display_errors', '1');
