@@ -1,202 +1,131 @@
-<style>
-    .profile-avatar {
-        width: 80px; height: 80px;
-        background: rgba(34, 211, 238, 0.1);
-        border: 2px solid rgba(34, 211, 238, 0.3);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 2rem; font-weight: bold; color: #22d3ee;
-        flex-shrink: 0;
-    }
-    .profile-stat {
-        background: rgba(0,0,0,0.6);
-        border: 1px solid rgba(34, 211, 238, 0.15);
-        padding: 1rem 1.5rem;
-        flex: 1; min-width: 130px;
-    }
-    .profile-stat .value { font-size: 1.5rem; font-weight: bold; color: white; }
-    .profile-stat .label { font-size: 10px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+<?php
+$canViewProfiles = $groupManager->userCan($auth->user(), 'view-users', 'manage-users');
 
+if ($canViewProfiles) {
+    $query  = trim((string) ($_GET['user'] ?? ''));
+    $result = $query !== '' ? $users->search(['q' => $query], (int) ($_GET['p'] ?? 1)) : null;
+
+    // Un seul résultat dont le pseudo (site ou Minecraft) correspond exactement : ouverture directe de la fiche
+    $exact = null;
+    if ($result && $result['total'] === 1) {
+        $only  = $result['rows'][0];
+        $exact = strcasecmp($only['pseudo'], $query) === 0 || strcasecmp((string) $only['minecraft_pseudo'], $query) === 0 ? $only : null;
+    }
+
+    $pageUrl = fn(int $p) => './dashboard?' . http_build_query(['page' => 'profil-visual', 'user' => $query] + ($p > 1 ? ['p' => $p] : []));
+    $e       = fn($v) => htmlspecialchars((string) $v, ENT_QUOTES);
+}
+?>
+<style>
+    .recent-searches {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .recent-searches a {
+        text-decoration: none;
+    }
     .table-scroll {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
-
-    @media (max-width: 768px) {
-        .profile-header-inner { gap: 1rem !important; }
-        .profile-avatar { width: 60px; height: 60px; font-size: 1.5rem; }
-        .profile-actions { width: 100%; }
-        .profile-actions .origin-btn { flex: 1; justify-content: center; }
-        .profile-stat { min-width: calc(50% - 6px); }
-
-        /* Titre plus compact */
-        #main-container h3:first-child { font-size: 1.35rem !important; line-height: 1.6rem; }
-
-        /* Bouton recherche : icône seule sur mobile */
-        #btn-search-text { display: none; }
-    }
-    @media (max-width: 480px) {
-        .profile-stat { min-width: 100%; }
-        .profile-actions { flex-direction: column; }
-        .profile-actions .origin-btn { width: 100%; }
-    }
 </style>
 
 <main id="main-container" class="flex-1 relative overflow-hidden bg-black pb-24 md:pb-0">
-    <div class="absolute inset-0 overflow-y-auto p-6 pb-32 md:p-12 fade-in-view">
-        <h3 class="pb-12 text-cyan-400">Visualisateur des profils</h3>
+    <div class="absolute inset-0 overflow-y-auto p-6 pb-32 md:p-12 md:pb-40 fade-in-view">
+        <h3 class="pb-4 text-cyan-400">Visualisateur des profils</h3>
+        <p class="text-gray-500 text-xs uppercase tracking-widest pb-12">Fiche joueur — informations, sanctions et historique des tickets</p>
 
-        <!-- Barre de recherche -->
-        <div class="page-toolbar" style="justify-content: flex-start; margin-bottom: 2rem; padding: 0;">
-            <div class="page-toolbar--search" style="max-width: 600px; flex: 1;">
-                <input type="text" id="profile-search" placeholder="Pseudo Minecraft ou pseudo du site...">
-                <button onclick="loadProfile()" class="origin-btn btn--full-graphic btn--primary" style="flex-shrink:0; white-space:nowrap;">
-                    <span id="btn-search-text">Rechercher</span>
+<?php if (!$canViewProfiles): ?>
+        <p class="text-sm text-red-400">Vous n'avez pas la permission de consulter les profils des joueurs.</p>
+<?php else: ?>
+        <!-- Outils -->
+        <form method="GET" action="./dashboard" class="page-toolbar mb-8">
+            <input type="hidden" name="page" value="profil-visual">
+            <div class="page-toolbar--search">
+                <input type="text" name="user" id="profile-search" value="<?= $e($query) ?>" placeholder="Pseudo Minecraft ou pseudo du site...">
+                <button type="submit" class="origin-btn btn--graphic btn--primary" style="flex-shrink:0;">
                     <i data-lucide="search" class="btn--icon"></i>
                 </button>
             </div>
+            <div class="page-toolbar--actions">
+                <a href="./dashboard?page=users" class="origin-btn btn--full-graphic btn--primary">
+                    Liste des utilisateurs
+                    <i data-lucide="users" class="btn--icon"></i>
+                </a>
+            </div>
+        </form>
+
+        <?php if ($result !== null): ?>
+        <!-- Résultats -->
+        <p class="text-xs text-gray-500 uppercase tracking-widest pb-4">
+            <?= $result['total'] ?> résultat<?= $result['total'] > 1 ? 's' : '' ?> pour « <?= $e($query) ?> »
+        </p>
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <td width="180px">Pseudo (site)</td>
+                        <td width="180px">Pseudo Minecraft</td>
+                        <td width="160px">Groupe</td>
+                        <td width="130px">Statut</td>
+                        <td>Inscrit le</td>
+                        <td width="80px">Actions</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!$result['rows']): ?>
+                    <tr>
+                        <td colspan="6" class="text-center text-xs text-gray-600 py-6">Aucun joueur ne correspond à cette recherche.</td>
+                    </tr>
+                    <?php endif; ?>
+                    <?php foreach ($result['rows'] as $u):
+                        $status  = UserManager::STATUSES[$u['status']];
+                        $viewUrl = './dashboard?page=profil-view&id=' . urlencode($u['id']);
+                    ?>
+                    <tr>
+                        <td class="font-bold"><a href="<?= $e($viewUrl) ?>"><?= $e($u['pseudo']) ?></a></td>
+                        <td class="text-cyan-400 font-mono text-sm"><?= $u['minecraft_pseudo'] ? $e($u['minecraft_pseudo']) : '<span class="text-gray-600">—</span>' ?></td>
+                        <td>
+                            <?php if ($u['group_name']): ?>
+                            <div class="badge-glass badge-glass--<?= $e($u['group_badge']) ?>"><span class="badge-glass--text"><?= $e($u['group_name']) ?></span></div>
+                            <?php else: ?>
+                            <span class="text-gray-600">Aucun</span>
+                            <?php endif; ?>
+                        </td>
+                        <td><div class="badge-glass badge-glass--<?= $status['badge'] ?>"><span class="badge-glass--text"><?= $status['label'] ?></span></div></td>
+                        <td class="text-xs text-gray-400"><?= date('d/m/Y', strtotime($u['created_at'])) ?></td>
+                        <td>
+                            <a href="<?= $e($viewUrl) ?>" class="origin-btn btn--graphic btn--primary" title="Voir la fiche">
+                                <i data-lucide="eye" class="btn--icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
-
-        <!-- Zone profil (cachée par défaut, affichée après recherche) -->
-        <div id="profile-zone" class="<?php echo isset($_GET['user']) ? '' : 'hidden'; ?>">
-
-            <!-- En-tête profil -->
-            <div class="card-glass-panel mb-6 profile-header-inner" style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
-                <div class="profile-avatar" id="profile-avatar">M</div>
-                <div style="flex: 1; min-width: 200px;">
-                    <div class="flex items-center gap-3 mb-2 flex-wrap">
-                        <h4 class="text-white" id="profile-name">Mathis150</h4>
-                        <div class="badge-glass badge-glass--danger" id="profile-badge"><span class="badge-glass--text">Administrateur</span></div>
-                        <div class="badge-glass badge-glass--success" id="profile-status"><span class="badge-glass--text">Actif</span></div>
-                    </div>
-                    <div class="flex items-center gap-2 mb-3">
-                        <i data-lucide="monitor" class="w-4 h-4 text-gray-500"></i>
-                        <span class="text-xs text-cyan-400 font-mono" id="profile-mc">mathis150</span>
-                        <span class="text-xs text-gray-600">— Pseudo Minecraft</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="calendar" class="w-4 h-4 text-gray-500"></i>
-                        <span class="text-xs text-gray-400" id="profile-date">Inscrit le 01/01/2025 — Dernière connexion : 17/06/2026 à 14:32</span>
-                    </div>
-                </div>
-                <div class="flex gap-3 flex-wrap profile-actions">
-                    <a href="./dashboard?page=users" class="origin-btn btn--graphic btn--primary text-sm">
-                        <i data-lucide="pen" class="btn--icon"></i>
-                        Éditer
-                    </a>
-                    <button class="origin-btn btn--graphic btn--warning text-sm">
-                        <i data-lucide="user-x" class="btn--icon"></i>
-                        Suspendre
-                    </button>
-                    <button class="origin-btn btn--graphic btn--danger text-sm">
-                        <i data-lucide="ban" class="btn--icon"></i>
-                        Bannir
-                    </button>
-                </div>
-            </div>
-
-            <!-- Stats rapides -->
-            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 1.5rem;">
-                <div class="profile-stat">
-                    <div class="value text-cyan-400" id="stat-tickets">14</div>
-                    <div class="label">Tickets créés</div>
-                </div>
-                <div class="profile-stat">
-                    <div class="value text-green-400" id="stat-resolved">11</div>
-                    <div class="label">Tickets résolus</div>
-                </div>
-                <div class="profile-stat">
-                    <div class="value text-red-400" id="stat-sanctions">0</div>
-                    <div class="label">Sanctions</div>
-                </div>
-                <div class="profile-stat">
-                    <div class="value text-purple-400" id="stat-cand">1</div>
-                    <div class="label">Candidatures</div>
-                </div>
-            </div>
-
-            <!-- Historique de sanctions -->
-            <h4 class="pb-4">Historique des sanctions</h4>
-            <div class="mb-8 table-scroll" id="sanctions-zone">
-                <table>
-                    <thead>
-                        <tr>
-                            <td width="160px">Date</td>
-                            <td width="140px">Type</td>
-                            <td>Raison</td>
-                            <td width="160px">Infligé par</td>
-                            <td width="140px">Statut</td>
-                        </tr>
-                    </thead>
-                    <tbody id="sanctions-body">
-                        <tr>
-                            <td colspan="5" class="text-center text-xs text-gray-600 py-6">Aucune sanction enregistrée.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Historique des tickets -->
-            <h4 class="pb-4">Historique des tickets</h4>
-            <div id="tickets-zone" class="table-scroll">
-                <table>
-                    <thead>
-                        <tr>
-                            <td width="90px">ID#</td>
-                            <td width="140px">Statut</td>
-                            <td>Titre</td>
-                            <td width="150px">Catégorie</td>
-                            <td width="160px">Date</td>
-                            <td width="80px">Actions</td>
-                        </tr>
-                    </thead>
-                    <tbody id="tickets-body">
-                        <tr>
-                            <td class="text-xs text-gray-500">#0001241</td>
-                            <td><div class="badge-glass badge-glass--success"><span class="badge-glass--text">Résolu</span></div></td>
-                            <td class="text-sm">Problème de connexion répété</td>
-                            <td><div class="badge-glass badge-glass--primary"><span class="badge-glass--text">Q&A</span></div></td>
-                            <td class="text-xs text-gray-400">17/06/2026</td>
-                            <td>
-                                <button class="dropdown">
-                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
-                                    <div class="dropdown-container dropdown-container--popup hidden">
-                                        <a href="#">
-                                            <i data-lucide="eye" class="btn--icon"></i>
-                                            Voir le ticket
-                                        </a>
-                                    </div>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-xs text-gray-500">#0001100</td>
-                            <td><div class="badge-glass badge-glass--success"><span class="badge-glass--text">Résolu</span></div></td>
-                            <td class="text-sm">Demande de spécialisation Médecin</td>
-                            <td><div class="badge-glass badge-glass--warning"><span class="badge-glass--text">Spécialisations</span></div></td>
-                            <td class="text-xs text-gray-400">12/03/2026</td>
-                            <td>
-                                <button class="dropdown">
-                                    <i data-lucide="ellipsis-vertical" class="w-6 h-6 text-white"></i>
-                                    <div class="dropdown-container dropdown-container--popup hidden">
-                                        <a href="#">
-                                            <i data-lucide="eye" class="btn--icon"></i>
-                                            Voir le ticket
-                                        </a>
-                                    </div>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
+        <?php
+        $current = $result['page'];
+        $last    = $result['pages'];
+        include __DIR__ . '/../elements/pagination.php';
+        ?>
+        <?php else: ?>
 
         <!-- État vide (avant recherche) -->
-        <div id="empty-zone" class="<?php echo isset($_GET['user']) ? 'hidden' : ''; ?> text-center py-24">
-            <i data-lucide="user-search" class="w-16 h-16 text-gray-700 mx-auto mb-6"></i>
-            <p class="text-gray-600 text-sm uppercase tracking-widest m-0">Recherchez un joueur pour afficher son profil</p>
+        <div id="empty-zone" class="card-glass-panel text-center" style="padding: 4rem 2rem;">
+            <i data-lucide="user-search" class="w-16 h-16 text-cyan-900 mx-auto mb-6"></i>
+            <p class="text-gray-400 text-sm uppercase tracking-widest text-center m-0 pb-2">Aucun profil sélectionné</p>
+            <p class="text-gray-600 text-xs text-center m-0">Recherchez un joueur par son pseudo Minecraft ou son pseudo du site pour afficher sa fiche.</p>
+
+            <div id="recent-zone" class="hidden" style="margin-top: 2.5rem;">
+                <p class="text-gray-500 text-xs uppercase tracking-widest text-center pb-4">Recherches récentes</p>
+                <div class="recent-searches" id="recent-searches"></div>
+            </div>
         </div>
+        <?php endif; ?>
+<?php endif; ?>
     </div>
 
     <footer class="border-t border-cyan-900/30 py-12 text-center bg-black absolute bottom-0 w-full pointer-events-none opacity-50">
@@ -207,19 +136,60 @@
 <script>
     lucide.createIcons();
 
-    <?php if(isset($_GET['user'])): ?>
-    document.getElementById('profile-search').value = "<?php echo htmlspecialchars($_GET['user']); ?>";
-    <?php endif; ?>
+<?php if ($canViewProfiles): ?>
+    const RECENT_KEY = 'origin-profile-recent';
+    const RECENT_MAX = 6;
 
-    function loadProfile() {
-        const query = document.getElementById('profile-search').value.trim();
-        if (!query) return;
-        const url = new URL(window.location.href);
-        url.searchParams.set('user', query);
-        window.location.href = url.toString();
+    function getRecent() {
+        try {
+            return JSON.parse(localStorage.getItem(RECENT_KEY)) || [];
+        } catch (e) {
+            return [];
+        }
     }
 
-    document.getElementById('profile-search').addEventListener('keydown', e => {
-        if (e.key === 'Enter') loadProfile();
-    });
+    function saveRecent(query) {
+        const list = getRecent().filter(q => q.toLowerCase() !== query.toLowerCase());
+        list.unshift(query);
+        try {
+            localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, RECENT_MAX)));
+        } catch (e) {}
+    }
+
+    function renderRecent() {
+        const list = getRecent();
+        if (!list.length) return;
+
+        const container = document.getElementById('recent-searches');
+        list.forEach(query => {
+            const url = new URL(window.location.href);
+            url.searchParams.set('user', query);
+            url.searchParams.delete('p');
+
+            const link = document.createElement('a');
+            link.href = url.toString();
+            link.className = 'badge-glass badge-glass--primary';
+
+            const text = document.createElement('span');
+            text.className = 'badge-glass--text';
+            text.textContent = query;
+
+            link.appendChild(text);
+            container.appendChild(link);
+        });
+        document.getElementById('recent-zone').classList.remove('hidden');
+    }
+
+    <?php if ($query !== ''): ?>
+    // Mémorise la recherche seulement si elle a donné des résultats
+    <?php if ($result['total'] > 0): ?>
+    saveRecent(<?= json_encode($query, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>);
+    <?php endif; ?>
+    <?php if ($exact): ?>
+    window.location.replace(<?= json_encode('./dashboard?page=profil-view&id=' . urlencode($exact['id'])) ?>);
+    <?php endif; ?>
+    <?php else: ?>
+    renderRecent();
+    <?php endif; ?>
+<?php endif; ?>
 </script>
