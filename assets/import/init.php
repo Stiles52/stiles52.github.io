@@ -40,6 +40,8 @@ require_once __DIR__ . '/UserManager.php';
 require_once __DIR__ . '/GroupManager.php';
 require_once __DIR__ . '/TicketManager.php';
 require_once __DIR__ . '/Monitor.php';
+require_once __DIR__ . '/Discord.php';
+require_once __DIR__ . '/CharacterManager.php';
 
 // --- Instances globales disponibles dans toute page qui inclut ce fichier ---
 $db     = Database::getInstance();
@@ -50,3 +52,5 @@ $groupManager = new GroupManager($db);
 $sanctions    = new SanctionManager($db);
 $monitor      = new Monitor($db);
 $tickets      = new TicketManager($db);
+$discord      = new Discord($db);
+$characters   = new CharacterManager($db);
