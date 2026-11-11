@@ -1,13 +1,19 @@
 <?php
 
-    $ticket_type = [
-        "haut-staff" => "Haut-Staff",
-        "modo" => "Modération",
-        "recrute" => "Recrutement",
-        "qa" => "Question & Réponse",
-        "ban" => "Débanissement",
-        "developper" => "Développement"
-    ];
+    // Catégories utilisant le formulaire générique (bug et spécialisation ont leur propre formulaire)
+    $ticket_type = array_map(
+        fn($c) => $c['label'],
+        array_filter(TicketManager::CATEGORIES, fn($c) => $c['form'] === 'generic')
+    );
+
+    $canCreate = $groupManager->userCan($auth->user(), 'create-ticket');
+    $csrf      = Auth::generateCsrfToken();
+    $e         = fn($v) => htmlspecialchars((string) $v, ENT_QUOTES);
+    $category  = (string) ($_GET['ticket'] ?? '');
+
+    // Champs communs à tous les formulaires
+    $hiddenFields = '<input type="hidden" name="csrf_token" value="' . $e($csrf) . '">'
+                  . '<input type="hidden" name="category" value="' . $e($category) . '">';
 
 ?>
 
@@ -50,7 +56,14 @@
 
 <main class="flex items-center w-full min-h-screen column gap-4 p-4 md:p-8 pb-28 md:pb-8" style="flex-direction: column; overflow-y: auto;">
     <?php
-        if(isset($_GET['ticket'])) {
+        if (!$canCreate) {
+            ?>
+                <div id="ticket-selection" class="glass-panel p-4 md:p-8 relative" style="width: 100%; max-width: 800px;">
+                    <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Création de ticket</h3>
+                    <p class="text-sm text-red-400">Vous n'avez pas la permission de créer un ticket.</p>
+                </div>
+            <?php
+        } elseif(isset($_GET['ticket'])) {
             if($_GET['ticket'] == "bug") {
                 ?>
                     <div id="ticket-selection" class="glass-panel ticket-form-panel p-4 md:p-8 relative" style="width: 100%; max-width: 1000px;">
@@ -60,37 +73,37 @@
                         </a>
                         <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Création d'un ticket "Rapport de bug"</h3>
 
-                        <form id="discord-form" onsubmit="sendToDiscord(event)">
+                        <form id="ticket-form" onsubmit="submitTicket(event)" enctype="multipart/form-data">
+                            <?= $hiddenFields ?>
                             <div class="w-full mt-8">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Quel est le bug que vous souhaitez déclarer</label>
-                                <input type="text" id="subject" required style="width: 100%;" placeholder="Un titre clair pour définir le bug">
+                                <input type="text" id="subject" name="subject" required minlength="5" maxlength="150" style="width: 100%;" placeholder="Un titre clair pour définir le bug">
                             </div>
 
                             <div class="w-full mt-8">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Ou le bug c'est-il produit ?</label>
-                                <input type="text" id="subject" required style="width: 100%;" placeholder="Un titre clair pour définir le bug">
+                                <input type="text" id="location" name="location" required minlength="2" maxlength="150" style="width: 100%;" placeholder="Un titre clair pour définir le bug">
                             </div>
 
                             <div class="w-full mt-8">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">De quel niveau d'importance concidérez vous ce bug ?</label>
-                                <select class="w-full">
-                                    <option>Peu impactante</option>
-                                    <option>Moyennement impactante</option>
-                                    <option>Très impactante</option>
-                                    <option>Extrêmement impactante</option>
+                                <select class="w-full" name="importance" required>
+                                    <?php foreach (TicketManager::PRIORITIES as $key => $p): ?>
+                                    <option value="<?= $key ?>"><?= $e($p['importance']) ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                                 <cite class="mt-3 mb-8">Définissez cette élément avec sérieux, car cela nous aide grandement à nous organiser par rapport à la gestion de ces derniers !</cite>
                             </div>
 
                             <div class="w-full mt-8">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Expliquez en détail le bug</label>
-                                <textarea id="message" required rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
+                                <textarea id="message" name="message" required minlength="10" rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
                                 <div id="char-count" class="text-right text-[10px] text-gray-500 mt-1 font-mono">0 / 4000</div>
                             </div>
 
                             <div class="w-full mt-4">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Des documents à nous fournir ?</label>
-                                <input type="file" id="attachment" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-cyan-500 file:text-black hover:file:bg-cyan-400 transition-colors">
+                                <input type="file" id="attachment" name="attachments[]" multiple accept="<?= $e(implode(',', array_map(fn($x) => '.' . $x, TicketManager::allowedExtensions($category)))) ?>" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-cyan-500 file:text-black hover:file:bg-cyan-400 transition-colors">
                                 <cite class="mt-3 mb-8">
                                     Formats acceptés : PDF, PNG, JPG, TXT<br>
                                     Nombre maximum de fichier : 10 fichiers<br>
@@ -100,7 +113,7 @@
 
                             <div class="w-full mt-8">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Avez-vous une vidéo à nous fournir ?</label>
-                                <input type="url" id="subject" required style="width: 100%;" placeholder="L'URL ici !">
+                                <input type="url" id="video" name="video" maxlength="500" style="width: 100%;" placeholder="L'URL ici !">
                             </div>
 
                             <button type="submit" id="submit-btn" class="w-full mt-8 bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 rounded uppercase tracking-widest transition-colors flex justify-center items-center gap-2">
@@ -122,44 +135,46 @@
                         </a>
                         <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Création d'un ticket "Spécialisation"</h3>
 
-                        <form id="discord-form" onsubmit="sendToDiscord(event)">
+                        <form id="ticket-form" onsubmit="submitTicket(event)" enctype="multipart/form-data">
+                            <?= $hiddenFields ?>
                             <div class="w-full mt-8">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Quel métier est concerné ?</label>
-                                <select class="w-full">
-                                    <option>-- Sélectionnez le métier --</option>
-                                    <option>Médecin</option>
-                                    <option>Artisant</option>
-                                    <option>Agriculteur</option>
+                                <select class="w-full" name="job" required>
+                                    <option value="">-- Sélectionnez le métier --</option>
+                                    <?php foreach (TicketManager::SPECIAL_JOBS as $v): ?>
+                                    <option value="<?= $e($v) ?>"><?= $e($v) ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
 
                             <div class="w-full mt-8">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Quel est le niveau visé ?</label>
-                                <select class="w-full">
-                                    <option>Confirmé</option>
-                                    <option>Spécialisé</option>
+                                <select class="w-full" name="level" required>
+                                    <?php foreach (TicketManager::SPECIAL_LEVELS as $v): ?>
+                                    <option value="<?= $e($v) ?>"><?= $e($v) ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
 
                             <div class="w-full mt-8">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Quel est la spécialité concernés ?</label>
-                                <select class="w-full">
-                                    <option>-- Sélectionnez une spécialisation --</option>
-                                    <option>Dieu</option>
-                                    <option>Maître du monde</option>
-                                    <option>Bon la vanne à était longue-</option>
+                                <select class="w-full" name="skill" required>
+                                    <option value="">-- Sélectionnez une spécialisation --</option>
+                                    <?php foreach (TicketManager::SPECIAL_SKILLS as $v): ?>
+                                    <option value="<?= $e($v) ?>"><?= $e($v) ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
 
                             <div class="w-full mt-8">
                                 <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Qui sera votre mentor ?</label>
-                                <input type="text" id="subject" required style="width: 100%;" placeholder="De quoi souhaitez-vous parler au Haut-Staff ?">
+                                <input type="text" id="mentor" name="mentor" maxlength="50" style="width: 100%;" placeholder="De quoi souhaitez-vous parler au Haut-Staff ?">
                                 <cite>Si vous le faite en autodidacte, veuillez laissez ce champ vide.</cite>
                             </div>
 
                             <div class="w-full mt-8">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Expliquez-nous pourquoi vous souhaitez apprendre cette spécialité</label>
-                                <textarea id="message" required rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
+                                <textarea id="message" name="message" required minlength="10" rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
                                 <div id="char-count" class="text-right text-[10px] text-gray-500 mt-1 font-mono">0 / 4000</div>
                             </div>
 
@@ -181,28 +196,27 @@
                         </a>
                         <h3 id="form-title" class="text-2xl font-bold text-white mb-6 uppercase">Création d'un ticket "<?php echo $ticket_type[$_GET['ticket']] ?>"</h3>
 
-                        <form id="discord-form" onsubmit="sendToDiscord(event)">
-                            <input type="hidden" id="ticket-type" name="type">
-
+                        <form id="ticket-form" onsubmit="submitTicket(event)" enctype="multipart/form-data">
+                            <?= $hiddenFields ?>
                             <div class="w-full mt-8">
                                 <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Sujet de votre ticket</label>
-                                <input type="text" id="subject" required style="width: 100%;" placeholder="De quoi souhaitez-vous parler au Haut-Staff ?">
+                                <input type="text" id="subject" name="subject" required minlength="5" maxlength="150" style="width: 100%;" placeholder="De quoi souhaitez-vous parler au Haut-Staff ?">
                             </div>
 
                             <div class="w-full mt-8">
                                 <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Détails</label>
-                                <textarea id="message" required rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
+                                <textarea id="message" name="message" required minlength="10" rows="5" maxlength="4000" class="w-full bg-black/50 border border-gray-700 rounded p-3 text-white focus:border-cyan-500 focus:outline-none transition-colors" placeholder="Expliquez votre problème en détails... (Max 4000 caractères)"></textarea>
                                 <div id="char-count" class="text-right text-[10px] text-gray-500 mt-1 font-mono">0 / 4000</div>
                             </div>
 
                             <div class="w-full mt-4">
                                 <label class="block text-xs text-cyan-400 uppercase tracking-widest mb-2">Souhaitez-vous rajoutez des personnes concernés par le sujet au ticket ?</label>
-                                <input type="text" id="subject" required style="width: 100%;" placeholder="De quoi souhaitez-vous parler au Haut-Staff ?">
+                                <input type="text" id="participants" name="participants" maxlength="600" style="width: 100%;" placeholder="De quoi souhaitez-vous parler au Haut-Staff ?">
                             </div>
 
                             <div class="w-full mt-4">
                                 <label class="block text-cyan-400 uppercase tracking-widest mb-2" style="font-size: 14px;">Des documents à nous fournir ?</label>
-                                <input type="file" id="attachment" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-cyan-500 file:text-black hover:file:bg-cyan-400 transition-colors">
+                                <input type="file" id="attachment" name="attachments[]" multiple accept="<?= $e(implode(',', array_map(fn($x) => '.' . $x, TicketManager::allowedExtensions($category)))) ?>" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-cyan-500 file:text-black hover:file:bg-cyan-400 transition-colors">
                                 <cite class="mt-3 mb-8">
                                     Formats acceptés : PDF, PNG, JPG<br>
                                     Nombre maximum de fichier : 10 fichiers<br>
@@ -414,78 +428,38 @@
         document.getElementById('form-container').classList.add('hidden');
     }
 
-    function sendToDiscord(e) {
+    async function submitTicket(e) {
         e.preventDefault();
-        
-        const btn = document.getElementById('submit-btn');
+
+        const form   = e.target;
+        const btn    = document.getElementById('submit-btn');
         const status = document.getElementById('form-status');
-        status.classList.remove('hidden');
-        
+        const idle   = btn.innerHTML;
+
         btn.disabled = true;
         btn.innerHTML = '<span class="animate-pulse">Envoi en cours...</span>';
+        status.classList.add('hidden');
 
-        const type = document.getElementById('ticket-type').value;
-        const username = document.getElementById('username').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
+        let result;
+        try {
+            const res = await fetch('assets/api/ticket-create', { method: 'POST', body: new FormData(form) });
+            result = await res.json();
+        } catch (err) {
+            console.error(err);
+            result = { success: false, message: 'Une erreur est survenue. Réessayez.' };
+        }
 
-        // Couleurs pour l'embed Discord
-        let color = 3447003; // Bleu (Info)
-        if (type === 'Bug') color = 15105570; // Orange
-        if (type === 'Unban') color = 15158332; // Rouge
+        status.textContent = result.message;
+        status.classList.remove('hidden');
 
-        // Construction du message JSON pour Discord
-        const payload = {
-            username: "Support Fédérale",
-            embeds: [{
-                title: `Nouveau Ticket : ${type}`,
-                description: `**Description :**\n${message}`,
-                fields: [
-                    { name: "Joueur", value: username, inline: true },
-                    { name: "Sujet", value: subject, inline: true }
-                ],
-                color: color,
-                footer: { text: "Envoyé depuis le site Origin • " + new Date().toLocaleString() }
-            }]
-        };
-
-        // On appelle la fonction locale (qui sera gérée par l'hébergeur)
-        // On appelle la fonction locale
-        fetch('/.netlify/functions/send-ticket', {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        })
-        .then(response => {
-            // Si la réponse est positive (Code 200)
-            if (response.ok) {
-                // 1. Message de succès visuel
-                status.textContent = "Message transmis au serveur !";
-                status.className = "text-center text-xs mt-2 text-green-400";
-                btn.innerHTML = '<span>Envoyé !</span>';
-                
-                // 2. On vide le formulaire
-                document.getElementById('discord-form').reset();
-                
-                // 3. On ferme après 3 secondes
-                setTimeout(() => { 
-                    closeForm(); 
-                    btn.disabled = false; 
-                    btn.innerHTML = '<span>Envoyer la demande</span><i data-lucide="send" class="w-4 h-4"></i>'; 
-                    status.textContent = ""; 
-                    status.classList.add('hidden'); 
-                }, 3000);
-            } else {
-                // Si le serveur répond une erreur
-                throw new Error('Erreur serveur');
-            }
-        })
-        .catch(error => {
-            // Si la connexion échoue vraiment
-            console.error(error);
-            status.textContent = "Une erreur est survenue. Réessayez.";
-            status.className = "text-center text-xs mt-2 text-red-500";
+        if (result.success) {
+            status.className = 'text-center text-xs mt-2 text-green-400';
+            btn.innerHTML = '<span>Envoyé !</span>';
+            setTimeout(() => { window.location.href = result.redirect; }, 1000);
+        } else {
+            status.className = 'text-center text-xs mt-2 text-red-500';
             btn.disabled = false;
-            btn.innerHTML = '<span>Réessayer</span>';
-        });
+            btn.innerHTML = idle;
+        }
     }
 </script>
