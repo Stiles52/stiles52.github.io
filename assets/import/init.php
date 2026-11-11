@@ -33,6 +33,7 @@ if (session_status() === PHP_SESSION_NONE) {
 // --- Chargement des classes ---
 require_once __DIR__ . '/Database.php';
 require_once __DIR__ . '/Mailer.php';
+require_once __DIR__ . '/Logger.php';
 require_once __DIR__ . '/Auth.php';
 require_once __DIR__ . '/UserManager.php';
 require_once __DIR__ . '/GroupManager.php';

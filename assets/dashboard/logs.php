@@ -1,3 +1,19 @@
+<?php
+$canViewLogs = $groupManager->userCan($auth->user(), 'view-logs');
+
+if ($canViewLogs) {
+    $filters = Logger::filtersFrom($_GET);
+    $result  = Logger::search($filters, (int) ($_GET['p'] ?? 1));
+    $stats   = Logger::todayStats();
+
+    $activeFilters = ($filters['type'] !== '') + ($filters['period'] !== 'all') + ($filters['sort'] !== 'recent');
+    $query         = array_filter($filters, fn($v, $k) => $v !== '' && !($k === 'period' && $v === 'all') && !($k === 'sort' && $v === 'recent'), ARRAY_FILTER_USE_BOTH);
+
+    $pageUrl   = fn(int $p) => './dashboard?' . http_build_query(['page' => 'logs'] + $query + ($p > 1 ? ['p' => $p] : []));
+    $exportUrl = './assets/api/logs-export' . ($query ? '?' . http_build_query($query) : '');
+    $e         = fn($v) => htmlspecialchars((string) $v, ENT_QUOTES);
+}
+?>
 <style>
     .log-toolbar {
         display: flex;
@@ -39,77 +55,81 @@
     <div class="absolute inset-0 overflow-y-auto p-6 pb-32 md:p-12 fade-in-view">
         <h3 class="pb-8 text-cyan-400">Gestion des logs</h3>
 
-        <!-- Stats rapides -->
+<?php if (!$canViewLogs): ?>
+        <p class="text-sm text-red-400">Vous n'avez pas la permission d'accéder aux logs.</p>
+<?php else: ?>
+        <!-- Stats rapides (aujourd'hui) -->
         <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 2rem;">
             <div class="card-glass-panel" style="min-width: 140px; flex: 1; padding: 1rem;">
-                <div class="text-2xl font-bold text-cyan-400 mb-1">48</div>
+                <div class="text-2xl font-bold text-cyan-400 mb-1"><?= $stats['total'] ?></div>
                 <div class="text-xs text-gray-500 uppercase tracking-widest">Logs aujourd'hui</div>
             </div>
             <div class="card-glass-panel" style="min-width: 140px; flex: 1; padding: 1rem;">
-                <div class="text-2xl font-bold text-green-400 mb-1">12</div>
+                <div class="text-2xl font-bold text-green-400 mb-1"><?= $stats['logins'] ?></div>
                 <div class="text-xs text-gray-500 uppercase tracking-widest">Connexions</div>
             </div>
             <div class="card-glass-panel" style="min-width: 140px; flex: 1; padding: 1rem;">
-                <div class="text-2xl font-bold text-orange-400 mb-1">7</div>
+                <div class="text-2xl font-bold text-orange-400 mb-1"><?= $stats['tickets'] ?></div>
                 <div class="text-xs text-gray-500 uppercase tracking-widest">Tickets créés</div>
             </div>
             <div class="card-glass-panel" style="min-width: 140px; flex: 1; padding: 1rem;">
-                <div class="text-2xl font-bold text-red-400 mb-1">3</div>
+                <div class="text-2xl font-bold text-red-400 mb-1"><?= $stats['admin'] ?></div>
                 <div class="text-xs text-gray-500 uppercase tracking-widest">Actions admin</div>
             </div>
         </div>
 
-        <!-- Barre d'outils -->
-        <div class="log-toolbar">
-            <div class="log-toolbar--search">
-                <input type="text" id="log-search" placeholder="Rechercher un utilisateur, une action...">
-                <button onclick="searchLogs()" class="origin-btn btn--graphic btn--primary" style="flex-shrink: 0;">
-                    <i data-lucide="search" class="btn--icon"></i>
-                </button>
-            </div>
-            <div class="log-toolbar--actions">
-                <button class="dropdown origin-btn btn--full-graphic btn--primary">
-                    Filtres
-                    <i data-lucide="sliders-horizontal" class="btn--icon"></i>
-                </button>
-                <button class="origin-btn btn--full-graphic btn--secondary">
-                    Exporter
-                    <i data-lucide="download" class="btn--icon"></i>
-                </button>
-            </div>
-        </div>
+        <form method="GET" action="./dashboard">
+            <input type="hidden" name="page" value="logs">
 
-        <!-- Filtres inline -->
-        <div class="dropdown-container hidden w-full flex p-8 gap-4">
-            <div style="width: 350px;">
-                <label>Type d'action</label>
-                <select style="width: 100%;">
-                    <option>Tous</option>
-                    <option>Connexion</option>
-                    <option>Déconnexion</option>
-                    <option>Ticket créé</option>
-                    <option>Ticket résolu</option>
-                    <option>Action admin</option>
-                    <option>Modification</option>
-                </select>
+            <!-- Barre d'outils -->
+            <div class="log-toolbar">
+                <div class="log-toolbar--search">
+                    <input type="text" name="q" id="log-search" value="<?= $e($filters['q']) ?>" placeholder="Rechercher un utilisateur, une action...">
+                    <button type="submit" class="origin-btn btn--graphic btn--primary" style="flex-shrink: 0;">
+                        <i data-lucide="search" class="btn--icon"></i>
+                    </button>
+                </div>
+                <div class="log-toolbar--actions">
+                    <button type="button" class="dropdown origin-btn btn--full-graphic btn--primary">
+                        Filtres<?= $activeFilters ? " ($activeFilters)" : '' ?>
+                        <i data-lucide="sliders-horizontal" class="btn--icon"></i>
+                    </button>
+                    <a href="<?= $e($exportUrl) ?>" class="origin-btn btn--full-graphic btn--secondary">
+                        Exporter
+                        <i data-lucide="download" class="btn--icon"></i>
+                    </a>
+                </div>
             </div>
-            <div style="width: 350px;">
-                <label>Période</label>
-                <select style="width: 100%;">
-                    <option>Aujourd'hui</option>
-                    <option>7 derniers jours</option>
-                    <option>30 derniers jours</option>
-                    <option>Tout</option>
-                </select>
+
+            <!-- Filtres inline -->
+            <div class="dropdown-container <?= $activeFilters ? '' : 'hidden' ?> w-full flex p-8 gap-4">
+                <div style="width: 350px;">
+                    <label>Type d'action</label>
+                    <select name="type" style="width: 100%;" onchange="this.form.submit()">
+                        <option value="">Tous</option>
+                        <?php foreach (Logger::TYPES as $key => $t): ?>
+                        <option value="<?= $key ?>" <?= $filters['type'] === $key ? 'selected' : '' ?>><?= $t['label'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div style="width: 350px;">
+                    <label>Période</label>
+                    <select name="period" style="width: 100%;" onchange="this.form.submit()">
+                        <?php foreach (Logger::PERIODS as $key => $label): ?>
+                        <option value="<?= $key ?>" <?= $filters['period'] === $key ? 'selected' : '' ?>><?= $e($label) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div style="width: 350px;">
+                    <label>Ordre d'apparition</label>
+                    <select name="sort" style="width: 100%;" onchange="this.form.submit()">
+                        <?php foreach (Logger::SORTS as $key => $label): ?>
+                        <option value="<?= $key ?>" <?= $filters['sort'] === $key ? 'selected' : '' ?>><?= $e($label) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
             </div>
-            <div style="width: 350px;">
-                <label>Ordre d'apparition</label>
-                <select style="width: 100%;">
-                    <option>Plus récent</option>
-                    <option>Plus ancien</option>
-                </select>
-            </div>
-        </div>
+        </form>
 
         <!-- Table -->
         <table id="logs-table" style="margin-top: 0.5rem;">
@@ -123,91 +143,32 @@
                 </tr>
             </thead>
             <tbody>
+                <?php if (!$result['rows']): ?>
                 <tr>
-                    <td class="text-xs text-gray-400 font-mono">17/06/2026 — 14:32:08</td>
-                    <td class="font-bold text-sm">Mathis150</td>
-                    <td><div class="badge-glass badge-glass--primary"><span class="badge-glass--text">Connexion</span></div></td>
-                    <td class="text-xs text-gray-400">Connexion réussie — Dashboard</td>
-                    <td class="text-xs text-gray-600 font-mono">192.168.1.x</td>
+                    <td colspan="5" class="text-center text-gray-500 py-8">Aucun log trouvé.</td>
                 </tr>
+                <?php endif; ?>
+
+                <?php foreach ($result['rows'] as $log):
+                    $type = Logger::TYPES[$log['type']] ?? ['label' => $log['type'], 'badge' => 'secondary'];
+                ?>
                 <tr>
-                    <td class="text-xs text-gray-400 font-mono">17/06/2026 — 14:18:44</td>
-                    <td class="font-bold text-sm">NovaThorn</td>
-                    <td><div class="badge-glass badge-glass--info"><span class="badge-glass--text">Ticket créé</span></div></td>
-                    <td class="text-xs text-gray-400">Ticket #0001249 ouvert — "Signalement de bug : chute hors map"</td>
-                    <td class="text-xs text-gray-600 font-mono">10.0.0.x</td>
+                    <td class="text-xs text-gray-400 font-mono"><?= date('d/m/Y — H:i:s', strtotime($log['created_at'])) ?></td>
+                    <td class="font-bold text-sm"><?= $log['username'] !== null ? $e($log['username']) : '<span class="text-gray-600">Système</span>' ?></td>
+                    <td><div class="badge-glass badge-glass--<?= $type['badge'] ?>"><span class="badge-glass--text"><?= $e($type['label']) ?></span></div></td>
+                    <td class="text-xs text-gray-400"><?= $e($log['details']) ?><?php if ($log['highlight'] !== null): ?><strong class="text-<?= $e($log['highlight_tone'] ?? 'cyan') ?>-400"><?= $e($log['highlight']) ?></strong><?php endif; ?></td>
+                    <td class="text-xs text-gray-600 font-mono"><?= $e(Logger::maskIp($log['ip_address'])) ?></td>
                 </tr>
-                <tr>
-                    <td class="text-xs text-gray-400 font-mono">17/06/2026 — 13:55:11</td>
-                    <td class="font-bold text-sm">LunaVex</td>
-                    <td><div class="badge-glass badge-glass--success"><span class="badge-glass--text">Ticket résolu</span></div></td>
-                    <td class="text-xs text-gray-400">Ticket #0001241 marqué résolu — "Débanissement"</td>
-                    <td class="text-xs text-gray-600 font-mono">172.16.0.x</td>
-                </tr>
-                <tr>
-                    <td class="text-xs text-gray-400 font-mono">17/06/2026 — 13:40:59</td>
-                    <td class="font-bold text-sm">KaelDrift</td>
-                    <td><div class="badge-glass badge-glass--primary"><span class="badge-glass--text">Connexion</span></div></td>
-                    <td class="text-xs text-gray-400">Connexion réussie — Dashboard</td>
-                    <td class="text-xs text-gray-600 font-mono">10.0.1.x</td>
-                </tr>
-                <tr>
-                    <td class="text-xs text-gray-400 font-mono">17/06/2026 — 13:22:03</td>
-                    <td class="font-bold text-sm">Mathis150</td>
-                    <td><div class="badge-glass badge-glass--danger"><span class="badge-glass--text">Action admin</span></div></td>
-                    <td class="text-xs text-gray-400">Utilisateur "Zork_92" — statut modifié : <strong class="text-red-400">Suspendu</strong></td>
-                    <td class="text-xs text-gray-600 font-mono">192.168.1.x</td>
-                </tr>
-                <tr>
-                    <td class="text-xs text-gray-400 font-mono">17/06/2026 — 12:58:17</td>
-                    <td class="font-bold text-sm">Mathis150</td>
-                    <td><div class="badge-glass badge-glass--warning"><span class="badge-glass--text">Modification</span></div></td>
-                    <td class="text-xs text-gray-400">Groupe "Scénariste" — permission "manage-tickets" ajoutée</td>
-                    <td class="text-xs text-gray-600 font-mono">192.168.1.x</td>
-                </tr>
-                <tr>
-                    <td class="text-xs text-gray-400 font-mono">17/06/2026 — 12:48:00</td>
-                    <td class="font-bold text-sm">Zark_r</td>
-                    <td><div class="badge-glass badge-glass--primary"><span class="badge-glass--text">Connexion</span></div></td>
-                    <td class="text-xs text-gray-400">Connexion réussie — Dashboard</td>
-                    <td class="text-xs text-gray-600 font-mono">172.16.2.x</td>
-                </tr>
-                <tr>
-                    <td class="text-xs text-gray-400 font-mono">17/06/2026 — 12:31:45</td>
-                    <td class="font-bold text-sm">LunaVex</td>
-                    <td><div class="badge-glass badge-glass--info"><span class="badge-glass--text">Ticket créé</span></div></td>
-                    <td class="text-xs text-gray-400">Ticket #0001248 ouvert — "Question & aide : lore métier"</td>
-                    <td class="text-xs text-gray-600 font-mono">172.16.0.x</td>
-                </tr>
-                <tr>
-                    <td class="text-xs text-gray-400 font-mono">17/06/2026 — 11:59:22</td>
-                    <td class="font-bold text-sm">NovaThorn</td>
-                    <td><div class="badge-glass badge-glass--secondary"><span class="badge-glass--text">Déconnexion</span></div></td>
-                    <td class="text-xs text-gray-400">Session terminée — durée : 1h 22min</td>
-                    <td class="text-xs text-gray-600 font-mono">10.0.0.x</td>
-                </tr>
-                <tr>
-                    <td class="text-xs text-gray-400 font-mono">17/06/2026 — 11:10:05</td>
-                    <td class="font-bold text-sm">Mathis150</td>
-                    <td><div class="badge-glass badge-glass--danger"><span class="badge-glass--text">Action admin</span></div></td>
-                    <td class="text-xs text-gray-400">Candidature #0000412 — statut modifié : <strong class="text-green-400">Acceptée</strong></td>
-                    <td class="text-xs text-gray-600 font-mono">192.168.1.x</td>
-                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
 
-        <div class="pagination">
-            <a href="#" class="origin-btn btn--graphic btn--secondary">
-                <i data-lucide="arrow-big-left" class="btn--icon"></i>
-            </a>
-            <a href="#" class="pagination--page pagination--current origin-btn btn--full-graphic btn--primary"><span>1</span></a>
-            <a href="#" class="pagination--page origin-btn btn--full-graphic btn--secondary"><span>2</span></a>
-            <a href="#" class="pagination--page origin-btn btn--full-graphic btn--secondary"><span>3</span></a>
-            <a href="#" class="pagination--ellipsis origin-btn btn--full-graphic btn--secondary"><span>...</span></a>
-            <a href="#" class="origin-btn btn--graphic btn--primary">
-                <i data-lucide="arrow-big-right" class="btn--icon"></i>
-            </a>
-        </div>
+        <?php
+        $current = $result['page'];
+        $last    = $result['pages'];
+        include __DIR__ . '/../elements/pagination.php';
+        ?>
+<?php endif; ?>
     </div>
 
     <footer class="border-t border-cyan-900/30 py-12 text-center bg-black absolute bottom-0 w-full pointer-events-none opacity-50">
@@ -217,16 +178,4 @@
 
 <script>
     lucide.createIcons();
-
-    function searchLogs() {
-        const query = document.getElementById('log-search').value.toLowerCase();
-        const rows = document.querySelectorAll('#logs-table tbody tr');
-        rows.forEach(row => {
-            row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none';
-        });
-    }
-
-    document.getElementById('log-search').addEventListener('keydown', e => {
-        if (e.key === 'Enter') searchLogs();
-    });
 </script>
