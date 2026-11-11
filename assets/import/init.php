@@ -38,6 +38,7 @@ require_once __DIR__ . '/Auth.php';
 require_once __DIR__ . '/SanctionManager.php';
 require_once __DIR__ . '/UserManager.php';
 require_once __DIR__ . '/GroupManager.php';
+require_once __DIR__ . '/Monitor.php';
 
 // --- Instances globales disponibles dans toute page qui inclut ce fichier ---
 $db     = Database::getInstance();
@@ -46,3 +47,4 @@ $mailer = new Mailer();
 $users  = new UserManager($db);
 $groupManager = new GroupManager($db);
 $sanctions    = new SanctionManager($db);
+$monitor      = new Monitor($db);
