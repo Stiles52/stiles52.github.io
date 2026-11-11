@@ -29,11 +29,11 @@
             <i data-lucide="house" class="lucide lucide-history w-4 h-4"></i>
             Dashboard
         </a>
-        <!--<a href="./dashboard?page=profil" class="origin-nav--categorie-button <?php if($_GET['page'] == 'profil') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <a href="./dashboard?page=profil" class="origin-nav--categorie-button <?php if($_GET['page'] == 'profil') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="contact-round" class="lucide lucide-history w-4 h-4"></i>
-            Votre profile
+            Votre profil
         </a>
-        <a href="./dashboard?page=candidature" class="origin-nav--categorie-button <?php if($_GET['page'] == 'candidature') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <!--<a href="./dashboard?page=candidature" class="origin-nav--categorie-button <?php if($_GET['page'] == 'candidature') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="pen" class="lucide lucide-history w-4 h-4"></i>
             Candidature RP
         </a>-->
@@ -45,11 +45,11 @@
             <i data-lucide="ticket-plus" class="lucide lucide-history w-4 h-4"></i>
             Créer un ticket
         </a>
-        <a href="./dashboard?page=tickets" class="origin-nav--categorie-button <?php if($_GET['page'] == 'tickets') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <a href="./dashboard?page=tickets" class="origin-nav--categorie-button <?php if($_GET['page'] == 'tickets' || $_GET['page'] == 'ticket-view') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="tickets" class="lucide lucide-history w-4 h-4"></i>
             Gérer vos tickets
         </a>
-        <a href="./dashboard?page=personnages" class="origin-nav--categorie-button <?php if($_GET['page'] == 'personnages') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <a href="./dashboard?page=personnages" class="origin-nav--categorie-button <?php if($_GET['page'] == 'personnages' || $_GET['page'] == 'personnage' || $_GET['page'] == 'personnage-form') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="theater" class="lucide lucide-history w-4 h-4"></i>
             Gestion des personnages
         </a>
@@ -81,15 +81,15 @@
         <div class="origin-nav--categorie-separator"></div>
 
         <div class="origin-nav--categorie-title">Management</div>
-        <a href="./dashboard?page=manage-tickets" class="origin-nav--categorie-button <?php if($_GET['page'] == 'manage-tickets') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <a href="./dashboard?page=manage-tickets" class="origin-nav--categorie-button <?php if($_GET['page'] == 'manage-tickets' || $_GET['page'] == 'ticket-staff') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="scroll-text" class="lucide lucide-history w-4 h-4"></i>
             Gestion des tickets
         </a>
-        <a href="./dashboard?page=candidatures" class="origin-nav--categorie-button <?php if($_GET['page'] == 'candidatures') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <a href="./dashboard?page=candidatures" class="origin-nav--categorie-button <?php if($_GET['page'] == 'candidatures' || $_GET['page'] == 'candidature-staff') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="notebook-text" class="lucide lucide-history w-4 h-4"></i>
             Gest. candidatures
         </a>
-        <a href="./dashboard?page=profil-visual" class="origin-nav--categorie-button <?php if($_GET['page'] == 'profil-visual') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
+        <a href="./dashboard?page=profil-visual" class="origin-nav--categorie-button <?php if($_GET['page'] == 'profil-visual' || $_GET['page'] == 'profil-view') { echo 'origin-nav--categorie-button--active'; } ?>" data-sound-attached="true">
             <i data-lucide="notebook-text" class="lucide lucide-history w-5 h-5"></i>
             Visualisateur des profils
         </a>
@@ -107,7 +107,7 @@
 
     <div class="w-px h-8 bg-gray-800"></div>
 
-    <a href="./dashboard?page=tickets" class="origin-nav--responsive--button <?php if($_GET['page'] == 'tickets') echo 'origin-nav--responsive--button-active'; ?> group">
+    <a href="./dashboard?page=tickets" class="origin-nav--responsive--button <?php if($_GET['page'] == 'tickets' || $_GET['page'] == 'ticket-view') echo 'origin-nav--responsive--button-active'; ?> group">
         <i data-lucide="tickets" class="w-6 h-6 group-hover:scale-110 transition-transform"></i>
         <span class="text-[10px] uppercase tracking-widest">Tickets</span>
     </a>
@@ -159,6 +159,9 @@
     <a href="./dashboard" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if(empty($_GET['page']) || $_GET['page'] == 'dashboard') echo 'origin-nav--categorie-button--active'; ?>">
         <i data-lucide="house" class="w-4 h-4"></i>Dashboard
     </a>
+    <a href="./dashboard?page=profil" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'profil') echo 'origin-nav--categorie-button--active'; ?>">
+        <i data-lucide="contact-round" class="w-4 h-4"></i>Votre profil
+    </a>
 
     <div class="origin-nav--categorie-separator"></div>
 
@@ -166,10 +169,10 @@
     <a href="./dashboard?page=ticket-actions" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'ticket-actions') echo 'origin-nav--categorie-button--active'; ?>">
         <i data-lucide="ticket-plus" class="w-4 h-4"></i>Créer un ticket
     </a>
-    <a href="./dashboard?page=tickets" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'tickets') echo 'origin-nav--categorie-button--active'; ?>">
+    <a href="./dashboard?page=tickets" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'tickets' || $_GET['page'] == 'ticket-view') echo 'origin-nav--categorie-button--active'; ?>">
         <i data-lucide="tickets" class="w-4 h-4"></i>Gérer vos tickets
     </a>
-    <a href="./dashboard?page=personnages" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'personnages') echo 'origin-nav--categorie-button--active'; ?>">
+    <a href="./dashboard?page=personnages" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'personnages' || $_GET['page'] == 'personnage' || $_GET['page'] == 'personnage-form') echo 'origin-nav--categorie-button--active'; ?>">
         <i data-lucide="theater" class="w-4 h-4"></i>Gestion des personnages
     </a>
 
@@ -195,13 +198,13 @@
     <div class="origin-nav--categorie-separator"></div>
 
     <div class="origin-nav--categorie-title">Management</div>
-    <a href="./dashboard?page=manage-tickets" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'manage-tickets') echo 'origin-nav--categorie-button--active'; ?>">
+    <a href="./dashboard?page=manage-tickets" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'manage-tickets' || $_GET['page'] == 'ticket-staff') echo 'origin-nav--categorie-button--active'; ?>">
         <i data-lucide="scroll-text" class="w-4 h-4"></i>Gestion des tickets
     </a>
-    <a href="./dashboard?page=candidatures" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'candidatures') echo 'origin-nav--categorie-button--active'; ?>">
+    <a href="./dashboard?page=candidatures" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'candidatures' || $_GET['page'] == 'candidature-staff') echo 'origin-nav--categorie-button--active'; ?>">
         <i data-lucide="notebook-text" class="w-4 h-4"></i>Gest. candidatures
     </a>
-    <a href="./dashboard?page=profil-visual" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'profil-visual') echo 'origin-nav--categorie-button--active'; ?>">
+    <a href="./dashboard?page=profil-visual" onclick="toggleMobileMenu()" class="origin-nav--categorie-button <?php if($_GET['page'] == 'profil-visual' || $_GET['page'] == 'profil-view') echo 'origin-nav--categorie-button--active'; ?>">
         <i data-lucide="contact-round" class="w-4 h-4"></i>Visualisateur des profils
     </a>
 

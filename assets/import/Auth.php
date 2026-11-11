@@ -10,7 +10,7 @@ class Auth
     private const TTL_REMEMBER = 2592000; // 30 jours
     private const TTL_VERIFY   = 86400;   // 24h — vérification e-mail
     private const TTL_RESET    = 3600;    // 1h  — réinitialisation mot de passe
-    private const BCRYPT_COST  = 12;
+    public  const BCRYPT_COST  = 12;
 
     public function __construct(Database $db)
     {
@@ -53,7 +53,8 @@ class Auth
         $userId = $this->generateUuid();
 
         $this->db->query(
-            'INSERT INTO users (id, pseudo, email, password) VALUES (?, ?, ?, ?)',
+            'INSERT INTO users (id, pseudo, email, password, group_id)
+             VALUES (?, ?, ?, ?, (SELECT id FROM user_groups WHERE is_default = 1 LIMIT 1))',
             [$userId, $pseudo, $email, $hash]
         );
 
@@ -153,6 +154,15 @@ class Auth
             return $this->err('Veuillez vérifier votre adresse e-mail avant de vous connecter.');
         }
 
+        if ($user['status'] !== 'active') {
+            // Lève automatiquement une suspension arrivée à expiration
+            $sanctions = new SanctionManager($this->db);
+            $sanctions->refresh($user['id']);
+            if ($message = $sanctions->loginMessage($user['id'])) {
+                return $this->err($message);
+            }
+        }
+
         // Régénère l'ID de session PHP → prévention session fixation
         session_regenerate_id(true);
 
@@ -161,6 +171,10 @@ class Auth
         $this->setSessionCookie($token, $ttl);
 
         $this->currentUser = $user;
+        $this->db->query('UPDATE users SET last_login_at = NOW() WHERE id = ?', [$user['id']]);
+
+        Logger::setActor(['id' => $user['id'], 'pseudo' => $user['pseudo']]);
+        Logger::log('login', 'Connexion réussie' . ($remember ? ' — session mémorisée' : ''));
 
         // Met à jour le hash si le coût bcrypt a changé depuis la dernière connexion
         if (password_needs_rehash($user['password'], PASSWORD_BCRYPT, ['cost' => self::BCRYPT_COST])) {
@@ -179,6 +193,16 @@ class Auth
     {
         $token = $_COOKIE[self::COOKIE_NAME] ?? null;
         if ($token && ctype_alnum($token)) {
+            $session = $this->db->fetchOne(
+                'SELECT u.id, u.pseudo, TIMESTAMPDIFF(MINUTE, s.created_at, NOW()) AS minutes
+                 FROM user_sessions s JOIN users u ON u.id = s.user_id
+                 WHERE s.token = ?',
+                [$token]
+            );
+            if ($session) {
+                $m = (int) $session['minutes'];
+                Logger::log('logout', 'Session terminée — durée : ' . ($m >= 60 ? intdiv($m, 60) . 'h ' : '') . ($m % 60) . 'min', null, null, $session);
+            }
             $this->db->query('DELETE FROM user_sessions WHERE token = ?', [$token]);
         }
 
@@ -208,10 +232,11 @@ class Auth
         }
 
         $row = $this->db->fetchOne(
-            'SELECT u.id, u.pseudo, u.email, u.email_verified_at, s.remember, s.expires_at
+            'SELECT u.id, u.pseudo, u.email, u.email_verified_at, s.remember, s.expires_at,
+                    (u.last_seen_at IS NULL OR u.last_seen_at < NOW() - INTERVAL 60 SECOND) AS seen_stale
              FROM user_sessions s
              JOIN users u ON u.id = s.user_id
-             WHERE s.token = ? AND s.expires_at > NOW()
+             WHERE s.token = ? AND s.expires_at > NOW() AND u.status = "active"
              LIMIT 1',
             [$token]
         );
@@ -221,13 +246,28 @@ class Auth
             return false;
         }
 
+        // Dernière activité (monitoring « membres en ligne ») — au plus une écriture par minute
+        if ($row['seen_stale']) {
+            $this->db->query('UPDATE users SET last_seen_at = NOW() WHERE id = ?', [$row['id']]);
+        }
+
         $this->currentUser = $row;
+        Logger::setActor($row);
         return true;
     }
 
     public function user(): ?array
     {
         return $this->currentUser;
+    }
+
+    /** Déconnecte toutes les autres sessions de l'utilisateur (après un changement de mot de passe). */
+    public function revokeOtherSessions(string $userId): void
+    {
+        $this->db->query(
+            'DELETE FROM user_sessions WHERE user_id = ? AND token <> ?',
+            [$userId, (string) ($_COOKIE[self::COOKIE_NAME] ?? '')]
+        );
     }
 
     // ----------------------------------------------------------------
@@ -433,7 +473,8 @@ class Auth
         return ['success' => false, 'message' => $message];
     }
 
-    private function emailTemplate(string $title, string $content): string
+    /** Gabarit HTML des e-mails du site (réutilisé par Notifier). */
+    public static function emailTemplate(string $title, string $content): string
     {
         $appName = htmlspecialchars($_ENV['APP_NAME'] ?? 'ORIGIN RP');
         return <<<HTML
