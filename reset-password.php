@@ -21,7 +21,7 @@ unset($_SESSION['flash']);
     <style>
         .auth-card    { width: 600px; }
         .auth-actions { width: 600px; gap: 1.5rem; }
-        button.origin-btn { background: none; border: none; cursor: pointer; font-family: inherit; padding: 0; }
+        button.origin-btn { background: none; cursor: pointer; font-family: inherit; }
         @media (max-width: 640px) {
             body { display: flex; flex-direction: column; }
             section { position: relative !important; height: auto !important; flex: 1; padding-top: 2rem; padding-bottom: 2rem; }

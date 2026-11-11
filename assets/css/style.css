@@ -163,6 +163,7 @@ a.origin-btn, button.origin-btn, a.a.origin-btn:link {
 /*GRAPHICS BUTTONS*/
 a.btn--graphic, button.btn--graphic {
     border-width: 1px;
+    border-style: solid;
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
